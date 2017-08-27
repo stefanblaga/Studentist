@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mario22gmail.vasile.studentist.PatientChooseOptionsActivity">
+
+
+    <ImageView
+        android:id="@+id/controlOptionImageView"
+        android:layout_width="@dimen/requestcategoryiconwidth"
+        android:layout_height="@dimen/requestcategoryconheight"
+        app:srcCompat="@drawable/imgcontrol"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPatientChooseRequestTypeMainTextView" />
+
+    <ImageView
+        android:id="@+id/DurereOptionImageView"
+        android:layout_width="140dp"
+        android:layout_height="125dp"
+        app:srcCompat="@drawable/imgdurere"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+
+        android:layout_marginRight="24dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPatientChooseRequestTypeMainTextView" />
+
+    <ImageView
+        android:id="@+id/IgienizareOptionImageView"
+        android:layout_width="160dp"
+        android:layout_height="145dp"
+        app:srcCompat="@drawable/imgigienizare"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+
+        android:layout_marginLeft="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/controlOptionLabelTextView"
+        android:layout_marginStart="24dp" />
+
+    <ImageView
+        android:id="@+id/ProteticaOptionImageView"
+        android:layout_width="160dp"
+        android:layout_height="145dp"
+        app:srcCompat="@drawable/imgprotetica"
+        android:scaleType="centerCrop"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/durereRequestLabelTextView"
+        android:layout_marginRight="24dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="24dp" />
+
+    <TextView
+        android:id="@+id/IgienizareRequestLabelTextView"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:gravity="center"
+        android:text="Igienizare"
+        android:textSize="24sp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/IgienizareOptionImageView"
+        android:layout_marginLeft="25dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/controlOptionLabelTextView"
+        android:layout_width="@dimen/requestcategoryiconwidth"
+        android:layout_height="@dimen/requestoptionlabelheight"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="8dp"
+
+
+        android:layout_marginStart="24dp"
+        android:gravity="center"
+        android:text="Consultație"
+        android:textSize="@dimen/requestoptiontextsize"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintLeft_toLeftOf="@+id/controlOptionImageView"
+        app:layout_constraintRight_toRightOf="@+id/controlOptionImageView"
+        app:layout_constraintTop_toBottomOf="@+id/controlOptionImageView" />
+
+    <TextView
+        android:id="@+id/durereRequestLabelTextView"
+        android:layout_width="@dimen/requestcategoryiconwidth"
+        android:layout_height="@dimen/requestoptionlabelheight"
+        android:textSize="@dimen/requestoptiontextsize"
+        android:text="Durere"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/DurereOptionImageView"
+        android:layout_marginEnd="24dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="@+id/DurereOptionImageView"
+        android:layout_marginRight="24dp"
+        app:layout_constraintRight_toRightOf="@+id/DurereOptionImageView"
+        app:layout_constraintHorizontal_bias="0.25"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp" />
+
+    <TextView
+        android:id="@+id/ProteticaRequestLabelTextView"
+        android:layout_width="@dimen/requestcategoryiconwidth"
+        android:layout_height="@dimen/requestoptionlabelheight"
+        android:textSize="@dimen/requestoptiontextsize"
+        android:text="Protetica"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/ProteticaOptionImageView"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        app:layout_constraintRight_toRightOf="@+id/ProteticaOptionImageView"
+        app:layout_constraintLeft_toLeftOf="@+id/ProteticaOptionImageView"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarChooseRequestType"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewPatientChooseRequestTypeMainTextView"
+        android:textSize="26sp"
+        android:layout_width="337dp"
+        android:layout_height="44dp"
+        android:text="Alege o categorie"
+        android:gravity="center"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarChooseRequestType"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="164dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="(detartraj si periaj profesional)"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/IgienizareRequestLabelTextView" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mario22gmail.vasile.studentist.StartActivity"
+    android:id="@+id/start_activity_layout"
+    android:background="@color/colorPrimary">
+
+
+    <TextView
+        android:id="@+id/start_activity_logo_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Studentist"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_above="@+id/start_activity_icon"
+        android:layout_centerHorizontal="true" />
+    <ImageView
+        android:id="@id/start_activity_icon"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/mainiconwithoutbackground"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progressTint="@color/calmYellow"
+        android:layout_below="@+id/start_activity_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp" />
+
+
+</RelativeLayout>

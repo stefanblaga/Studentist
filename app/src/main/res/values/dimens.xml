@@ -1,0 +1,24 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="ChooseButtonTextSize">14sp</dimen>
+    <dimen name="cardviewmargin">20dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="toolbarheight">70dp</dimen>
+    <dimen name="cardViewRequestHeight">140dp</dimen>
+    <dimen name="cardViewRequestPadding">8dp</dimen>
+    <dimen name="height_TextLayout_Request">40dp</dimen>
+    <dimen name="paddingbuttonleftright">16dp</dimen>
+    <dimen name="buttonheight">36dp</dimen>
+    <dimen name="minbuttonwidth">64dp</dimen>
+    <dimen name="requestcategoryiconwidth">160dp</dimen>
+    <dimen name="requestcategoryconheight">145dp</dimen>
+    <dimen name="requestoptionlabelheight">24dp</dimen>
+    <dimen name="requestoptiontextsize">22sp</dimen>
+    <dimen name="buttonnormalheight">36dp</dimen>
+    <dimen name="add_request_description_width">330dp</dimen>
+    <dimen name="add_request_description_height">150dp</dimen>
+    <dimen name="normal_margin">8dp</dimen>
+    <dimen name="birthdate_height_edittext">45dp</dimen>
+</resources>

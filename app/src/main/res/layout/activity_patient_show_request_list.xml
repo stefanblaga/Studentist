@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mario22gmail.vasile.studentist.PatientShowRequestListActivity">
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddPatientRequest"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="top|left"
+
+        android:clickable="true"
+        android:src="@drawable/ic_add"
+        app:fabSize="normal"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"></android.support.design.widget.FloatingActionButton>
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/PatientRequestListToolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.0">
+
+        <TextView
+            android:id="@+id/textViewToolBarPatientRequestList"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Cereri"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:gravity="center_vertical"/>
+    </android.support.v7.widget.Toolbar>
+
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="52dp"-->
+        <!--app:tabMode="fixed"-->
+        <!--app:tabSelectedTextColor="@color/blueLight"-->
+        <!--app:tabTextColor="@color/white"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--app:layout_constraintHorizontal_bias="1.0"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/PatientRequestListToolbar"-->
+        <!--android:id="@+id/tabLayoutPacientList"></android.support.design.widget.TabLayout>-->
+
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/viewPagerPatientList"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_marginLeft="8dp"-->
+        <!--android:layout_marginRight="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tabLayoutPacientList"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--app:layout_constraintVertical_bias="1.0"></android.support.v4.view.ViewPager>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/patientRequestRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PatientRequestListToolbar"
+        app:layout_constraintVertical_bias="1.0"
+        android:clipToPadding="false"
+        android:paddingBottom="64dp">
+
+
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.constraint.ConstraintLayout>
