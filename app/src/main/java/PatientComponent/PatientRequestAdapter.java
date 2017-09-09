@@ -79,11 +79,28 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
     @Override
     public void onBindViewHolder(final PatientViewHolder holder, final int position) {
         final PatientRequest request = requestList.get(position);
-
-        holder.descriptionTextView.setText(request.description);
+        if(!request.description.equals(""))
+        {
+            holder.descriptionLabel.setVisibility(View.VISIBLE);
+            holder.descriptionTextView.setVisibility(View.VISIBLE);
+            if(request.description.length() > 20)
+            {
+                String textToDisplay = request.description.substring(0,20) + "...";
+                holder.descriptionTextView.setText(textToDisplay);
+            }
+            else
+            {
+                holder.descriptionTextView.setText(request.description);
+            }
+        }else
+        {
+            holder.descriptionLabel.setVisibility(View.GONE);
+            holder.descriptionTextView.setVisibility(View.GONE);
+        }
         holder.iconImageView.setImageResource(Constants.GetIconValue(request.typeOfRequest));
         holder.dateRequested.setText(request.dateRequestMade);
         holder.requestTypeTextView.setText(request.typeOfRequest);
+        holder.telTextView.setText(request.telephoneNumber);
         holder.deleteRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +123,7 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
 
         StudentRequest numberOfAppliants = request.getStudentRequest();
         if(numberOfAppliants != null)
-            holder.numberOfApplyTextView.setText( "new student applied");
+            holder.numberOfApplyTextView.setText( "A aplicat un studentist !");
         else
             holder.numberOfApplyTextView.setText("");
     }
@@ -121,6 +138,7 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
     public class PatientViewHolder extends RecyclerView.ViewHolder {
         public CardView requestCardView;
         public TextView descriptionTextView;
+        public TextView descriptionLabel;
         public TextView telTextView;
         TextView dateRequested;
         TextView requestTypeTextView;
@@ -135,12 +153,14 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
         public PatientViewHolder(View itemView) {
             super(itemView);
             descriptionTextView = (TextView) itemView.findViewById(R.id.patientRequestItemDescription);
+            descriptionLabel = (TextView) itemView.findViewById(R.id.patientRequestItemDescriptionLabel);
             iconImageView = (ImageView) itemView.findViewById(R.id.request_icon_description);
             dateRequested = (TextView) itemView.findViewById(R.id.patientRequestItemDate);
             requestTypeTextView = (TextView) itemView.findViewById(R.id.patientRequestItemType);
             deleteRequestButton = (ImageButton) itemView.findViewById(R.id.patientDeleteRequestButton);
             numberOfApplyTextView = (TextView) itemView.findViewById(R.id.textViewNrApplied);
             viewStudentWhoAppliedButton = (Button) itemView.findViewById(R.id.buttonStudentsWhoApplied);
+            telTextView = (TextView) itemView.findViewById(R.id.patientRequestItemTelNrTextView);
             contextViewHolder = itemView.getContext();
 
         }

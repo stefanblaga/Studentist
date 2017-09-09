@@ -41,9 +41,9 @@
             android:id="@+id/textViewToolBarPatientRequestList"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Cereri"
+            android:text="Cererile mele"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:gravity="center_vertical"/>
     </android.support.v7.widget.Toolbar>
 

@@ -2,14 +2,16 @@ package com.mario22gmail.vasile.studentist;
 
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,11 +33,8 @@ public class PatientDetailRequest extends AppCompatActivity {
     @BindView(R.id.rejectButtonPatientRequestDetailsActivity)
     Button rejectButton;
 
-    @BindView(R.id.requestDescriptionTextView)
-    TextView requestDescriptionTextView;
 
-    @BindView(R.id.TelNrTextView)
-    TextView telephoneNumberTextView;
+
     @BindView(R.id.mainIconPatientRequestDetail)
     ImageView mainIconImageView;
 
@@ -48,6 +47,8 @@ public class PatientDetailRequest extends AppCompatActivity {
     @BindView(R.id.textViewStudentTel)
     TextView studentTelTextView;
 
+    @BindView(R.id.patientRequestDetailToolbar)
+    Toolbar toolbar;
 
     private String requestUUID;
     private PatientRequest _patientRequest;
@@ -57,6 +58,13 @@ public class PatientDetailRequest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_detail_request);
         ButterKnife.bind(this);
+
+        toolbar.setTitle("Cererea mea");
+        int white = ContextCompat.getColor(getApplicationContext(), R.color.white);
+        toolbar.setTitleTextColor(white);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle.getString(Constants.requestUuidIntentExtraName) != null) {
@@ -72,6 +80,44 @@ public class PatientDetailRequest extends AppCompatActivity {
         ConfigureActivityView(requestUUID);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(menuItem);
+    }
+
+
+
+    public void SetViewProperly(final String requestUUID)
+    {
+        DatabaseReference patientRequestTable = FirebaseLogic.getInstance().
+                GetPatientRequestTableReference().child(requestUUID);
+
+        patientRequestTable.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists())
+                    finish();
+
+                PatientRequest patientRequest = dataSnapshot.getValue(PatientRequest.class);
+                if(patientRequest == null)
+                    finish();
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
     public void ConfigureActivityView(final String requestUUID) {
         final DatabaseReference patientRequestNode = FirebaseLogic.getInstance()
                 .GetPatientRequestTableReference().child(requestUUID);
@@ -80,8 +126,6 @@ public class PatientDetailRequest extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
-                    Intent intent = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
-                    startActivity(intent);
                     finish();
                 }
                 ShowStudentPartInRequestDetail(false);
@@ -90,8 +134,7 @@ public class PatientDetailRequest extends AppCompatActivity {
                 PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
 
                 _patientRequest = request;
-                //patient request details
-                requestDescriptionTextView.setText(request.description);
+
                 mainIconImageView.setImageResource(Constants.GetIconValue(request.typeOfRequest));
 
                 if (request.studentRequest == null) {
@@ -99,7 +142,7 @@ public class PatientDetailRequest extends AppCompatActivity {
                     return;
                 }
 
-                if(request.studentRequest.status == null)
+                if (request.studentRequest.status == null)
                     return;
 
                 if (request.studentRequest.status.equals(RequestStatus.Canceled) ||
@@ -111,53 +154,46 @@ public class PatientDetailRequest extends AppCompatActivity {
                 if (request.studentRequest.status.equals(RequestStatus.Waiting)) {
                     acceptButton.setVisibility(View.VISIBLE);
                     rejectButton.setVisibility(View.VISIBLE);
-                    studentTelTextView.setVisibility(View.GONE);
-                }
-                else if(request.studentRequest.status.equals(RequestStatus.Approved))
-                {
+                    studentTelTextView.setVisibility(View.VISIBLE);
+                } else if (request.studentRequest.status.equals(RequestStatus.Resolved)) {
                     acceptButton.setVisibility(View.GONE);
                     rejectButton.setVisibility(View.GONE);
 
                     studentTelTextView.setVisibility(View.VISIBLE);
                     studentTelTextView.setText("Am trimis numarul tau studentului." +
                             " Te va contacta prin telefon. Numarul de telefon al studentului este:"
-                    + request.studentRequest.studentTel);
+                            + request.studentRequest.studentTel);
                 }
 
                 DatabaseReference accountsDb = FirebaseLogic.getInstance().GetUserTableReference();
-                ValueEventListener studentListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (!dataSnapshot.exists())
-                            return;
-
-                        UserApp user = dataSnapshot.getValue(UserApp.class);
-                        if (user == null)
-                            return;
-
-                        studentNameTextView.setText(user.name);
-//                            StudentTelefoneNumber = user. ??? put telefone number
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                };
-
                 accountsDb.getRef().equalTo(request.studentRequest.studentUUID)
-                        .addListenerForSingleValueEvent(studentListener);
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (!dataSnapshot.exists())
+                                    return;
+
+                                UserApp user = dataSnapshot.getValue(UserApp.class);
+                                if (user == null)
+                                    return;
+
+                                studentNameTextView.setText(user.name);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
 
             }
-
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
 
         };
-        patientRequestNode.addValueEventListener(requestListener);
+        patientRequestNode.addListenerForSingleValueEvent(requestListener);
     }
 
 
@@ -175,11 +211,13 @@ public class PatientDetailRequest extends AppCompatActivity {
             return;
 
         FirebaseLogic.getInstance().PatientRequestResolved(_patientRequest);
+        finish();
     }
 
     @OnClick(R.id.rejectButtonPatientRequestDetailsActivity)
     public void RejectButtonClicked(View view) {
         FirebaseLogic.getInstance().PatientRequestNotResolved(_patientRequest, _patientRequest.studentRequest.studentRequestUUID);
+        finish();
     }
 
 

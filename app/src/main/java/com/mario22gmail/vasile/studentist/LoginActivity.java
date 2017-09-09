@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
@@ -22,7 +21,6 @@ import java.util.Arrays;
 import Helpers.FacebookApiLogic;
 import Helpers.FirebaseLogic;
 import Helpers.UserApp;
-import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
 

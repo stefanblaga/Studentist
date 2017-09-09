@@ -3,7 +3,6 @@ package com.mario22gmail.vasile.studentist;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 
-import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthCredential;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -38,8 +36,6 @@ import Helpers.UserApp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnEditorAction;
-import butterknife.OnItemSelected;
 import butterknife.Optional;
 
 public class CreateProfileActivity extends AppCompatActivity {
@@ -141,34 +137,34 @@ public class CreateProfileActivity extends AppCompatActivity {
 
     public boolean ValidateInformation() {
         String name = nameEditText.getText().toString();
-        if (name == null || name == "" || name.trim().length() <= 0){
+        if (name.equals("") || name.trim().length() <= 0){
             nameEditText.setError("Introduceti numele");
             return false;
         }
 
         String telNumber =  telephoneNumberEditText.getText().toString();
-        if(telNumber == null || telNumber == "" || telNumber.trim().length() <=0)
+        if(telNumber.equals("") || telNumber.trim().length() <=0)
         {
             telephoneNumberEditText.setError("Introduceti numarul de telefon");
             return false;
         }
 
         String dd = ddBirthDateEditText.getText().toString();
-        if(dd == null || dd =="" || dd.trim().length() <=0)
+        if(dd.equals("") || dd.trim().length() <=0)
         {
             ddBirthDateEditText.setError("Introduceti ziua");
             return false;
         }
 
         String mm = mmBirthEditText.getText().toString();
-        if(mm == null || mm == "" || mm.trim().length() <= 0)
+        if(mm.equals("") || mm.trim().length() <= 0)
         {
             mmBirthEditText.setError("Introduceti luna");
             return false;
         }
 
         String yyyy = yyyyBirthDayEditText.getText().toString();
-        if(yyyy == null || yyyy == "" || yyyy.trim().length() <= 0)
+        if(yyyy.equals("") || yyyy.trim().length() <= 0)
         {
             yyyyBirthDayEditText.setError("Introduceti anul");
             return false;

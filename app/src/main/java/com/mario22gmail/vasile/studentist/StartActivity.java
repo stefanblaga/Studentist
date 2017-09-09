@@ -11,16 +11,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import Helpers.Constants;
 import Helpers.FirebaseLogic;
+import Helpers.StudentUser;
 import Helpers.UserApp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,6 +34,12 @@ public class StartActivity extends AppCompatActivity {
     @BindView(R.id.start_activity_layout)
     View mainLayout;
 
+    private boolean _isConnectedToInternet = false;
+    final private Handler handler = new Handler();
+    private boolean _checkingInternetConnection = true;
+    Snackbar snackbarInternetConnection;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -39,78 +47,146 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
 
+        snackbarInternetConnection = Snackbar.make(mainLayout, "Check Internet connection", Snackbar.LENGTH_INDEFINITE);
+        snackbarInternetConnection.setAction("Activate", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClassName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity");
+                startActivity(intent);
+            }
+        });
+
         //set title
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/mainfont.ttf");
         logoTitle.setTypeface(custom_font);
         logoTitle.setText("Studentist");
 
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(Constants.LogKey,"entered on pause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(Constants.LogKey,"entered on destroy");
+        handler.removeCallbacks(_networkRunnable);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(Constants.LogKey,"entered on destroy");
+        handler.removeCallbacks(_networkRunnable);
+
+
+    }
+
+    final private Runnable _networkRunnable = new Runnable() {
+        @Override
+        public void run() {
+            Log.i(Constants.LogKey, "Thread is running");
+            if (_checkingInternetConnection) {
+                _isConnectedToInternet = isNetworkAvailable();
+                DisplayViewBasedOnNetworkState(_isConnectedToInternet);
+                if(_isConnectedToInternet)
+                {
+                    Log.i(Constants.LogKey, "Runnable removed");
+                    handler.removeCallbacks(this);
+                }
+                Log.i(Constants.LogKey, "Runnable checked internet");
+            }
+            handler.postDelayed(this, 2000);
+        }
+    };
+
+    private boolean isNetworkAvailable() {
+        final ConnectivityManager connectivityManager =
+                ((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
+        return connectivityManager.getActiveNetworkInfo() != null
+                && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    private void DisplayViewBasedOnNetworkState(boolean isConnected) {
+        if (isConnected) {
+            if (_checkingInternetConnection) {
+                snackbarInternetConnection.dismiss();
+                _checkingInternetConnection = false;
+                GetUserFromFirebase();
+            }
+
+        } else {
+            snackbarInternetConnection.show();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i(Constants.LogKey, "On resume entered");
+        if(!isNetworkAvailable()) {
+            _checkingInternetConnection = true;
+            _isConnectedToInternet = false;
+            handler.postDelayed(_networkRunnable, 2000);
+        }else
+        {
+            handler.removeCallbacks(_networkRunnable);
+            GetUserFromFirebase();
+        }
 
-        //internet is available
-        if (isNetworkAvailable() == false) {
-            Snackbar snackbar = Snackbar.make(mainLayout, "Check Internet connection", Snackbar.LENGTH_INDEFINITE);
-            snackbar.setAction("Activate", new View.OnClickListener() {
+
+
+
+    }
+
+    private void GetUserFromFirebase() {
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() == null) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
                 @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent();
-                    intent.setClassName("com.android.settings", "com.android.settings.Settings$DataUsageSummaryActivity");
-                    startActivity(intent);
+                public void run() {
+                    Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(loginActivity);
                 }
-            });
-            snackbar.show();
-        } else {
+            }, 1000);
+            return;
+        }
 
-            final FirebaseAuth auth = FirebaseAuth.getInstance();
-            if (auth.getCurrentUser() == null) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(loginActivity);
-                    }
-                }, 1000);
-                return;
-            }
-
-            Log.i("MMM", "UserApp autentificat cu numarul " + auth.getCurrentUser().getProviderId());
-            Log.i("MMM", "UserApp autentificat cu uid " + auth.getCurrentUser().getUid());
-            Log.i("MMM", "UserApp autentificat cu email " + auth.getCurrentUser().getEmail());
-            Log.i("MMM", "UserApp autentificat cu display name " + auth.getCurrentUser().getDisplayName());
+        Log.i("MMM", "UserApp autentificat cu numarul " + auth.getCurrentUser().getProviderId());
+        Log.i("MMM", "UserApp autentificat cu uid " + auth.getCurrentUser().getUid());
+        Log.i("MMM", "UserApp autentificat cu email " + auth.getCurrentUser().getEmail());
+        Log.i("MMM", "UserApp autentificat cu display name " + auth.getCurrentUser().getDisplayName());
 //                auth.getCurrentUser().getUid()
 //                auth.signOut();
 //                LoginManager.getInstance().logOut();
-            final String userUid = auth.getCurrentUser().getUid();
 
 
-            ValueEventListener userEventListner = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (!dataSnapshot.exists()) {
-                        Intent createUserActivity = new Intent(getApplicationContext(), CreateProfileActivity.class);
-                        startActivity(createUserActivity);
-                        finish();
-                    } else {
-                        UserApp user = dataSnapshot.child(userUid).getValue(UserApp.class);
-                        StartRightActivity(user);
-                    }
+        final String userUid = auth.getCurrentUser().getUid();
+        DatabaseReference userTableRef = FirebaseLogic.getInstance().GetUserTableReference();
+        userTableRef.getRef().orderByChild("uid").startAt(userUid).endAt(userUid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    Intent createUserActivity = new Intent(getApplicationContext(), CreateProfileActivity.class);
+                    startActivity(createUserActivity);
+                    finish();
+                } else {
+                    UserApp user = dataSnapshot.child(userUid).getValue(UserApp.class);
+                    StartRightActivity(user);
                 }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
-            };
-
-            DatabaseReference userTableRef = FirebaseLogic.getInstance().GetUserTableReference();
-            userTableRef.getRef().orderByChild("uid").startAt(userUid).endAt(userUid).addListenerForSingleValueEvent(userEventListner);
-        }
-
+            }
+        });
     }
 
     private void StartRightActivity(UserApp user) {
@@ -119,7 +195,7 @@ public class StartActivity extends AppCompatActivity {
                 Intent patientActivitity = new Intent(getApplicationContext(), PatientFirstActivity.class);
                 patientActivitity.putExtra("uid", user.uid);
                 startActivity(patientActivitity);
-                //// TODO: 30/06/2017 pute finish
+                //// TODO: 30/06/2017 pune finish
                 break;
             case "student":
                 Intent studentActivity = new Intent(getApplicationContext(), StudentMainActivity.class);
@@ -128,13 +204,5 @@ public class StartActivity extends AppCompatActivity {
                 //// TODO: 30/06/2017 pune finish
                 break;
         }
-    }
-
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

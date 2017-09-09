@@ -13,13 +13,14 @@ public class StudentRequest {
     public String studentTel;
     public RequestStatus status;
 
-    public StudentRequest(String studentUUID, String studentRequestUUID, String pacientUUID , String patientRequestUUID, RequestStatus status )
+    public StudentRequest(String studentUUID,String studentTelephoneNumber, String studentRequestUUID, String pacientUUID , String patientRequestUUID, RequestStatus status )
     {
         this.studentUUID = studentUUID;
         this.studentRequestUUID = studentRequestUUID;
         this.patientUUID = pacientUUID;
         this.patientRequestUUID = patientRequestUUID;
         this.status = status;
+        this.studentTel = studentTelephoneNumber;
     }
 
     public StudentRequest()

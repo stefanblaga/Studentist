@@ -22,14 +22,14 @@
         android:layout_centerHorizontal="true" />
     <ImageView
         android:id="@id/start_activity_icon"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/mainiconwithoutbackground"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/mainiconcircle"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/progressBarInternetConnection"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

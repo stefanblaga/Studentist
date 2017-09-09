@@ -3,7 +3,6 @@ package com.mario22gmail.vasile.studentist;
 import android.app.NotificationManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

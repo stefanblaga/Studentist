@@ -3,6 +3,6 @@ package StudentComponent;
 public enum RequestStatus {
     Canceled,
     Waiting,
-    Approved,
+    Resolved,
     Rejected
 }

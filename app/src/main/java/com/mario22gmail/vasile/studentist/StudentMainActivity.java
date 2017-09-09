@@ -4,16 +4,25 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import Helpers.Constants;
 import Helpers.FirebaseLogic;
+import Helpers.StudentUser;
 import PatientComponent.PatientRequest;
 import PatientComponent.PatientRequestForStundentsAdapter;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class StudentMainActivity extends AppCompatActivity {
     private FirebaseDatabase database;
@@ -21,27 +30,84 @@ public class StudentMainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PatientRequestForStundentsAdapter adapter;
 
+    @BindView(R.id.toolbarRequestsForStudents)
+    Toolbar mainToolBar;
+
+    @BindView(R.id.studentEmptyStateImageView)
+    ImageView emptyStateImageView;
+
+    @BindView(R.id.recyclerViewPatientsRequestsForStudents)
+    RecyclerView studentsRecycleView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main);
+        ButterKnife.bind(this);
         database = FirebaseDatabase.getInstance();
 
         this.recyclerView = (RecyclerView) findViewById(R.id.recyclerViewPatientsRequestsForStudents);
         this.adapter = new PatientRequestForStundentsAdapter(getApplicationContext());
-        GetRightView();
+        String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseLogic.getInstance().UpdateStudentProfileForAddingRequest(userUUID);
 
+        DatabaseReference userNodeChanges = FirebaseLogic.getInstance().GetUserTableReference().child(userUUID);
+        userNodeChanges.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    StudentUser studentUser = dataSnapshot.getValue(StudentUser.class);
+                    if(studentUser != null && studentUser.role.equals(Constants.StudentUserType))
+                    {
+                        if(studentUser.NumberOfRequest >= 2)
+                        {
+                            adapter.StudentCanApply(false);
+                        }else
+                        {
+                            adapter.StudentCanApply(true);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        GetRightView();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if(adapter.getItemCount() == 0)
+        {
 
+        }
+
+    }
+
+    public void showEmptyState()
+    {
+        if(adapter.getItemCount() == 0)
+        {
+            emptyStateImageView.setVisibility(View.VISIBLE);
+            studentsRecycleView.setVisibility(View.INVISIBLE);
+
+        }else {
+            studentsRecycleView.setVisibility(View.VISIBLE);
+            emptyStateImageView.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void GetRightView()
     {
         DatabaseReference patientRequestTable = FirebaseLogic.getInstance().GetPatientRequestTableReference();
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
@@ -49,6 +115,7 @@ public class StudentMainActivity extends AppCompatActivity {
                 PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
                 if(request != null && request.isActive)
                     adapter.AddPatientToList(request);
+                showEmptyState();
 
 
             }
@@ -73,6 +140,8 @@ public class StudentMainActivity extends AppCompatActivity {
                 if(request != null){
                     adapter.DeletePatientFromList(request);
                 }
+                showEmptyState();
+
             }
 
             @Override
@@ -85,8 +154,6 @@ public class StudentMainActivity extends AppCompatActivity {
 
             }
         };
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         patientRequestTable.addChildEventListener(childEventListener);
 
     }

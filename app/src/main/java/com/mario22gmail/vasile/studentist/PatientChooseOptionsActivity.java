@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -39,10 +40,14 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_choose_options);
         ButterKnife.bind(this);
-        toolbar.setTitle("Cerere");
 
+        toolbar.setTitle("Adauga cerere");
         int white = ContextCompat.getColor(getApplicationContext(), R.color.white);
         toolbar.setTitleTextColor(white);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
 //        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/1.ttf");
 //        textViewMainDescription.setTypeface(custom_font);
@@ -52,6 +57,14 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
 //        proteticaLabel.setTypeface(custom_font);
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 
 

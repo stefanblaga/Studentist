@@ -1,21 +1,19 @@
 package PatientComponent;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.mario22gmail.vasile.studentist.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import Helpers.Constants;
 import Helpers.FirebaseLogic;
-import Helpers.StudentLogic;
 import StudentComponent.RequestStatus;
 
 /**
@@ -27,6 +25,13 @@ public class PatientRequestForStundentsAdapter extends RecyclerView.Adapter<Pati
     LayoutInflater layoutInflater;
     List<PatientRequest> patientRequestList = new ArrayList<PatientRequest>();
     Context _context;
+    boolean canStudentApply = false;
+
+    public void StudentCanApply(boolean canApply)
+    {
+        canStudentApply = canApply;
+    }
+
 
     public PatientRequestForStundentsAdapter(Context context, List<PatientRequest> patientRequestList) {
         _context = context;
@@ -84,9 +89,9 @@ public class PatientRequestForStundentsAdapter extends RecyclerView.Adapter<Pati
         final PatientRequest request = patientRequestList.get(position);
         final String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         holder.descriptionTextView.setText(request.description);
-
+        holder.iconImageView.setImageResource(Constants.GetIconValue(request.typeOfRequest));
         if (request.studentRequest != null) {
-            if (request.studentRequest.status.equals(RequestStatus.Approved)) {
+            if (request.studentRequest.status.equals(RequestStatus.Resolved)) {
                 holder.textViewApproved.setText("Approved by patient");
             }
             if (request.studentRequest.status.equals(RequestStatus.Rejected)) {
@@ -95,10 +100,10 @@ public class PatientRequestForStundentsAdapter extends RecyclerView.Adapter<Pati
         }
 
 
-        boolean canStudentApply = StudentLogic.getInstance().CanStudentApply(this.patientRequestList, userUUID);
+//        boolean canStudentApply = StudentLogic.getInstance().CanStudentApply(this.patientRequestList, userUUID);
         if (canStudentApply) {
-            holder.buttonAdd.setBackgroundColor(ContextCompat.getColor(_context, R.color.lightGreen));
-            holder.buttonAdd.setText("Aplica");
+//            holder.buttonAdd.setBackgroundColor(ContextCompat.getColor(_context, R.color.lightGreen));
+            holder.buttonAdd.setText("Detalii");
             holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -106,9 +111,10 @@ public class PatientRequestForStundentsAdapter extends RecyclerView.Adapter<Pati
                 }
             });
         } else {
-            holder.buttonAdd.setBackgroundColor(ContextCompat.getColor(_context, R.color.redAlert));
-            holder.buttonAdd.setText("Nu mai poti aplica");
-            holder.buttonAdd.setOnClickListener(null);
+//            holder.buttonAdd.setBackgroundColor(ContextCompat.getColor(_context, R.color.redAlert));
+            holder.buttonAdd.setVisibility(View.INVISIBLE);
+//            holder.buttonAdd.setText("Nu mai poti aplica");
+//            holder.buttonAdd.setOnClickListener(null);
         }
 
     }

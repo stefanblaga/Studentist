@@ -8,6 +8,8 @@ import com.mario22gmail.vasile.studentist.R;
 
 public class Constants {
 
+    public static String LogKey="MMM_MMM";
+
     public static String PatientRequestStudentsApplied = "studentRequest";
 
     public static String StudentRequestPacientTel = "patientTel";

@@ -1,23 +1,12 @@
 package com.mario22gmail.vasile.studentist;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,7 +15,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import Helpers.FirebaseLogic;
 import PatientComponent.PatientRequest;
@@ -75,7 +63,17 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+    }
 
+    public void ShowFabButton()
+    {
+        if(adapter.getItemCount() > 4)
+        {
+            floatingActionButton.setVisibility(View.INVISIBLE);
+        }else
+        {
+            floatingActionButton.setVisibility(View.VISIBLE);
+        }
     }
 
     public void getRightView(final String _uid) {
@@ -88,6 +86,7 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
                 PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
                 if(request != null){
                     adapter.AddOrUpdatePatientToList(request);
+                    ShowFabButton();
                 }
             }
 
@@ -96,6 +95,7 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
                 PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
                 if(request != null){
                     adapter.AddOrUpdatePatientToList(request);
+                    ShowFabButton();
                 }
             }
 
@@ -104,6 +104,7 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
                 PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
                 if(request != null){
                     adapter.DeletePatientFromList(request);
+                    ShowFabButton();
                 }
             }
 

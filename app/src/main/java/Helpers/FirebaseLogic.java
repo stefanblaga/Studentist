@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import PatientComponent.PatientRequest;
 import StudentComponent.RequestStatus;
@@ -50,6 +51,7 @@ public class FirebaseLogic {
     private FirebaseDatabase firebaseDatabase;
 
 
+
     public DatabaseReference GetPatientRequestTableReference() {
         DatabaseReference requestDb = firebaseDatabase.getReference(FirebaseLogic.FirebasePatientRequestTable);
         return requestDb;
@@ -87,26 +89,104 @@ public class FirebaseLogic {
         patientsRequestTable.child(request.requestUid).removeValue();
     }
 
-    public String ApplyForPatientRequest(PatientRequest patientRequest, String studentUUID) {
-        if (patientRequest.studentRequest != null && patientRequest.studentRequest.studentUUID.equals(studentUUID))
-            return StudentAlreadyAppliedForThat;
+    public void ApplyForPatientRequest(final PatientRequest patientRequest,final String studentUUID) {
+        DatabaseReference offsetRef = FirebaseDatabase.getInstance().getReference(".info/serverTimeOffset");
+        offsetRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                double offset = snapshot.getValue(Double.class);
+                Log.i("MMMM", "OFFSET: " + offset);
+                final double estimatedServerTimeMs = System.currentTimeMillis() + offset;
+                Log.i("MMMM", "Server Time: " + estimatedServerTimeMs);
 
-        UUID studentRequestUUID = UUID.randomUUID();
+                final DatabaseReference usersTableRef = GetUserTableReference();
+                usersTableRef.child(studentUUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                        {
+                            StudentUser studentUser = dataSnapshot.getValue(StudentUser.class);
+                            if(studentUser != null && studentUser.role.equals(Constants.StudentUserType) && studentUser.NumberOfRequest < 2) {
+                                studentUser.LastRequestTime = estimatedServerTimeMs+"";
+                                studentUser.NumberOfRequest ++;
+                                usersTableRef.child(studentUUID).setValue(studentUser);
 
-        StudentRequest studentRequest = new StudentRequest(studentUUID, studentRequestUUID.toString(), patientRequest.patientUid, patientRequest.requestUid, RequestStatus.Waiting);
 
-        DatabaseReference patientsRequestTable = GetPatientRequestTableReference();
+                                if (patientRequest.studentRequest != null && patientRequest.studentRequest.studentUUID.equals(studentUUID))
+                                    return;
 
-        //order metter!!!!
-        patientsRequestTable.child(patientRequest.requestUid).child(Constants.PatientRequestIsActive).setValue(false);
-        patientsRequestTable.child(patientRequest.requestUid).child(Constants.PatientRequestStudentsApplied).setValue(studentRequest);
+                                UUID studentRequestUUID = UUID.randomUUID();
+
+                                final StudentRequest studentRequest = new StudentRequest(studentUUID,studentUser.telephoneNumber, studentRequestUUID.toString(), patientRequest.patientUid, patientRequest.requestUid, RequestStatus.Waiting);
+
+                                DatabaseReference patientsRequestTable = GetPatientRequestTableReference();
+
+                                //order matter!!!!
+                                patientsRequestTable.child(patientRequest.requestUid).child(Constants.PatientRequestIsActive).setValue(false);
+                                patientsRequestTable.child(patientRequest.requestUid).child(Constants.PatientRequestStudentsApplied).setValue(studentRequest);
 
 
+                                DatabaseReference studentsRequestTable = GetStudentsRequestTableReference();
+                                studentsRequestTable.child(studentRequestUUID.toString()).setValue(studentRequest);
+                            }
+                        }
+                    }
 
-        DatabaseReference studentsRequestTable = GetStudentsRequestTableReference();
-        studentsRequestTable.child(studentRequestUUID.toString()).setValue(studentRequest);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-        return "OK";
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void UpdateStudentProfileForAddingRequest(final String studentUUID)
+    {
+
+        DatabaseReference offsetRef = FirebaseDatabase.getInstance().getReference(".info/serverTimeOffset");
+        offsetRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                double offset = snapshot.getValue(Double.class);
+                final double estimatedServerTimeMs = System.currentTimeMillis() + offset;
+
+                final DatabaseReference usersTableRef = GetUserTableReference();
+                usersTableRef.child(studentUUID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                        {
+                            StudentUser studentUser = dataSnapshot.getValue(StudentUser.class);
+                            if(studentUser != null && studentUser.role.equals(Constants.StudentUserType)) {
+                                if(studentUser.LastRequestTime != null) {
+                                    double lastRequestTime = Double.parseDouble(studentUser.LastRequestTime);
+                                    long days = TimeUnit.MILLISECONDS.toDays(Math.abs((long) estimatedServerTimeMs - (long) lastRequestTime));
+                                    if (days >= 2) {
+                                        studentUser.NumberOfRequest = 0;
+                                        usersTableRef.child(studentUUID).setValue(studentUser);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
     }
 
     public void PatientRequestNotResolved(PatientRequest patientRequest, String studentUUID) {
@@ -130,64 +210,7 @@ public class FirebaseLogic {
 
         final DatabaseReference studentsRequestTable = GetStudentsRequestTableReference();
         studentsRequestTable.child(patientRequest.studentRequest.studentRequestUUID)
-                .child(Constants.StudentRequestStatus).setValue(RequestStatus.Approved);
-
-
-        final DatabaseReference userPatientDatabaseReference = GetUserTableReference();
-
-        ValueEventListener patientUserEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists())
-                    return;
-
-                UserApp patient = dataSnapshot.getChildren().iterator().next().getValue(UserApp.class);
-
-
-                studentsRequestTable.child(patientRequest.studentRequest.studentRequestUUID)
-                        .child(Constants.StudentRequestPacientTel)
-                        .setValue(patient.telephoneNumber);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        userPatientDatabaseReference.getRef()
-                .orderByChild("uid")
-                .equalTo(patientRequest.patientUid)
-                .addListenerForSingleValueEvent(patientUserEventListener);
-
-
-        final DatabaseReference userStudentDbRef = GetUserTableReference();
-        ValueEventListener studentUserValueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if (!dataSnapshot.exists())
-                    return;
-                UserApp student = dataSnapshot.getChildren().iterator().next().getValue(UserApp.class);
-
-
-                studentsRequestTable.child(patientRequest.studentRequest.studentRequestUUID)
-                        .child(Constants.StudentRequestStudentTel)
-                        .setValue(student.telephoneNumber);
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        userStudentDbRef.getRef()
-                .orderByChild("uid")
-                .equalTo(patientRequest.studentRequest.studentUUID)
-                .addListenerForSingleValueEvent(studentUserValueEventListener);
-
+                .child(Constants.StudentRequestStatus).setValue(RequestStatus.Resolved);
     }
 
 
