@@ -3,10 +3,13 @@ package com.mario22gmail.vasile.studentist;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 
+import com.mario22gmail.vasile.studentist.Patient.PatientRequestDetailStudentFoundFragment;
+import com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity;
 import com.matthewtamlin.android_utilities_library.helpers.BitmapEfficiencyHelper;
 import com.matthewtamlin.android_utilities_library.helpers.ScreenSizeHelper;
 import com.matthewtamlin.sliding_intro_screen_library.background.BackgroundManager;
@@ -29,9 +32,8 @@ public class HotToUseActivity extends IntroActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(IntroductionCompletedBefore())
-        {
-            Intent startActivity = new Intent(getApplicationContext(), com.mario22gmail.vasile.studentist.StartActivity.class);
+        if (IntroductionCompletedBefore()) {
+            Intent startActivity = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
             startActivity(startActivity);
         }
 
@@ -45,7 +47,7 @@ public class HotToUseActivity extends IntroActivity {
 
     }
 
-    private static final int[] BACKGROUND_COLORS = {0xff304FFE, 0xffcc0066, 0xff9900ff};
+    private static final int[] BACKGROUND_COLORS = {0xFF3CB6AA, 0xFFFFF200, 0xFFF15A29, 0xFF2BB673};
 
     @Override
     protected Collection<Fragment> generatePages(Bundle savedInstanceState) {
@@ -57,12 +59,34 @@ public class HotToUseActivity extends IntroActivity {
         final int screenHeight = ScreenSizeHelper.getScreenHeightPx(this);
 
 
-        final Bitmap dentalImg = BitmapEfficiencyHelper.decodeResource(this, R.drawable.imgprotetica, screenWidth,screenHeight);
+//        final Bitmap dentalImg = BitmapEfficiencyHelper.decodeResource(this, R.drawable.howtostudentfirst, screenWidth, screenHeight);
 
-        // Create as many pages as there are background colors
+//         Create as many pages as there are background colors
         for (int i = 0; i < BACKGROUND_COLORS.length; i++) {
             final ParallaxPage newPage = ParallaxPage.newInstance();
-            newPage.setFrontImage(dentalImg);
+            switch (i) {
+                case 0:
+                    final Bitmap img1 =  BitmapFactory.decodeResource(getApplicationContext().getResources(),
+                        R.drawable.howtostudentfirst);
+                    newPage.setFrontImage(img1);
+                    break;
+//                case 1:
+//                    final Bitmap img2 = BitmapEfficiencyHelper.
+//                            decodeResource(this, R.drawable.howtostudentsecond, screenWidth, screenHeight);
+//                    newPage.setFrontImage(img2);
+//                    break;
+//                case 2:
+//                    final Bitmap img3 = BitmapEfficiencyHelper.
+//                            decodeResource(this, R.drawable.howtostudentthird, screenWidth, screenHeight);
+//                    newPage.setFrontImage(img3);
+//                    break;
+//                case 3:
+//                    final Bitmap img4 = BitmapEfficiencyHelper.
+//                            decodeResource(this, R.drawable.howtostudentforth, screenWidth, screenHeight);
+//                    newPage.setFrontImage(img4);
+//                    break;
+            }
+//            newPage.setFrontImage(dentalImg);
             pages.add(newPage);
         }
 
@@ -71,11 +95,10 @@ public class HotToUseActivity extends IntroActivity {
     }
 
 
-
     @Override
     protected IntroButton.Behaviour generateFinalButtonBehaviour() {
-		/* The pending changes to the shared preferences editor will be applied when the
-		 * introduction is successfully completed. By setting a flag in the pending edits and
+        /* The pending changes to the shared preferences editor will be applied when the
+         * introduction is successfully completed. By setting a flag in the pending edits and
 		 * checking the status of the flag when the activity starts, the introduction screen can
 		 * be skipped if it has previously been completed.
 		 */
@@ -88,10 +111,9 @@ public class HotToUseActivity extends IntroActivity {
     }
 
 
-
-    public boolean IntroductionCompletedBefore(){
+    public boolean IntroductionCompletedBefore() {
         final SharedPreferences sp = getSharedPreferences(DISPLAY_ONCE_THIS, MODE_PRIVATE);
-        return sp.getBoolean(DISPLAY_ONCE_THIS_KEY,false);
+        return sp.getBoolean(DISPLAY_ONCE_THIS_KEY, false);
     }
 
     /**

@@ -8,6 +8,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -84,9 +86,15 @@ public class FirebaseLogic {
 
     }
 
-    public void DeletePatientRequest(PatientRequest request) {
+    public void DeletePatientRequest(String requestUUID, String studentRequestUUID) {
         DatabaseReference patientsRequestTable = GetPatientRequestTableReference();
-        patientsRequestTable.child(request.requestUid).removeValue();
+        patientsRequestTable.child(requestUUID).removeValue();
+
+        if(studentRequestUUID != null && !studentRequestUUID.equals("")) {
+            DatabaseReference studentRequestCollection = GetStudentsRequestTableReference();
+            studentRequestCollection.child(studentRequestUUID)
+                    .child(Constants.StudentRequestStatus).setValue(RequestStatus.Deleted);
+        }
     }
 
     public void ApplyForPatientRequest(final PatientRequest patientRequest,final String studentUUID) {
@@ -116,9 +124,14 @@ public class FirebaseLogic {
                                     return;
 
                                 UUID studentRequestUUID = UUID.randomUUID();
-
-                                final StudentRequest studentRequest = new StudentRequest(studentUUID,studentUser.telephoneNumber, studentRequestUUID.toString(), patientRequest.patientUid, patientRequest.requestUid, RequestStatus.Waiting);
-
+                                Calendar c = Calendar.getInstance();
+                                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                                String currentDateTime = df.format(c.getTime());
+                                final StudentRequest studentRequest = new StudentRequest(studentUUID,
+                                        studentUser.telephoneNumber, studentRequestUUID.toString(),
+                                        currentDateTime, patientRequest.requestUid,
+                                        patientRequest.patientName, patientRequest.typeOfRequest,
+                                        RequestStatus.Waiting);
                                 DatabaseReference patientsRequestTable = GetPatientRequestTableReference();
 
                                 //order matter!!!!
@@ -163,12 +176,19 @@ public class FirebaseLogic {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists())
                         {
+                            Long currentTimeSpan = (long)estimatedServerTimeMs;
+                            Calendar calendarCurrentTimeSpan = Calendar.getInstance();
+                            calendarCurrentTimeSpan.setTimeInMillis(currentTimeSpan);
+
                             StudentUser studentUser = dataSnapshot.getValue(StudentUser.class);
                             if(studentUser != null && studentUser.role.equals(Constants.StudentUserType)) {
                                 if(studentUser.LastRequestTime != null) {
-                                    double lastRequestTime = Double.parseDouble(studentUser.LastRequestTime);
-                                    long days = TimeUnit.MILLISECONDS.toDays(Math.abs((long) estimatedServerTimeMs - (long) lastRequestTime));
-                                    if (days >= 2) {
+                                    double lastRequestTimeDb = Double.parseDouble(studentUser.LastRequestTime);
+                                    Long lasrRequestLong = (long) lastRequestTimeDb;
+                                    Calendar calendarTimeFromDb = Calendar.getInstance();
+                                    calendarTimeFromDb.setTimeInMillis(lasrRequestLong);
+
+                                    if(CalendarHasMoreDays(calendarCurrentTimeSpan,calendarTimeFromDb)){
                                         studentUser.NumberOfRequest = 0;
                                         usersTableRef.child(studentUUID).setValue(studentUser);
                                     }
@@ -189,41 +209,48 @@ public class FirebaseLogic {
         });
     }
 
-    public void PatientRequestNotResolved(PatientRequest patientRequest, String studentUUID) {
+    public boolean CalendarHasMoreDays(Calendar currentCalendar, Calendar serverCalendar){
 
-        RemoveApplyForPatient(patientRequest, studentUUID);
+        int currentTimeYear = currentCalendar.get(Calendar.YEAR);
+        int currentTimeMonth = currentCalendar.get(Calendar.MONTH);
+        int currentTimeDay = currentCalendar.get(Calendar.DAY_OF_MONTH);
+        Log.i(Constants.LogKey, "Current date is: " + currentTimeYear + " month: "
+                + currentTimeMonth + " day: " + currentTimeDay);
 
+        int serverTimeYear = serverCalendar.get(Calendar.YEAR);
+        int serverTimetMonth = serverCalendar.get(Calendar.MONTH);
+        int serverTimetDay = serverCalendar.get(Calendar.DAY_OF_MONTH);
+
+        Log.i(Constants.LogKey, "Server date is: " + serverTimeYear + " month: "
+                + serverTimetMonth + " day: " + serverTimetDay);
+
+        if(currentTimeYear > serverTimeYear)
+            return true;
+
+        if(currentTimeYear == serverTimeYear)
+        {
+            if(currentTimeMonth > serverTimetMonth){
+                return true;
+            }
+            if(currentTimeMonth == serverTimetMonth)
+            {
+                if(currentTimeDay > serverTimetDay) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
     }
 
-    public void PatientRequestResolved(final PatientRequest patientRequest) {
-
-        if (patientRequest.studentRequest == null)
-            return;
-
-        if (!patientRequest.studentRequest.status.equals(RequestStatus.Waiting))
-            return;
-
-        if (patientRequest.studentRequest.studentUUID == "" || patientRequest.studentRequest.studentUUID == null)
-            return;
-
-        DeletePatientRequest(patientRequest);
-
-        final DatabaseReference studentsRequestTable = GetStudentsRequestTableReference();
-        studentsRequestTable.child(patientRequest.studentRequest.studentRequestUUID)
-                .child(Constants.StudentRequestStatus).setValue(RequestStatus.Resolved);
-    }
-
-
-
-    public String RemoveApplyForPatient(PatientRequest patientRequest, String studentRequestUIID) {
+    public void PatientRequestNotResolved(PatientRequest patientRequest, String studentRequestUUID) {
         if (patientRequest == null)
-            return "Request is null";
-
+            return;
         if (patientRequest.studentRequest == null)
-            return "There is no apply";
+            return;
 
-        if (!patientRequest.studentRequest.studentRequestUUID.equals(studentRequestUIID))
-            return "Permission denied";
+        if (!patientRequest.studentRequest.studentRequestUUID.equals(studentRequestUUID))
+            return;
 
 
         DatabaseReference studentRequestCollection = GetStudentsRequestTableReference();
@@ -232,15 +259,37 @@ public class FirebaseLogic {
 
 
         DatabaseReference patientRequestTable = GetPatientRequestTableReference();
-        patientRequest.studentRequest = null;
-        patientRequest.isActive = true;
+        patientRequestTable.child(patientRequest.requestUid).child("studentRequest").setValue(null);
+        patientRequestTable.child(patientRequest.requestUid).child("isActive").setValue(true);
+//        patientRequest.studentRequest = null;
+//        patientRequest.isActive = true;
+//
+//        Map<String, Object> map = new HashMap<>();
+//        map.put(patientRequest.requestUid, patientRequest);
+//        patientRequestTable.updateChildren(map);
 
-        Map<String, Object> map = new HashMap<>();
-        map.put(patientRequest.requestUid, patientRequest);
-        patientRequestTable.updateChildren(map);
-
-        return "OK";
     }
+
+    public void PatientRequestResolved(final String patientRequestUUID,final String studentRequestUUID) {
+
+        if (patientRequestUUID == null || patientRequestUUID.equals(""))
+            return;
+
+
+        DeletePatientRequest(patientRequestUUID, null);
+
+
+        if (studentRequestUUID == null || studentRequestUUID.equals(""))
+            return;
+
+        //todo check with wrong student request id
+        final DatabaseReference studentsRequestTable = GetStudentsRequestTableReference();
+        studentsRequestTable.child(studentRequestUUID)
+                .child(Constants.StudentRequestStatus).setValue(RequestStatus.Resolved);
+    }
+
+
+
 
 
 }

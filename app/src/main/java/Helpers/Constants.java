@@ -1,5 +1,10 @@
 package Helpers;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+
 import com.mario22gmail.vasile.studentist.R;
 
 /**
@@ -8,7 +13,15 @@ import com.mario22gmail.vasile.studentist.R;
 
 public class Constants {
 
-    public static String LogKey="MMM_MMM";
+    public static String studentRequestUUIDExtraName = "studentRequestUUID";
+
+    public static String StudentUUIDKey = "studentUUID";
+
+    public static String LogKey = "MMM_MMM";
+
+    public static String DISPLAY_HOW_TO = "display_howTo";
+
+    public static String DISPLAY_HOW_TO_PATIENT = "display_howTo_patient_key";
 
     public static String PatientRequestStudentsApplied = "studentRequest";
 
@@ -38,19 +51,28 @@ public class Constants {
 
     public static String StudentUserType = "student";
 
-    public static int GetIconValue(String typeOfRequest)
-    {
+
+    public static int GetIconValue(String typeOfRequest) {
         switch (typeOfRequest) {
-            case "Protetica":
+            case "Lucrari":
                 return R.drawable.imgprotetica;
             case "Durere":
                 return R.drawable.imgdurere;
             case "Igienizare":
                 return R.drawable.imgigienizare;
-            case "Control":
+            case "Carii":
                 return R.drawable.imgcontrol;
         }
         return R.drawable.imgcontrol;
+    }
+
+    public static boolean IsNetworkAvailable(ConnectivityManager connectivityManager) {
+        return connectivityManager.getActiveNetworkInfo() != null
+                && connectivityManager.getActiveNetworkInfo().isConnected();
+    }
+
+    public static void DisplaySnackbarForInternetConnection(View view) {
+            Snackbar.make(view, "Verifica conexiunea la internet", Snackbar.LENGTH_LONG).show();
     }
 
 }

@@ -9,6 +9,28 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_patient_make_request">PatientMakeRequestActivity</string>
     <string name="patientDetailRequest_AcceptButton">Am Rezolvat</string>
-    <string name="studentFound_RequestDetail">Am gasit un studentist</string>
+    <string name="studentFound_RequestDetail">Am gasit un studentist !!!</string>
     <string name="helloMarioDemo">Hello <xliff:g id="nameOfUser">%1$s</xliff:g> You have <xliff:g id="temperature">%2$d</xliff:g> </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="requestDescriptionLabel">Descriere</string>
+    <string name="detailRequestToolbarLabel">Cererea mea</string>
+    <string name="detailRequestForStudentToolbarLabel">Informatii pacient</string>
+    <string name="deleteRequestToolbar">Stergere cerere</string>
+    <string name="requestCariType">Carii</string>
+    <string name="requestPainType">Durere</string>
+    <string name="requestCleaningType">Igienizare</string>
+    <string name="requestMissingToothType">Lucrari</string>
+    <string name="chooseRequestTypeLabel">Alege o categorie</string>
+    <string name="howToStudentOneDescription">Bine ai venit! Hai sa-ti gasim pacienti!</string>
+    <string name="howToStudentTwoDescription">Alege din lista de cereri ce categorie doresti sa rezolvi</string>
+    <string name="howToStudentThreeDescription">Odata ce ai aplicat, poti suna pacientul si stabili o intalnire</string>
+    <string name="howToStudentForthDescription">Poti aplica la 2 pacienti pe zi</string>
+    <string name="howToPatientOneDescription">Bine ai venit! Dorim sa-ti rezolvam problemele dentare!</string>
+    <string name="howToPatientTwoDescription">Posteaza o cerere apasand butonul albastru din coltul din dreapta</string>
+    <string name="howToPatientThreeDescription">Dupa ce a aplicat un studentist, poti apasa detalii si contacta studentistul</string>
+    <string name="howToPatientForthDescription">Nu uita, apasa AM REZOLVAT pentru a sterge postarea, sau NU AM REZOLVAT pentru a reactiva anuntul</string>
+    <string name="title_activity_student_request_details">StudentRequestDetailsActivity</string>
+
 </resources>

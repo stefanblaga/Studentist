@@ -2,16 +2,15 @@ package com.mario22gmail.vasile.studentist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,10 +18,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.mario22gmail.vasile.studentist.Account.CreateProfileActivity;
+import com.mario22gmail.vasile.studentist.Account.LoginActivity;
+import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUsePatientActivity;
+import com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity;
+import com.mario22gmail.vasile.studentist.Student.StudentMainActivity;
+import com.mario22gmail.vasile.studentist.Student.StudentRequestListActivity;
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
-import Helpers.StudentUser;
 import Helpers.UserApp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +51,7 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
 
-        snackbarInternetConnection = Snackbar.make(mainLayout, "Check Internet connection", Snackbar.LENGTH_INDEFINITE);
+        snackbarInternetConnection = Snackbar.make(mainLayout, "Verifica conexiunea la internet", Snackbar.LENGTH_INDEFINITE);
         snackbarInternetConnection.setAction("Activate", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,13 +196,22 @@ public class StartActivity extends AppCompatActivity {
     private void StartRightActivity(UserApp user) {
         switch (user.role) {
             case "patient":
-                Intent patientActivitity = new Intent(getApplicationContext(), PatientFirstActivity.class);
+                final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
+                boolean showHowToPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_PATIENT,true);
+                if(showHowToPage)
+                {
+                    Intent howToPatientActivity= new Intent(getApplicationContext(), HowToUsePatientActivity.class);
+                    startActivity(howToPatientActivity);
+                    finish();
+                    return;
+                }
+                Intent patientActivitity = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
                 patientActivitity.putExtra("uid", user.uid);
                 startActivity(patientActivitity);
                 //// TODO: 30/06/2017 pune finish
                 break;
             case "student":
-                Intent studentActivity = new Intent(getApplicationContext(), StudentMainActivity.class);
+                Intent studentActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
                 studentActivity.putExtra("uid", user.uid);
                 startActivity(studentActivity);
                 //// TODO: 30/06/2017 pune finish

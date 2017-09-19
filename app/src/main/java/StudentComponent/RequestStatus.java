@@ -1,7 +1,7 @@
 package StudentComponent;
 
 public enum RequestStatus {
-    Canceled,
+    Deleted,
     Waiting,
     Resolved,
     Rejected

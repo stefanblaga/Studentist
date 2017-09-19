@@ -48,8 +48,8 @@
 
             <ImageButton
                 android:id="@+id/patientDeleteRequestButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
@@ -123,11 +123,25 @@
                 app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
-                android:id="@+id/textViewNrApplied"
+                android:id="@+id/textViewRequestWaiting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
+                android:visibility="invisible"
+                android:text="Asteptam un studentist..."
                 android:textColor="@color/redAlert"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/patientRequestItemType"
+                app:layout_constraintLeft_toRightOf="@+id/request_icon_description"
+                android:layout_marginLeft="24dp" />
+
+
+            <TextView
+                android:id="@+id/textViewStudentApplied"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:text="Un studentist a aplicat"
+                android:textColor="@color/greenCall"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/patientRequestItemType"
                 app:layout_constraintLeft_toRightOf="@+id/request_icon_description"

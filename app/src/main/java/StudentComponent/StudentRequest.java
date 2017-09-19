@@ -6,21 +6,25 @@ package StudentComponent;
 
 public class StudentRequest {
     public String studentUUID;
+    public String studentRequestDate;
     public String studentRequestUUID;
-    public String patientUUID;
-    public String patientRequestUUID;
-    public String patientTel;
     public String studentTel;
+    public String patientRequestUUID;
+    public String patientName;
+    public String patientRequestType;
     public RequestStatus status;
 
-    public StudentRequest(String studentUUID,String studentTelephoneNumber, String studentRequestUUID, String pacientUUID , String patientRequestUUID, RequestStatus status )
+    public StudentRequest(String studentUUID,String studentTelephoneNumber, String studentRequestUUID,String requestDate, String patientRequestUUID, String patientName, String patientRequestType, RequestStatus status )
     {
         this.studentUUID = studentUUID;
-        this.studentRequestUUID = studentRequestUUID;
-        this.patientUUID = pacientUUID;
-        this.patientRequestUUID = patientRequestUUID;
-        this.status = status;
         this.studentTel = studentTelephoneNumber;
+        this.studentRequestUUID = studentRequestUUID;
+        this.studentRequestDate =  requestDate;
+        this.patientRequestUUID = patientRequestUUID;
+        this.patientName = patientName;
+        this.patientRequestType = patientRequestType;
+
+        this.status = status;
     }
 
     public StudentRequest()

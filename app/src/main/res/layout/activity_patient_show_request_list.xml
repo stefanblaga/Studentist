@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mario22gmail.vasile.studentist.PatientShowRequestListActivity">
+    tools:context="com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity">
 
 
     <android.support.design.widget.FloatingActionButton
@@ -77,10 +77,74 @@
         <!--android:layout_marginEnd="8dp"-->
         <!--app:layout_constraintVertical_bias="1.0"></android.support.v4.view.ViewPager>-->
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/emptyStateConstraintLayout"
+        android:layout_width="0dp"
+        android:visibility="gone"
+        android:layout_height="0dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/PatientRequestListToolbar"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/fabAddPatientRequest"
+        tools:layout_editor_absoluteX="12dp">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="277dp"
+            android:layout_height="214dp"
+            app:srcCompat="@drawable/patientrequestemptystate"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintVertical_bias="0.59000003" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="277dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="Hei, sunt aici ca sa te ajut !!!"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView7" />
+
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="277dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="Adauga o cerere noua"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/imageView" />
+    </android.support.constraint.ConstraintLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/patientRequestRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="16dp"

@@ -40,6 +40,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
     compile 'com.matthew-tamlin:sliding-intro-screen:3.2.0'
     compile 'com.airbnb.android:lottie:2.0.0-rc1'
+    compile 'com.github.apl-devs:appintro:v4.2.2'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
@@ -48,10 +49,26 @@ allprojects {
     repositories {
         // ...
         maven { url 'https://maven.fabric.io/public' }
-
+        maven { url 'https://jitpack.io' }
         maven { url "https://maven.google.com" }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

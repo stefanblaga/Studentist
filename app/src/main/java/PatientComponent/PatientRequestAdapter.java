@@ -1,7 +1,10 @@
 package PatientComponent;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,14 +15,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mario22gmail.vasile.studentist.PatientDetailRequest;
+import com.mario22gmail.vasile.studentist.Patient.DeleteRequestDialog;
+import com.mario22gmail.vasile.studentist.Patient.PatientRequestDetailStudentFoundFragment;
+import com.mario22gmail.vasile.studentist.Patient.PatientRequestDetails;
+import com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity;
 import com.mario22gmail.vasile.studentist.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Helpers.Constants;
-import Helpers.FirebaseLogic;
 import StudentComponent.StudentRequest;
 
 /**
@@ -104,28 +109,47 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
         holder.deleteRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseLogic.getInstance().DeletePatientRequest(request);
+                DeleteRequestDialog deleteRequestDialog = new DeleteRequestDialog();
+                PatientShowRequestListActivity activity = (PatientShowRequestListActivity) _context;
+
+                Bundle bundleForFragment = new Bundle();
+                bundleForFragment.putString(Constants.requestUuidIntentExtraName,request.requestUid);
+                if(request.studentRequest != null && request.studentRequest.studentRequestUUID != null)
+                    bundleForFragment.putString(Constants.studentRequestUUIDExtraName, request.studentRequest.studentRequestUUID);
+                deleteRequestDialog.setArguments(bundleForFragment);
+                deleteRequestDialog.show(activity.getSupportFragmentManager(), "delete dialog");
             }
         });
 
+        if(request.studentRequest != null)
+        {
+            holder.requestIsWaitingTextView.setVisibility(View.INVISIBLE);
+            holder.studentAppliedTextView.setVisibility(View.VISIBLE);
+            holder.viewStudentWhoAppliedButton.setVisibility(View.VISIBLE);
+        }
+        else
+        {
+            holder.requestIsWaitingTextView.setVisibility(View.VISIBLE);
+            holder.studentAppliedTextView.setVisibility(View.INVISIBLE);
+            holder.viewStudentWhoAppliedButton.setVisibility(View.INVISIBLE);
+        }
         holder.viewStudentWhoAppliedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent patientDetailRequest = new Intent(holder.contextViewHolder, PatientDetailRequest.class);
+                Intent patientDetailRequest = new Intent(holder.contextViewHolder, PatientRequestDetails.class);
                 patientDetailRequest.putExtra(Constants.requestUuidIntentExtraName, request.requestUid);
                 patientDetailRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 holder.contextViewHolder.startActivity(patientDetailRequest);
 
+
+//                Intent patientDetailRequest = new Intent(holder.contextViewHolder, PatientDetailRequest.class);
+//                patientDetailRequest.putExtra(Constants.requestUuidIntentExtraName, request.requestUid);
+//                patientDetailRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                holder.contextViewHolder.startActivity(patientDetailRequest);
+
             }
         });
 
-
-
-        StudentRequest numberOfAppliants = request.getStudentRequest();
-        if(numberOfAppliants != null)
-            holder.numberOfApplyTextView.setText( "A aplicat un studentist !");
-        else
-            holder.numberOfApplyTextView.setText("");
     }
 
     @Override
@@ -142,7 +166,8 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
         public TextView telTextView;
         TextView dateRequested;
         TextView requestTypeTextView;
-        TextView numberOfApplyTextView;
+        TextView studentAppliedTextView;
+        TextView requestIsWaitingTextView;
         Button viewStudentWhoAppliedButton;
         ImageButton deleteRequestButton;
         ImageView iconImageView;
@@ -158,7 +183,8 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
             dateRequested = (TextView) itemView.findViewById(R.id.patientRequestItemDate);
             requestTypeTextView = (TextView) itemView.findViewById(R.id.patientRequestItemType);
             deleteRequestButton = (ImageButton) itemView.findViewById(R.id.patientDeleteRequestButton);
-            numberOfApplyTextView = (TextView) itemView.findViewById(R.id.textViewNrApplied);
+            studentAppliedTextView = (TextView) itemView.findViewById(R.id.textViewStudentApplied);
+            requestIsWaitingTextView = (TextView) itemView.findViewById(R.id.textViewRequestWaiting);
             viewStudentWhoAppliedButton = (Button) itemView.findViewById(R.id.buttonStudentsWhoApplied);
             telTextView = (TextView) itemView.findViewById(R.id.patientRequestItemTelNrTextView);
             contextViewHolder = itemView.getContext();

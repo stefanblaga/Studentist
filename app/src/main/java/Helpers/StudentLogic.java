@@ -21,21 +21,6 @@ public class StudentLogic {
         return  instance;
     }
 
-    public boolean CanStudentApply(List<PatientRequest> patientRequestList, String studentUUID){
-        for(PatientRequest request : patientRequestList)
-        {
-            if(request.studentRequest == null)
-                continue;
 
-            if(!request.studentRequest.studentUUID.equals(studentUUID))
-                continue;
-
-            if(request.studentRequest.status.equals(RequestStatus.Waiting)
-                    || request.studentRequest.status.equals(RequestStatus.Canceled))
-                return false;
-        }
-
-        return true;
-    }
 
 }
