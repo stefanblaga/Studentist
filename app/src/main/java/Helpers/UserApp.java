@@ -11,7 +11,7 @@ public class UserApp {
     public String birthDate;
     public String role;
     public String telephoneNumber;
-
+    public String appVersion;
     public String deviceToken;
 
     public UserApp()
@@ -65,5 +65,21 @@ public class UserApp {
 
     public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public String getAppVersion() {
+        return appVersion;
+    }
+
+    public void setAppVersion(String appVersion) {
+        this.appVersion = appVersion;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 }

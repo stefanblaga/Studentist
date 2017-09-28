@@ -1,7 +1,9 @@
 package com.mario22gmail.vasile.studentist.Student.StudentRequests;
 
 
+import android.animation.Animator;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,7 +36,11 @@ public class StudentRequestsFragment extends Fragment {
     @BindView(R.id.recyclerViewStudentRequests)
     RecyclerView studentRequestRecycleView;
 
+    @BindView(R.id.emptyStateStudentRequestConstraintLayout)
+    ConstraintLayout emptyStateConstraintLayout;
+
     StudentRequestsAdapter adapter;
+
 
     public StudentRequestsFragment() {
         // Required empty public constructor
@@ -47,12 +53,18 @@ public class StudentRequestsFragment extends Fragment {
         // Inflate the layout for this fragment
         View mainView = inflater.inflate(R.layout.fragment_student_requests, container, false);
         ButterKnife.bind(this, mainView);
-        this.adapter = new StudentRequestsAdapter(getActivity().getApplicationContext());
+        this.adapter = new StudentRequestsAdapter(getActivity());
         studentRequestRecycleView.setAdapter(adapter);
         studentRequestRecycleView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
         GetAllStudentRequests();
         return mainView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        showEmptyState();
     }
 
     public void GetAllStudentRequests() {
@@ -85,6 +97,7 @@ public class StudentRequestsFragment extends Fragment {
                     return;
 
                 adapter.AddPatientToList(studentRequest);
+                showEmptyState();
             }
 
             @Override
@@ -94,6 +107,7 @@ public class StudentRequestsFragment extends Fragment {
                     return;
 
                 adapter.UpdatePatientToList(studentRequest);
+                showEmptyState();
             }
 
             @Override
@@ -103,20 +117,73 @@ public class StudentRequestsFragment extends Fragment {
                     return;
 
                 adapter.DeletePatientFromList(studentRequest);
+                showEmptyState();
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                showEmptyState();
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                showEmptyState();
             }
         });
-//.getRef().equalTo("a902bfb9-7cbb-4533-8ba5-3ef503f68a47", "studentRequestUUID").
+    }
 
+    public void showEmptyState()
+    {
+        if(adapter.getItemCount() == 0)
+        {
+            studentRequestRecycleView.setVisibility(View.INVISIBLE);
+            emptyStateConstraintLayout.setAlpha(0.0f);
+            emptyStateConstraintLayout.animate().alpha(1.0f).setDuration(600).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    emptyStateConstraintLayout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }else {
+            emptyStateConstraintLayout.animate().alpha(0.0f).setDuration(600).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    emptyStateConstraintLayout.setVisibility(View.GONE);
+                    studentRequestRecycleView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
     }
 
 }

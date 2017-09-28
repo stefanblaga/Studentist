@@ -10,19 +10,27 @@ import android.view.View;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ResultCodes;
+import com.firebase.ui.auth.provider.GoogleProvider;
+import com.firebase.ui.auth.provider.Provider;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUsePatientActivity;
-import com.mario22gmail.vasile.studentist.Patient.PatientFirstActivity;
+import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUseStudent;
+import com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity;
 import com.mario22gmail.vasile.studentist.R;
 import com.mario22gmail.vasile.studentist.StartActivity;
-import com.mario22gmail.vasile.studentist.Student.StudentMainActivity;
+import com.mario22gmail.vasile.studentist.Student.StudentRequestListActivity;
 
 import java.util.Arrays;
+import java.util.List;
 
 import Helpers.Constants;
 import Helpers.FacebookApiLogic;
@@ -37,8 +45,6 @@ public class LoginActivity extends AppCompatActivity {
     private int _accoutTypeChoosed = 0;
 
     private FacebookApiLogic facebookApiLogic;
-
-
 
 
     @Override
@@ -63,10 +69,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void StartFireBaseUI() {
-        AuthUI.IdpConfig facebookIdp = new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).
-                setPermissions(Arrays.asList("email", "user_birthday", "user_about_me")).build();
+        AuthUI.IdpConfig facebookIdp = new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build();
+//                setPermissions(Arrays.asList("email", "user_birthday", "user_about_me")).build();
 
-        AuthUI.IdpConfig googleIdp =  new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build();
+        AuthUI.IdpConfig googleIdp = new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build();
 
 
         startActivityForResult(
@@ -74,9 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                         .createSignInIntentBuilder()
                         .setIsSmartLockEnabled(false)
                         .setLogo(R.drawable.loginbackgroundimage)
-                        .setTheme(R.style.GreenTheme)
-                        .setProviders(Arrays.asList(googleIdp, facebookIdp )).build(),
-                        signUpId);
+                        .setTheme(R.style.GreenTheme).setAvailableProviders(Arrays.asList(facebookIdp, googleIdp)).build(),
+                signUpId);
     }
 
 
@@ -86,29 +91,23 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == signUpId) {
             if (resultCode == ResultCodes.OK) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                String provider = user.getProviderId();
-
                 DatabaseReference userTable = FirebaseLogic.getInstance().GetUserTableReference();
                 ValueEventListener tableValueEvent = new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(!dataSnapshot.exists())
-                        {
-                            Intent createaProfileActivity = new Intent(getApplicationContext(), CreateProfileActivity.class);
-                            startActivity(createaProfileActivity);
+                        if (!dataSnapshot.exists()) {
+                            Intent createProfileActivity = new Intent(getApplicationContext(), CreateProfileActivity.class);
+                            startActivity(createProfileActivity);
                             finish();
-                        }
-                        else
-                        {
+                        } else {
                             UserApp user = dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getValue(UserApp.class);
                             String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                            GetTheRightActivity(user.role,uuid);
+                            GetTheRightActivity(user.role, uuid);
                         }
                     }
 
@@ -126,35 +125,36 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void GetTheRightActivity(String role, String uid)
-    {
-        if(role == null)
-        {
+    public void GetTheRightActivity(String role, String uid) {
+        if (role == null) {
             Intent mainActivity = new Intent(getApplicationContext(), StartActivity.class);
             startActivity(mainActivity);
             finish();
         }
-
-        switch (role)
-        {
+        final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
+        switch (role) {
             case "student":
-
-                Intent studentActivity = new Intent(getApplicationContext(), StudentMainActivity.class);
+                boolean showHowToStudentPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_STUDENT, true);
+                if (showHowToStudentPage) {
+                    Intent howToStudentActivity = new Intent(getApplicationContext(), HowToUseStudent.class);
+                    startActivity(howToStudentActivity);
+                    finish();
+                    return;
+                }
+                Intent studentActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
                 studentActivity.putExtra("uid", uid);
                 startActivity(studentActivity);
                 finish();
                 break;
             case "patient":
-                final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
-                boolean showHowToPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_PATIENT,true);
-                if(showHowToPage)
-                {
-                    Intent howToPatientActivity= new Intent(getApplicationContext(), HowToUsePatientActivity.class);
+                boolean showHowToPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_PATIENT, true);
+                if (showHowToPage) {
+                    Intent howToPatientActivity = new Intent(getApplicationContext(), HowToUsePatientActivity.class);
                     startActivity(howToPatientActivity);
                     finish();
                     return;
                 }
-                Intent patientActivitity = new Intent(getApplicationContext(), PatientFirstActivity.class);
+                Intent patientActivitity = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
                 patientActivitity.putExtra("uid", uid);
                 startActivity(patientActivitity);
                 finish();

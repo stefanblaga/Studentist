@@ -21,9 +21,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.mario22gmail.vasile.studentist.Account.CreateProfileActivity;
 import com.mario22gmail.vasile.studentist.Account.LoginActivity;
 import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUsePatientActivity;
+import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUseStudent;
 import com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity;
-import com.mario22gmail.vasile.studentist.Student.StudentMainActivity;
 import com.mario22gmail.vasile.studentist.Student.StudentRequestListActivity;
+
+import org.w3c.dom.Text;
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
@@ -37,6 +39,9 @@ public class StartActivity extends AppCompatActivity {
     TextView logoTitle;
     @BindView(R.id.start_activity_layout)
     View mainLayout;
+
+    @BindView(R.id.cityNameTextView)
+    TextView cityNameTextView;
 
     private boolean _isConnectedToInternet = false;
     final private Handler handler = new Handler();
@@ -66,6 +71,7 @@ public class StartActivity extends AppCompatActivity {
         logoTitle.setTypeface(custom_font);
         logoTitle.setText("Studentist");
 
+        cityNameTextView.setTypeface(custom_font);
     }
 
     @Override
@@ -182,6 +188,12 @@ public class StartActivity extends AppCompatActivity {
                     finish();
                 } else {
                     UserApp user = dataSnapshot.child(userUid).getValue(UserApp.class);
+                    if(user.appVersion == null || !user.appVersion.equals(Constants.APP_VERSION))
+                    {
+                        user.appVersion = Constants.APP_VERSION;
+                        dataSnapshot.child(userUid).getRef().setValue(user);
+                    }
+
                     StartRightActivity(user);
                 }
             }
@@ -194,9 +206,9 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void StartRightActivity(UserApp user) {
+        final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
         switch (user.role) {
             case "patient":
-                final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
                 boolean showHowToPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_PATIENT,true);
                 if(showHowToPage)
                 {
@@ -211,6 +223,14 @@ public class StartActivity extends AppCompatActivity {
                 //// TODO: 30/06/2017 pune finish
                 break;
             case "student":
+                boolean showHowToStudentPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_STUDENT,true);
+                if(showHowToStudentPage)
+                {
+                    Intent howToStudentActivity= new Intent(getApplicationContext(), HowToUseStudent.class);
+                    startActivity(howToStudentActivity);
+                    finish();
+                    return;
+                }
                 Intent studentActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
                 studentActivity.putExtra("uid", user.uid);
                 startActivity(studentActivity);

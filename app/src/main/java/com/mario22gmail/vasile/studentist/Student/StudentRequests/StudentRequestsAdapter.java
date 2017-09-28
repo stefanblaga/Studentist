@@ -3,18 +3,25 @@ package com.mario22gmail.vasile.studentist.Student.StudentRequests;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mario22gmail.vasile.studentist.Patient.DeleteRequestDialog;
+import com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity;
 import com.mario22gmail.vasile.studentist.R;
 import com.mario22gmail.vasile.studentist.Student.AllRequestList.PatientRequestForStudentsViewHolder;
+import com.mario22gmail.vasile.studentist.Student.StudentRequestListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Helpers.Constants;
+import Helpers.FirebaseLogic;
 import PatientComponent.PatientRequest;
 import StudentComponent.RequestStatus;
 import StudentComponent.StudentRequest;
@@ -24,7 +31,6 @@ import StudentComponent.StudentRequest;
  */
 
 public class StudentRequestsAdapter extends RecyclerView.Adapter<StudentAppliedRequestViewHolder> {
-
 
 
     LayoutInflater layoutInflater;
@@ -85,33 +91,65 @@ public class StudentRequestsAdapter extends RecyclerView.Adapter<StudentAppliedR
         holder.requestTitleTextView.setText(studentRequest.patientRequestType);
 
 
-        switch (studentRequest.status)
-        {
+        switch (studentRequest.status) {
             case Waiting:
-                holder.statusTextView.setText("In asteptare");
-                holder.statusTextView.setTextColor(_context.getResources().getColor(R.color.alertColor));
-                holder.buttonAdd.setVisibility(View.VISIBLE);
+                String statusTextWaiting = _context.getResources().getString(R.string.waitingStatusCard);
+                holder.statusTextView.setText(statusTextWaiting);
+                holder.statusTextView.setTextColor(_context.getResources().getColor(R.color.blue));
+                SetButtonDetailsAction(holder, studentRequest);
                 break;
             case Rejected:
-                holder.statusTextView.setText("Cerere respinsa");
-                holder.statusTextView.setTextColor(_context.getResources().getColor(R.color.redAlert));
-                holder.buttonAdd.setVisibility(View.INVISIBLE);
+
+                String statusTextRejected = _context.getResources().getString(R.string.requestRejectedStatusText);
+                holder.statusTextView.setText(statusTextRejected);
+                holder.statusTextView.setTextColor(_context.getResources().getColor(R.color.alertColor));
+                SetButtonDeleteAction(holder, studentRequest);
                 break;
             case Resolved:
-                holder.statusTextView.setText("Rezolvat");
+                String statusRequestResolved = _context.getResources().getString(R.string.requestResolvedStatusText);
+                holder.statusTextView.setText(statusRequestResolved);
                 holder.statusTextView.setTextColor(_context.getResources().getColor(R.color.greenCall));
-                holder.buttonAdd.setVisibility(View.INVISIBLE);
+                SetButtonDeleteAction(holder, studentRequest);
                 break;
             case Deleted:
-                holder.statusTextView.setText("Cerere stearsa");
-                holder.statusTextView.setTextColor(_context.getResources().getColor(R.color.redAlert));
-                holder.buttonAdd.setVisibility(View.INVISIBLE);
+                String statusTextDeletedRequest = _context.getResources().getString(R.string.requestDeletedStatusText);
+                holder.statusTextView.setText(statusTextDeletedRequest);
+                holder.statusTextView.setTextColor(_context.getResources().getColor(R.color.alertColor));
+                SetButtonDeleteAction(holder, studentRequest);
                 break;
             default:
                 holder.statusTextView.setVisibility(View.INVISIBLE);
                 holder.buttonAdd.setVisibility(View.INVISIBLE);
+                holder.buttonAdd.setOnClickListener(null);
         }
+    }
 
+
+    public void SetButtonDeleteAction(StudentAppliedRequestViewHolder holder, final StudentRequest studentRequest) {
+        holder.buttonAdd.setText(_context.getText(R.string.deleteRequestButtonText));
+        holder.buttonAdd.setTextColor(_context.getResources().getColor(R.color.white));
+        holder.buttonAdd.setBackground(ContextCompat.getDrawable(_context, R.drawable.roundbuttondelete));
+
+        holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StudentRequestListActivity activity = (StudentRequestListActivity) _context;
+                Bundle bundleForFragment = new Bundle();
+                bundleForFragment.putString(Constants.studentRequestUUIDExtraName, studentRequest.studentRequestUUID);
+                bundleForFragment.putString(Constants.studentUUIDBundleKey, studentRequest.studentUUID);
+                DeleteStudentRequestDialog deleteRequestDialog = new DeleteStudentRequestDialog();
+                deleteRequestDialog.setArguments(bundleForFragment);
+                deleteRequestDialog.show(activity.getSupportFragmentManager(), "delete dialog");
+
+            }
+        });
+        holder.buttonAdd.setVisibility(View.VISIBLE);
+    }
+
+    public void SetButtonDetailsAction(final StudentAppliedRequestViewHolder holder, final StudentRequest studentRequest) {
+        holder.buttonAdd.setText(_context.getResources().getText(R.string.detailsButtonsText));
+        holder.buttonAdd.setTextColor(_context.getResources().getColor(R.color.white));
+        holder.buttonAdd.setBackground(ContextCompat.getDrawable(_context, R.drawable.roundbuttoncategoryiconsstyle));
 
         holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +161,7 @@ public class StudentRequestsAdapter extends RecyclerView.Adapter<StudentAppliedR
             }
         });
     }
+
 
     @Override
     public int getItemCount() {

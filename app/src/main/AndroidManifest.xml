@@ -16,10 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Account.LoginActivity" />
-        <activity
-            android:name=".Patient.PatientFirstActivity"
-            android:label="@string/title_activity_patient_make_request"
-            android:theme="@style/AppTheme" />
         <activity android:name=".Patient.PatientChooseOptionsActivity" />
         <activity android:name=".StartActivity">
             <intent-filter>
@@ -28,28 +24,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Student.StudentMainActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".Patient.PatientAddRequest"
-            android:screenOrientation="portrait"/>
+            />
         <activity android:name=".Patient.PatientShowRequestListActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".HotToUseActivity"
-            android:screenOrientation="portrait"/>
+            />
         <activity android:name=".Account.CreateProfileActivity"
-            android:screenOrientation="portrait"/>
+            />
         <activity android:name=".Patient.PatientRequestDetails"
-            android:screenOrientation="portrait"/>
+            />
         <activity
             android:name=".HowToPage.Patient.HowToUsePatientActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"
-            android:screenOrientation="portrait"/>
+            />
         <activity android:name=".Student.StudentRequests.StudentRequestDetailsActivity"
-            android:screenOrientation="portrait"/>
+            />
         <activity android:name=".HowToPage.Patient.HowToUseStudent"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Student.StudentRequestListActivity"
-            android:screenOrientation="portrait"    />
+            android:theme="@style/Theme.Design.Light.NoActionBar"
+            />
+        <activity android:name=".Student.StudentRequestListActivity"/>
     </application>
 
 </manifest>
+
+    <!--android:screenOrientation="portrait"-->

@@ -1,6 +1,7 @@
 package com.mario22gmail.vasile.studentist.Student.AllRequestList;
 
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
@@ -32,7 +33,6 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class AllRequestsFragment extends Fragment {
-
 
 
     @BindView(R.id.recyclerViewPatientsRequestsForStudents)
@@ -75,7 +75,8 @@ public class AllRequestsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(userUUID.equals(""))
+        showEmptyState();
+        if (userUUID.equals(""))
             return;
         Log.i(Constants.LogKey, "Request List on resume");
 
@@ -83,19 +84,55 @@ public class AllRequestsFragment extends Fragment {
         userNodeChanges.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                {
+                if (dataSnapshot.exists()) {
                     Log.i(Constants.LogKey, "entered on user node");
                     StudentUser studentUser = dataSnapshot.getValue(StudentUser.class);
-                    if(studentUser != null && studentUser.role.equals(Constants.StudentUserType))
-                    {
-                        if(studentUser.NumberOfRequest >= 2)
-                        {
-                            studentCantApplyConstraintLayout.setVisibility(View.VISIBLE);
+                    if (studentUser != null && studentUser.role.equals(Constants.StudentUserType)) {
+                        if (studentUser.NumberOfRequest >= 2) {
+                            studentCantApplyConstraintLayout.setAlpha(0.0f);
+                            studentCantApplyConstraintLayout.animate().alpha(1.0f).setDuration(800).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+                                    studentCantApplyConstraintLayout.setVisibility(View.VISIBLE);
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            });
                             adapter.StudentCanApply(false);
-                        }else
-                        {
-                            studentCantApplyConstraintLayout.setVisibility(View.GONE);
+                        } else {
+                            studentCantApplyConstraintLayout.animate().alpha(0.0f).setDuration(800).setListener(new Animator.AnimatorListener() {
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    studentCantApplyConstraintLayout.setVisibility(View.GONE);
+                                }
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+
+                                }
+                            });
                             adapter.StudentCanApply(true);
                         }
                     }
@@ -110,8 +147,7 @@ public class AllRequestsFragment extends Fragment {
     }
 
 
-    private void GetRightView()
-    {
+    private void GetRightView() {
         DatabaseReference patientRequestTable = FirebaseLogic.getInstance().GetPatientRequestTableReference();
         requestRecycleView.setAdapter(adapter);
         requestRecycleView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
@@ -119,7 +155,7 @@ public class AllRequestsFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
-                if(request != null && request.isActive)
+                if (request != null && request.isActive)
                     adapter.AddPatientToList(request);
                 showEmptyState();
 
@@ -129,24 +165,20 @@ public class AllRequestsFragment extends Fragment {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
-                if(request != null && request.isActive){
+                if (request != null && request.isActive) {
                     adapter.UpdatePatientToList(request);
                     return;
-                }
-                else if(request != null && !request.isActive)
-                {
+                } else if (request != null && !request.isActive) {
                     adapter.DeletePatientFromList(request);
-                    showEmptyState();
                     return;
                 }
-
-
+                showEmptyState();
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
-                if(request != null){
+                if (request != null) {
                     adapter.DeletePatientFromList(request);
                 }
                 showEmptyState();
@@ -155,26 +187,64 @@ public class AllRequestsFragment extends Fragment {
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                showEmptyState();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                showEmptyState();
             }
         });
     }
 
-    public void showEmptyState()
-    {
-        if(adapter.getItemCount() == 0)
-        {
-            emptyStateConstraintLayout.setVisibility(View.VISIBLE);
+    public void showEmptyState() {
+        if (adapter.getItemCount() == 0) {
             requestRecycleView.setVisibility(View.INVISIBLE);
+            emptyStateConstraintLayout.setAlpha(0.0f);
+            emptyStateConstraintLayout.animate().alpha(1.0f).setDuration(400).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    emptyStateConstraintLayout.setVisibility(View.VISIBLE);
+                }
 
-        }else {
-            requestRecycleView.setVisibility(View.VISIBLE);
-            emptyStateConstraintLayout.setVisibility(View.INVISIBLE);
+                @Override
+                public void onAnimationEnd(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        } else {
+            emptyStateConstraintLayout.animate().alpha(0.0f).setDuration(400).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    emptyStateConstraintLayout.setVisibility(View.GONE);
+                    requestRecycleView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
         }
     }
 }

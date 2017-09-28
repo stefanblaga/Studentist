@@ -42,9 +42,16 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Cererile mele"
+            android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:gravity="center_vertical"/>
+
+        <Switch
+            android:id="@+id/SwitchRoles"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Switch"/>
     </android.support.v7.widget.Toolbar>
 
     <!--<android.support.design.widget.TabLayout-->
@@ -80,7 +87,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/emptyStateConstraintLayout"
         android:layout_width="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_height="0dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"

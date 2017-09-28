@@ -1,9 +1,15 @@
 package com.mario22gmail.vasile.studentist.Patient;
 
+import android.animation.Animator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,17 +20,30 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.mario22gmail.vasile.studentist.AboutDialogFragment;
+import com.mario22gmail.vasile.studentist.Account.DeleteAccountFragment;
+import com.mario22gmail.vasile.studentist.Account.LoginActivity;
 import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUsePatientActivity;
 import com.mario22gmail.vasile.studentist.R;
 
+import Helpers.Constants;
 import Helpers.FirebaseLogic;
+import Helpers.UserApp;
 import PatientComponent.PatientRequest;
 import PatientComponent.PatientRequestAdapter;
 import butterknife.BindView;
@@ -51,7 +70,10 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
     @BindView(R.id.patientRequestRecyclerView)
     RecyclerView requestListRecyclerView;
 
+    @BindView(R.id.SwitchRoles)
+    Switch swithRoles;
 
+    private Menu mainMenu;
     private PatientRequestAdapter adapter;
 
 
@@ -61,6 +83,7 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_show_request_list);
         ButterKnife.bind(this);
         Drawable threeDotsMenu = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_more_vert);
+        final Context thisContext = this;
         toolbar.setOverflowIcon(threeDotsMenu);
         toolbar.inflateMenu(R.menu.patientdotsmenu);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -72,16 +95,62 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
                         startActivity(howToStartPatient);
                         finish();
                         return true;
+                    case R.id.aboutAppMenuItem:
+                        AboutDialogFragment aboutDialogFragment = new AboutDialogFragment();
+                        aboutDialogFragment.show(getSupportFragmentManager(), "about dialog");
+                        return true;
+                    case R.id.signOutMenuItem:
+                        AuthUI.getInstance().signOut((FragmentActivity) thisContext).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(loginActivity);
+                                finish();
+                            }
+                        });
+                        return true;
+                    case R.id.deleteAccountMenuItem:
+                        DeleteAccountFragment deleteAccountFragment = new DeleteAccountFragment();
+                        deleteAccountFragment.show(getSupportFragmentManager(), "delete account dialog");
+                        return true;
+                    case R.id.exitAppMenuItem:
+                        finishAffinity();
+                        return true;
                 }
                 return true;
             }
         });
+        swithRoles.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    final DatabaseReference userTable = FirebaseLogic.getInstance().GetUserTableReference();
+                    userTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            UserApp user = dataSnapshot.getValue(UserApp.class);
+                            if(user != null)
+                            {
+                                user.role = "student";
+                                userTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
+                            }
+                        }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        });
 
         adapter = new PatientRequestAdapter(this);
         recyclerView = (RecyclerView) findViewById(R.id.patientRequestRecyclerView);
         getRightView(FirebaseAuth.getInstance().getCurrentUser().getUid());
     }
+
 
     @Override
     protected void onResume() {
@@ -89,7 +158,6 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
         ShowEmptyState();
     }
 
-    private Menu mainMenu;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,16 +185,7 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
         }
     }
 
-    public void ShowEmptyState() {
-        if (adapter.getItemCount() <= 0) {
-            requestListRecyclerView.setVisibility(View.INVISIBLE);
-            emptyStateConstraintLayout.setVisibility(View.VISIBLE);
-        } else {
-            requestListRecyclerView.setVisibility(View.VISIBLE);
-            emptyStateConstraintLayout.setVisibility(View.INVISIBLE);
-        }
 
-    }
 
     public void getRightView(final String _uid) {
 
@@ -188,5 +247,58 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
     public void AddPacientRequestButtonClick(View view) {
         Intent addRequestActivity = new Intent(getApplicationContext(), PatientChooseOptionsActivity.class);
         startActivity(addRequestActivity);
+    }
+
+    public void ShowEmptyState()
+    {
+        if(adapter.getItemCount() == 0)
+        {
+            requestListRecyclerView.setVisibility(View.INVISIBLE);
+            emptyStateConstraintLayout.setAlpha(0.0f);
+            emptyStateConstraintLayout.animate().alpha(1.0f).setDuration(600).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+                    emptyStateConstraintLayout.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }else {
+            emptyStateConstraintLayout.animate().alpha(0.0f).setDuration(400).setListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    emptyStateConstraintLayout.setVisibility(View.GONE);
+                    requestListRecyclerView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+
+                }
+            });
+        }
     }
 }

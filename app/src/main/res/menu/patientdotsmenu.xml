@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:title="menu"
         android:id="@+id/empty"
         android:icon="@drawable/ic_more_vert"
         android:orderInCategory="101"
@@ -19,6 +19,18 @@
                 android:icon="@drawable/ic_info_outline"
                 android:orderInCategory="97"
                 android:title="Contact" />
+            <item android:id="@+id/signOutMenuItem"
+                android:orderInCategory="98"
+                android:icon="@drawable/ic_power_settings_new"
+                android:title="Sign out"/>
+            <item android:id="@+id/deleteAccountMenuItem"
+                android:orderInCategory="99"
+                android:icon="@drawable/ic_delete_forever"
+                android:title="Delete account"/>
+            <item android:id="@+id/exitAppMenuItem"
+                android:icon="@drawable/ic_exit_to_app"
+                android:orderInCategory="100"
+                android:title="Iesire"/>
 
 
         </menu>

@@ -1,8 +1,11 @@
 package com.mario22gmail.vasile.studentist.Account;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,18 +15,25 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.mario22gmail.vasile.studentist.Patient.PatientFirstActivity;
+import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUsePatientActivity;
+import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUseStudent;
+import com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity;
 import com.mario22gmail.vasile.studentist.R;
-import com.mario22gmail.vasile.studentist.Student.StudentMainActivity;
+import com.mario22gmail.vasile.studentist.Student.StudentRequestListActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +48,9 @@ import Helpers.FirebaseLogic;
 import Helpers.UserApp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnItemSelected;
 import butterknife.Optional;
 
 public class CreateProfileActivity extends AppCompatActivity {
@@ -49,16 +61,6 @@ public class CreateProfileActivity extends AppCompatActivity {
     @BindView(R.id.user_create_tel_nr_EditText)
     AppCompatEditText telephoneNumberEditText;
 
-
-    @BindView(R.id.mmBirthDateEditText)
-    EditText mmBirthEditText;
-
-    @BindView(R.id.yyyyBirthdateEdittext)
-    EditText yyyyBirthDayEditText;
-
-    @BindView(R.id.ddBirthdateEditText)
-    EditText ddBirthDateEditText;
-
     @BindView(R.id.radioPatient)
     RadioButton radioPatient;
 
@@ -66,37 +68,34 @@ public class CreateProfileActivity extends AppCompatActivity {
     RadioButton radioStudent;
 
 
+    @BindView(R.id.radioGroupType)
+    RadioGroup radioGroup;
 
-    private Calendar calendar;
+    @BindView(R.id.userTypeErrorTextView)
+    TextView userTypeErrorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile);
         ButterKnife.bind(this);
-        calendar = Calendar.getInstance();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String provider = user.getProviderId();
-        List<String> providerList = user.getProviders();
-
+        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        if(userName != null && !userName.equals(""))
+            nameEditText.setText(userName);
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        GetUserDetailFromFacebook();
     }
 
 
-
-    public void GetUserDetailFromFacebook()
-    {
+    public void GetUserDetailFromFacebook() {
         AccessToken token = AccessToken.getCurrentAccessToken();
 
-        if(token.isExpired())
-        {
+        if (token.isExpired()) {
             AccessToken.refreshCurrentAccessTokenAsync();
             token = AccessToken.getCurrentAccessToken();
         }
@@ -114,22 +113,13 @@ public class CreateProfileActivity extends AppCompatActivity {
 
                             String birthDateString = response.getJSONObject().get(Constants.FbUserDetailsBirthday).toString();
 
-                            if(!birthDateString.equals(""))
-                            {
+                            if (!birthDateString.equals("")) {
                                 String[] dateAsArray = birthDateString.split("/");
-                                mmBirthEditText.setText(dateAsArray[0]);
-                                ddBirthDateEditText.setText(dateAsArray[1]);
-                                yyyyBirthDayEditText.setText(dateAsArray[2]);
                             }
-
-
-
-
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Log.i("xxx_mario_xxx","response from fb: "  + response.getJSONArray());
+                        Log.i("xxx_mario_xxx", "response from fb: " + response.getJSONArray());
                     }
                 });
         Bundle parameters = new Bundle();
@@ -138,48 +128,42 @@ public class CreateProfileActivity extends AppCompatActivity {
         request.executeAsync();
     }
 
+
+    @OnClick({R.id.radioPatient, R.id.radioStudent})
+    public void RadioSelected(View view) {
+        userTypeErrorTextView.setText("");
+    }
+
     public boolean ValidateInformation() {
         String name = nameEditText.getText().toString();
-        if (name.equals("") || name.trim().length() <= 0){
+        if (name.equals("") || name.trim().length() <= 0) {
             nameEditText.setError("Introduceti numele");
             return false;
         }
 
-        String telNumber =  telephoneNumberEditText.getText().toString();
-        if(telNumber.equals("") || telNumber.trim().length() <=0)
-        {
+        String telNumber = telephoneNumberEditText.getText().toString();
+        if (telNumber.equals("") || telNumber.trim().length() <= 0) {
             telephoneNumberEditText.setError("Introduceti numarul de telefon");
             return false;
         }
 
-        String dd = ddBirthDateEditText.getText().toString();
-        if(dd.equals("") || dd.trim().length() <=0)
-        {
-            ddBirthDateEditText.setError("Introduceti ziua");
+        if (!radioPatient.isChecked() && !radioStudent.isChecked()) {
+            userTypeErrorTextView.setText("Alege un raspuns !");
             return false;
         }
 
-        String mm = mmBirthEditText.getText().toString();
-        if(mm.equals("") || mm.trim().length() <= 0)
-        {
-            mmBirthEditText.setError("Introduceti luna");
-            return false;
-        }
-
-        String yyyy = yyyyBirthDayEditText.getText().toString();
-        if(yyyy.equals("") || yyyy.trim().length() <= 0)
-        {
-            yyyyBirthDayEditText.setError("Introduceti anul");
-            return false;
-        }
         return true;
     }
 
 
     @OnClick(R.id.createProfileButton)
-    public void CreateProfileButtonClick(final View view)
-    {
-        if(!ValidateInformation())
+    public void CreateProfileButtonClick(final View view) {
+        if (!Constants.IsNetworkAvailable((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
+            Constants.DisplaySnackbarForInternetConnection(view);
+            return;
+        }
+
+        if (!ValidateInformation())
             return;
 
         final UserApp user = new UserApp();
@@ -187,10 +171,9 @@ public class CreateProfileActivity extends AppCompatActivity {
         user.deviceToken = deviceToken;
         user.name = nameEditText.getText().toString();
         user.telephoneNumber = telephoneNumberEditText.getText().toString();
-        user.birthDate=  new SimpleDateFormat("dd.MM.yyyy").format(calendar.getTime());
-        if(radioPatient.isChecked())
+        if (radioPatient.isChecked())
             user.role = Constants.PatientUserType;
-        else if(radioStudent.isChecked())
+        else if (radioStudent.isChecked())
             user.role = Constants.StudentUserType;
 
         final String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -201,22 +184,33 @@ public class CreateProfileActivity extends AppCompatActivity {
         usersTable.child(user.uid).setValue(user, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if(databaseError != null)
-                {
+                if (databaseError != null) {
                     Snackbar.make(view, "A aparut o eroare, asta e. Incearca mai tarziu te rog", Snackbar.LENGTH_LONG).show();
                     return;
                 }
-
-                if(user.role.equals(Constants.PatientUserType))
-                {
-                    Intent patientActivitity = new Intent(getApplicationContext(), PatientFirstActivity.class);
+                final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
+                if (user.role.equals(Constants.PatientUserType)) {
+                    boolean showHowToPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_PATIENT, true);
+                    if (showHowToPage) {
+                        Intent howToPatientActivity = new Intent(getApplicationContext(), HowToUsePatientActivity.class);
+                        startActivity(howToPatientActivity);
+                        finish();
+                        return;
+                    }
+                    Intent patientActivitity = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
                     patientActivitity.putExtra("uid", user.uid);
                     startActivity(patientActivitity);
                     finish();
                     return;
-                }else if (user.role.equals(Constants.StudentUserType))
-                {
-                    Intent studentActivity = new Intent(getApplicationContext(), StudentMainActivity.class);
+                } else if (user.role.equals(Constants.StudentUserType)) {
+                    boolean showHowToStudentPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_STUDENT, true);
+                    if (showHowToStudentPage) {
+                        Intent howToStudentActivity = new Intent(getApplicationContext(), HowToUseStudent.class);
+                        startActivity(howToStudentActivity);
+                        finish();
+                        return;
+                    }
+                    Intent studentActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
                     studentActivity.putExtra("uid", user.uid);
                     startActivity(studentActivity);
                     finish();
@@ -231,21 +225,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         });
     }
 
-    @Optional
-    @OnClick({R.id.mmBirthDateEditText, R.id.ddBirthdateEditText, R.id.yyyyBirthdateEdittext})
-    public void BirthDateEditTextClicked(View view)
-    {
-        DatePickerDialog.OnDateSetListener  dateSelectListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    mmBirthEditText.setText(DateFormatSymbols.getInstance().getMonths()[month]);
-                    ddBirthDateEditText.setText(dayOfMonth + "");
-                    yyyyBirthDayEditText.setText(year + "");
-            }
-        };
 
-        new DatePickerDialog(this,dateSelectListener,calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
 
 
 }

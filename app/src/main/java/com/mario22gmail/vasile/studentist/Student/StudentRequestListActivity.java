@@ -1,9 +1,13 @@
 package com.mario22gmail.vasile.studentist.Student;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
@@ -12,8 +16,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.mario22gmail.vasile.studentist.AboutDialogFragment;
+import com.mario22gmail.vasile.studentist.Account.DeleteAccountFragment;
+import com.mario22gmail.vasile.studentist.Account.DeleteAccountStudentFragment;
+import com.mario22gmail.vasile.studentist.Account.LoginActivity;
 import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUsePatientActivity;
 import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUseStudent;
 import com.mario22gmail.vasile.studentist.R;
@@ -22,6 +39,8 @@ import com.mario22gmail.vasile.studentist.Student.StudentRequests.StudentRequest
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
+import Helpers.StudentUser;
+import Helpers.UserApp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,9 +56,13 @@ public class StudentRequestListActivity extends AppCompatActivity {
     @BindView(R.id.toolbarRequestsForStudentsList)
     Toolbar toolbar;
 
+    @BindView(R.id.SwitchRoles)
+    Switch swithRoles;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_student_request_list);
         ButterKnife.bind(this);
 
@@ -49,7 +72,8 @@ public class StudentRequestListActivity extends AppCompatActivity {
 
         String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseLogic.getInstance().UpdateStudentProfileForAddingRequest(userUUID);
-
+        final FragmentActivity thisActivity = this;
+        final Context thisContext = this;
         Drawable threeDotsMenu = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_more_vert);
         toolbar.setOverflowIcon(threeDotsMenu);
         toolbar.inflateMenu(R.menu.patientdotsmenu);
@@ -62,8 +86,57 @@ public class StudentRequestListActivity extends AppCompatActivity {
                         startActivity(howToStartPatient);
                         finish();
                         return true;
+                    case R.id.aboutAppMenuItem:
+                        AboutDialogFragment aboutDialogFragment = new AboutDialogFragment();
+                        aboutDialogFragment.show(getSupportFragmentManager(), "about dialog");
+                        return true;
+                    case R.id.signOutMenuItem:
+                        AuthUI.getInstance().signOut((FragmentActivity)thisContext).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(loginActivity);
+                                finish();
+                            }
+                        });
+                        return true;
+                    case R.id.deleteAccountMenuItem:
+                        DeleteAccountStudentFragment deleteAccountFragment = new DeleteAccountStudentFragment();
+                        deleteAccountFragment.show(getSupportFragmentManager(), "delete account dialog");
+                        return true;
+                    case R.id.exitAppMenuItem:
+                        finishAffinity();
+                        return true;
                 }
                 return true;
+            }
+        });
+
+        swithRoles.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                {
+                    final DatabaseReference userTable = FirebaseLogic.getInstance().GetUserTableReference();
+                    userTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            StudentUser studentUser = dataSnapshot.getValue(StudentUser.class);
+                            if(studentUser != null)
+                            {
+                                studentUser.NumberOfRequest = 0;
+                                studentUser.role = "patient";
+                                userTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(studentUser);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
             }
         });
     }
@@ -73,7 +146,7 @@ public class StudentRequestListActivity extends AppCompatActivity {
         public StudentListAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
         }
-        private String[] tabTitles = new String[]{"Lista cereri", "Cererile mele"};
+        private String[] tabTitles = new String[]{"Lista pacienti", "Pacientii mei"};
 
         @Override
         public CharSequence getPageTitle(int position) {

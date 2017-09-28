@@ -17,20 +17,32 @@
     <string name="requestDescriptionLabel">Descriere</string>
     <string name="detailRequestToolbarLabel">Cererea mea</string>
     <string name="detailRequestForStudentToolbarLabel">Informatii pacient</string>
+    <string name="detailsButtonsText">Detalii</string>
+    <string name="waitingStatusCard">In asteptare...</string>
+    <string name="requestRejectedStatusText">Cerere respinsa</string>
+    <string name="requestDeletedStatusText">Cerere stearsa</string>
+    <string name="requestResolvedStatusText">Rezolvat</string>
     <string name="deleteRequestToolbar">Stergere cerere</string>
+    <string name="deleteAccountToolbar">Sterge cont</string>
     <string name="requestCariType">Carii</string>
     <string name="requestPainType">Durere</string>
     <string name="requestCleaningType">Igienizare</string>
     <string name="requestMissingToothType">Lucrari</string>
     <string name="chooseRequestTypeLabel">Alege o categorie</string>
-    <string name="howToStudentOneDescription">Bine ai venit! Hai sa-ti gasim pacienti!</string>
+    <string name="howToStudentOneDescription">Hai sa-ti gasim pacienti!</string>
     <string name="howToStudentTwoDescription">Alege din lista de cereri ce categorie doresti sa rezolvi</string>
     <string name="howToStudentThreeDescription">Odata ce ai aplicat, poti suna pacientul si stabili o intalnire</string>
     <string name="howToStudentForthDescription">Poti aplica la 2 pacienti pe zi</string>
-    <string name="howToPatientOneDescription">Bine ai venit! Dorim sa-ti rezolvam problemele dentare!</string>
-    <string name="howToPatientTwoDescription">Posteaza o cerere apasand butonul albastru din coltul din dreapta</string>
+    <string name="howToPatientOneDescription">Dorim sa-ti rezolvam problemele dentare!</string>
+    <string name="howToPatientTwoDescription">Adauga o cerere apasand butonul albastru din coltul din dreapta</string>
     <string name="howToPatientThreeDescription">Dupa ce a aplicat un studentist, poti apasa detalii si contacta studentistul</string>
-    <string name="howToPatientForthDescription">Nu uita, apasa AM REZOLVAT pentru a sterge postarea, sau NU AM REZOLVAT pentru a reactiva anuntul</string>
+    <string name="howToPatientForthDescription">Apasa AM REZOLVAT pentru a sterge postarea, sau NU AM REZOLVAT pentru a reactiva anuntul</string>
     <string name="title_activity_student_request_details">StudentRequestDetailsActivity</string>
+    <string name="student_can_apply_tomorrow">Maine e o noua zi</string>
+    <string name="deleteRequestButtonText">Sterge</string>
+    <string name="student_cant_apply_message">Nu mai poti aplica astazi pentru pacienti</string>
+    <string name="apply_button_text">Aplica</string>
+    <string name="nothing_found_message">Nu am gasit nimic</string>
+    <string name="studentist_name">Studentist</string>
 
 </resources>

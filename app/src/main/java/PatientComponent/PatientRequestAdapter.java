@@ -77,8 +77,12 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
 
         View view = layoutInflater.inflate(R.layout.requestitemforpatient,parent,false);
         PatientViewHolder patientViewHolder = new PatientViewHolder(view);
-
         return patientViewHolder;
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(PatientViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
     }
 
     @Override

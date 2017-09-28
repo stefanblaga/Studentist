@@ -15,6 +15,12 @@ public class Constants {
 
     public static String studentRequestUUIDExtraName = "studentRequestUUID";
 
+    public static String GoogleProviderKey ="GoogleProvider";
+
+    public static String FbProviderKey = "FacebookProvider";
+
+    public static String studentUUIDBundleKey = "studentUUID";
+
     public static String StudentUUIDKey = "studentUUID";
 
     public static String LogKey = "MMM_MMM";
@@ -22,6 +28,8 @@ public class Constants {
     public static String DISPLAY_HOW_TO = "display_howTo";
 
     public static String DISPLAY_HOW_TO_PATIENT = "display_howTo_patient_key";
+
+    public static String DISPLAY_HOW_TO_STUDENT = "display_howTo_student_key";
 
     public static String PatientRequestStudentsApplied = "studentRequest";
 
@@ -34,6 +42,10 @@ public class Constants {
     public static String PatientRequestIsActive = "isActive";
 
     public static String FbUserDetailsName = "name";
+
+    public static String AccountUserNameKey = "nameKey";
+
+    public static String AccountUserPhoneKey = "phoneKey";
 
     public static String FbUserDetailsBirthday = "birthday";
 
@@ -50,6 +62,8 @@ public class Constants {
     public static String PatientUserType = "patient";
 
     public static String StudentUserType = "student";
+
+    public static String APP_VERSION = "1.0.0";
 
 
     public static int GetIconValue(String typeOfRequest) {
@@ -72,7 +86,7 @@ public class Constants {
     }
 
     public static void DisplaySnackbarForInternetConnection(View view) {
-            Snackbar.make(view, "Verifica conexiunea la internet", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(view, "Nu esti conectat la internet !", Snackbar.LENGTH_LONG).show();
     }
 
 }

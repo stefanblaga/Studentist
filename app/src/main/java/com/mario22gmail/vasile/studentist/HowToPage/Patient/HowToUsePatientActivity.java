@@ -22,16 +22,6 @@ public class HowToUsePatientActivity extends AppIntro {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_how_to_use_patient);
-
-
-        // Add your slide fragments here.
-        // AppIntro will automatically generate the dots indicator and buttons.
-//        addSlide(firstFragment);
-//        addSlide(secondFragment);
-//        addSlide(thirdFragment);
-//        addSlide(fourthFragment);
-
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -42,38 +32,34 @@ public class HowToUsePatientActivity extends AppIntro {
 
         SliderPage sliderPageOne = new SliderPage();
         sliderPageOne.setBgColor(Color.parseColor("#3CB6AA"));
+        sliderPageOne.setTitle("Bine ai venit !");
         sliderPageOne.setImageDrawable(R.drawable.howtopatientfirst);
         sliderPageOne.setDescription(getResources().getString(R.string.howToPatientOneDescription));
 
         SliderPage sliderPageTwo = new SliderPage();
-        sliderPageTwo.setBgColor(Color.parseColor("#E91E63"));
+        sliderPageTwo.setBgColor(Color.parseColor("#9C27B0"));
+        sliderPageTwo.setTitle("Adauga o cerere");
         sliderPageTwo.setImageDrawable(R.drawable.howtopatientsecond );
         sliderPageTwo.setDescription(getResources().getString(R.string.howToPatientTwoDescription));
 
 
         SliderPage sliderPageThree = new SliderPage();
-        sliderPageThree.setBgColor(Color.parseColor("#FF5722"));
+        sliderPageThree.setBgColor(Color.parseColor("#2196F3"));
+        sliderPageThree.setTitle("Asteapta un studentist");
         sliderPageThree.setImageDrawable(R.drawable.howtopatientthird);
         sliderPageThree.setDescription(getResources().getString(R.string.howToPatientThreeDescription));
 
 
         SliderPage sliderPageForth = new SliderPage();
         sliderPageForth.setBgColor(Color.parseColor("#8BC34A"));
+        sliderPageForth.setTitle("Nu uita !");
         sliderPageForth.setImageDrawable(R.drawable.howtopatientfourth);
         sliderPageForth.setDescription(getResources().getString(R.string.howToPatientForthDescription));
-
-//        HowToPatientFragment fragment1 = new HowToPatientFragment();
-//        HowToPatientSecondFragment fragment2 = new HowToPatientSecondFragment();
-//        addSlide(fragment1);
-//        addSlide(fragment2);
 
         addSlide(AppIntroFragment.newInstance(sliderPageOne));
         addSlide(AppIntroFragment.newInstance(sliderPageTwo));
         addSlide(AppIntroFragment.newInstance(sliderPageThree));
         addSlide(AppIntroFragment.newInstance(sliderPageForth));
-
-//        HowToPatientFragment fragment = new HowToPatientFragment();
-//        addSlide(fragment);
 
         // OPTIONAL METHODS
         // Override bar/separator color.
@@ -86,10 +72,6 @@ public class HowToUsePatientActivity extends AppIntro {
         setProgressButtonEnabled(true);
         setBarColor(Color.parseColor("#3F51B5"));
 
-        // Turn vibration on and set intensity.
-        // NOTE: you will probably need to ask VIBRATE permission in Manifest.
-//        setVibrate(true);
-//        setVibrateIntensity(30);
     }
 
     @Override

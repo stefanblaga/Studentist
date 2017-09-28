@@ -26,21 +26,25 @@ public class HowToUseStudent extends AppIntro {
 
         SliderPage sliderPageOne = new SliderPage();
         sliderPageOne.setBgColor(Color.parseColor("#3CB6AA"));
+        sliderPageOne.setTitle("Bine ai venit !");
         sliderPageOne.setImageDrawable(R.drawable.howtostudentfirst);
         sliderPageOne.setDescription(getResources().getString(R.string.howToStudentOneDescription));
 
         SliderPage sliderPageTwo = new SliderPage();
-        sliderPageTwo.setBgColor(Color.parseColor("#6D4C41"));
+        sliderPageTwo.setBgColor(Color.parseColor("#FF6E40"));
+        sliderPageTwo.setTitle("Alege un pacient");
         sliderPageTwo.setImageDrawable(R.drawable.howtostudentsecond);
         sliderPageTwo.setDescription(getResources().getString(R.string.howToStudentTwoDescription));
 
         SliderPage sliderPageThree = new SliderPage();
-        sliderPageThree.setBgColor(Color.parseColor("#3F51B5"));
+        sliderPageThree.setBgColor(Color.parseColor("#9C27B0"));
+        sliderPageThree.setTitle("Contacteaza pacientul");
         sliderPageThree.setImageDrawable(R.drawable.howtostudentthird);
         sliderPageThree.setDescription(getResources().getString(R.string.howToStudentThreeDescription));
 
         SliderPage sliderPageFourth = new SliderPage();
-        sliderPageFourth.setBgColor(Color.parseColor("#1E88E5"));
+        sliderPageFourth.setBgColor(Color.parseColor("#03A9F4"));
+        sliderPageFourth.setTitle("Nu-i lua pe toti !");
         sliderPageFourth.setImageDrawable(R.drawable.howtostudentforth);
         sliderPageFourth.setDescription(getResources().getString(R.string.howToStudentForthDescription));
 
@@ -62,17 +66,21 @@ public class HowToUseStudent extends AppIntro {
         super.onDonePressed(currentFragment);
 
         final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
-        final SharedPreferences.Editor pendingEdits = sp.edit().putBoolean(Constants.DISPLAY_HOW_TO_PATIENT, false);
+        final SharedPreferences.Editor pendingEdits = sp.edit().putBoolean(Constants.DISPLAY_HOW_TO_STUDENT, false);
         pendingEdits.apply();
 
-        Intent patientListActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
-        startActivity(patientListActivity);
+        Intent studentListActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
+        startActivity(studentListActivity);
         finish();
     }
 
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
+
+        Intent studentListActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
+        startActivity(studentListActivity);
+        finish();
     }
 
     @Override

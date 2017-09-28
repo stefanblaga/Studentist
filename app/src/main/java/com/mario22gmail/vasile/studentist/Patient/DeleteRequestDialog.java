@@ -31,7 +31,7 @@ public class DeleteRequestDialog extends DialogFragment {
     Toolbar toolbar;
 
     String requestUUID;
-    String studentRequestUUID ="";
+    String studentRequestUUID = "";
 
     @NonNull
     @Override
@@ -42,7 +42,7 @@ public class DeleteRequestDialog extends DialogFragment {
 
         View dialogView = inflater.inflate(R.layout.delete_request_dialog, null);
         builder.setView(dialogView);
-        ButterKnife.bind(this,dialogView);
+        ButterKnife.bind(this, dialogView);
 
         requestUUID = getArguments().getString(Constants.requestUuidIntentExtraName);
         studentRequestUUID = getArguments().getString(Constants.studentRequestUUIDExtraName);
@@ -55,22 +55,20 @@ public class DeleteRequestDialog extends DialogFragment {
     }
 
     @OnClick(R.id.noDeleteRequestButton)
-    public void NoDeleteRequestButtonClick(View view)
-    {
+    public void NoDeleteRequestButtonClick(View view) {
         this.dismiss();
     }
 
     @OnClick(R.id.yesDeleteRequestButton)
-    public void YesDeleteButtonClick(View view)
-    {
-        if(!Constants.IsNetworkAvailable((ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE)))
-        {
+    public void YesDeleteButtonClick(View view) {
+        if (!Constants.IsNetworkAvailable((ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE))) {
             Constants.DisplaySnackbarForInternetConnection(view);
             return;
         }
-        if(requestUUID == null || requestUUID.equals(""))
+        if (requestUUID == null || requestUUID.equals(""))
             return;
-        FirebaseLogic.getInstance().DeletePatientRequest(requestUUID,studentRequestUUID);
+        FirebaseLogic.getInstance().DeletePatientRequest(requestUUID, studentRequestUUID);
         this.dismiss();
     }
+
 }
