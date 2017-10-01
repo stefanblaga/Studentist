@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -61,6 +62,13 @@ public class AllRequestsFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragmentView = inflater.inflate(R.layout.fragment_all_requests, container, false);
         ButterKnife.bind(this, fragmentView);
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser == null)
+        {
+            Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
+            return fragmentView;
+        }
 
         this.adapter = new PatientRequestForStundentsAdapter(getActivity().getApplicationContext());
         this.userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -164,12 +172,11 @@ public class AllRequestsFragment extends Fragment {
                 PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
                 if (request != null && request.isActive) {
                     adapter.UpdatePatientToList(request);
-                    return;
-                } else if (request != null && !request.isActive) {
+                    showEmptyState();
+                } else if (request != null) {
                     adapter.DeletePatientFromList(request);
-                    return;
+                    showEmptyState();
                 }
-                showEmptyState();
             }
 
             @Override
@@ -183,11 +190,13 @@ public class AllRequestsFragment extends Fragment {
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.i(Constants.LogKey, "show empty from moved");
                 showEmptyState();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.i(Constants.LogKey, "show empty from canceled");
                 showEmptyState();
             }
         });
@@ -195,6 +204,7 @@ public class AllRequestsFragment extends Fragment {
 
     public void showEmptyState() {
         if (adapter.getItemCount() == 0) {
+            Log.i(Constants.LogKey,"Enter in adapter < 0");
             requestRecycleView.setVisibility(View.INVISIBLE);
             emptyStateConstraintLayout.setAlpha(0.0f);
             emptyStateConstraintLayout.animate().alpha(1.0f).setDuration(400).setListener(new Animator.AnimatorListener() {

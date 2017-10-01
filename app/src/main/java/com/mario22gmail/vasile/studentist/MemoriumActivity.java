@@ -17,7 +17,7 @@ public class MemoriumActivity extends AppCompatActivity {
         final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_Memorium, MODE_PRIVATE);
         final SharedPreferences.Editor pendingEdits = sp.edit().putBoolean(Constants.DISPLAY_MemoriumBool, false);
         pendingEdits.apply();
-        final int interval = 5000; // 1 Second
+        final int interval = 3000; // 1 Second
          Handler handler = new Handler();
          Runnable runnable = new Runnable(){
             public void run() {

@@ -14,4 +14,6 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="patientDetailsDescriptionTopDistance">85dp</dimen>
     <dimen name="defaultPadding8Dp">8dp</dimen>
+    <dimen name="add_request_icon_size">85dp</dimen>
+    <dimen name="add_requst_description_text_size">22sp</dimen>
 </resources>

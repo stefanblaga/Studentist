@@ -117,7 +117,6 @@ public class PatientRequestDetailFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
-                return;
             }
         });
 

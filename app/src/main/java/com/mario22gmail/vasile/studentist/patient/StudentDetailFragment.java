@@ -18,7 +18,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.mario22gmail.vasile.studentist.ErrorFragment;
 import com.mario22gmail.vasile.studentist.R;
 
 import Helpers.Constants;
@@ -122,7 +121,6 @@ public class StudentDetailFragment extends Fragment {
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
                                 Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
-                                return;
                             }
                         });
                     }
@@ -130,7 +128,6 @@ public class StudentDetailFragment extends Fragment {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
-                        return;
                     }
                 });
     }
@@ -177,7 +174,6 @@ public class StudentDetailFragment extends Fragment {
         FirebaseLogic.getInstance().PatientRequestResolved(requestUUID, _studentRequestUUID);
         Log.i(Constants.LogKey,"Finish from accept");
         getActivity().finish();
-        return;
     }
 
 

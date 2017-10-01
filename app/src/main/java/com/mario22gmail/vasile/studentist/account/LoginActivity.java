@@ -21,7 +21,6 @@ import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
 import com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity;
 import com.mario22gmail.vasile.studentist.R;
-import com.mario22gmail.vasile.studentist.StartActivity;
 import com.mario22gmail.vasile.studentist.student.StudentRequestListActivity;
 
 import java.util.Arrays;
@@ -43,12 +42,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private int signUpId = 111;
 
-    private int _accoutTypeChoosed = 0;
-
-    private FacebookApiLogic facebookApiLogic;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,21 +51,9 @@ public class LoginActivity extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/mainfont.ttf");
         logoTitle.setTypeface(custom_font);
         cityNameTextView.setTypeface(custom_font);
-        facebookApiLogic = new FacebookApiLogic();
         StartFireBaseUI();
 
     }
-
-    public void StudentOptionClick(View view) {
-        _accoutTypeChoosed = 1;
-//        StartFireBaseUI();
-    }
-
-    public void PatientOptionClick(View view) {
-        _accoutTypeChoosed = 2;
-//        StartFireBaseUI();
-    }
-
 
     private void StartFireBaseUI() {
         AuthUI.IdpConfig facebookIdp = new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build();
@@ -173,7 +154,6 @@ public class LoginActivity extends AppCompatActivity {
                 break;
             default:
                 Constants.ShowErrorFragment(getSupportFragmentManager());
-                return;
         }
     }
 

@@ -1,0 +1,19 @@
+<resources>
+	<!-- Default screen margins, per the Android Design guidelines. -->
+	<dimen name="cardViewRequestPadding">8dp</dimen>
+	<dimen name="requestcategoryiconwidth">100dp</dimen>
+	<dimen name="requestcategoryconheight">100dp</dimen>
+	<dimen name="requestoptionlabelheight">24dp</dimen>
+	<dimen name="requestoptiontextsize">22sp</dimen>
+	<dimen name="birthdate_height_edittext">45dp</dimen>
+	<dimen name="circleSizeRequestDetail">90dp</dimen>
+	<dimen name="requestContactIconsWidthHeight">20dp</dimen>
+	<dimen name="paddingButtons">16dp</dimen>
+	<dimen name="textSizeRequestInformation">16sp</dimen>
+	<dimen name="textSizeStatusInformation">18sp</dimen>
+	<dimen name="fab_margin">16dp</dimen>
+	<dimen name="patientDetailsDescriptionTopDistance">85dp</dimen>
+	<dimen name="defaultPadding8Dp">8dp</dimen>
+	<dimen name="add_request_icon_size">65dp</dimen>
+	<dimen name="add_requst_description_text_size">18sp</dimen>
+</resources>

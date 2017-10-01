@@ -5,13 +5,13 @@ import android.content.Intent;
 
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.util.Log;
 import android.view.View;
-import android.widget.RadioButton;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -47,10 +47,10 @@ public class CreateProfileActivity extends AppCompatActivity {
     AppCompatEditText telephoneNumberEditText;
 
     @BindView(R.id.radioPatient)
-    RadioButton radioPatient;
+    AppCompatRadioButton radioPatient;
 
     @BindView(R.id.radioStudent)
-    RadioButton radioStudent;
+    AppCompatRadioButton radioStudent;
 
 
     @BindView(R.id.radioGroupType)
@@ -58,6 +58,9 @@ public class CreateProfileActivity extends AppCompatActivity {
 
     @BindView(R.id.userTypeErrorTextView)
     TextView userTypeErrorTextView;
+
+    @BindView(R.id.progressBarCreateProfile)
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         if(userName != null && !userName.equals(""))
             nameEditText.setText(userName);
+
     }
 
 
@@ -154,8 +158,11 @@ public class CreateProfileActivity extends AppCompatActivity {
             return;
         }
 
+
         if (!ValidateInformation())
             return;
+
+        progressBar.setVisibility(View.VISIBLE);
 
         final UserApp user = new UserApp();
         user.appVersion = Constants.APP_VERSION;
@@ -208,7 +215,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                 }
 
                 Constants.ShowErrorFragment(getSupportFragmentManager());
-                return;
+                progressBar.setVisibility(View.INVISIBLE);
             }
 
 

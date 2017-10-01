@@ -1,6 +1,5 @@
 package PatientComponent;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,7 +63,6 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
 
         requestList.add(request);
         notifyDataSetChanged();
-        return;
     }
 
 

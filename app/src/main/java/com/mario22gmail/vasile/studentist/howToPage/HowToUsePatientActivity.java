@@ -31,27 +31,27 @@ public class HowToUsePatientActivity extends AppIntro {
 
         SliderPage sliderPageOne = new SliderPage();
         sliderPageOne.setBgColor(Color.parseColor("#3CB6AA"));
-        sliderPageOne.setTitle("Bine ai venit !");
+        sliderPageOne.setTitle(getResources().getString(R.string.howToPatientPageOneTitle));
         sliderPageOne.setImageDrawable(R.drawable.howtopatientfirst);
         sliderPageOne.setDescription(getResources().getString(R.string.howToPatientOneDescription));
 
         SliderPage sliderPageTwo = new SliderPage();
         sliderPageTwo.setBgColor(Color.parseColor("#9C27B0"));
-        sliderPageTwo.setTitle("Adauga o cerere");
+        sliderPageTwo.setTitle(getResources().getString(R.string.howToPatientPageTwoTitle));
         sliderPageTwo.setImageDrawable(R.drawable.howtopatientsecond );
         sliderPageTwo.setDescription(getResources().getString(R.string.howToPatientTwoDescription));
 
 
         SliderPage sliderPageThree = new SliderPage();
         sliderPageThree.setBgColor(Color.parseColor("#2196F3"));
-        sliderPageThree.setTitle("Asteapta un studentist");
+        sliderPageThree.setTitle(getResources().getString(R.string.howToPatientPageThreeTitle));
         sliderPageThree.setImageDrawable(R.drawable.howtopatientthird);
         sliderPageThree.setDescription(getResources().getString(R.string.howToPatientThreeDescription));
 
 
         SliderPage sliderPageForth = new SliderPage();
         sliderPageForth.setBgColor(Color.parseColor("#8BC34A"));
-        sliderPageForth.setTitle("Nu uita !");
+        sliderPageForth.setTitle(getResources().getString(R.string.howToPatientPageFourTitle));
         sliderPageForth.setImageDrawable(R.drawable.howtopatientfourth);
         sliderPageForth.setDescription(getResources().getString(R.string.howToPatientForthDescription));
 
@@ -71,6 +71,8 @@ public class HowToUsePatientActivity extends AppIntro {
         setProgressButtonEnabled(true);
         setBarColor(Color.parseColor("#3F51B5"));
 
+        setSkipText(getResources().getString(R.string.howToPageSkipText));
+        setDoneText(getResources().getString(R.string.howToPageDoneText));
     }
 
     @Override

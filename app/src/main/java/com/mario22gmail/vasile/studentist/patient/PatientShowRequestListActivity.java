@@ -50,6 +50,9 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
     @BindView(R.id.fabAddPatientRequest)
     FloatingActionButton floatingActionButton;
 
+    @BindView(R.id.fabAddPatientRequestEmptyState)
+    FloatingActionButton fabButtonEmptyState;
+
     @BindView(R.id.PatientRequestListToolbar)
     Toolbar toolbar;
 
@@ -104,8 +107,29 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
             }
         });
 
+        SetUpFabButtonClick();
         adapter = new PatientRequestAdapter(this);
         getRequestsFromFirebase();
+    }
+
+
+    public void SetUpFabButtonClick()
+    {
+        fabButtonEmptyState.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addRequestActivity = new Intent(getApplicationContext(), PatientChooseOptionsActivity.class);
+                startActivity(addRequestActivity);
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addRequestActivity = new Intent(getApplicationContext(), PatientChooseOptionsActivity.class);
+                startActivity(addRequestActivity);
+            }
+        });
     }
 
 
@@ -176,10 +200,16 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
     }
 
     public void ShowFabButton() {
-        if (adapter.getItemCount() > 4) {
+        if (emptyStateConstraintLayout.getVisibility() == View.VISIBLE) {
+            fabButtonEmptyState.setVisibility(View.VISIBLE);
             floatingActionButton.setVisibility(View.INVISIBLE);
         } else {
-            floatingActionButton.setVisibility(View.VISIBLE);
+            fabButtonEmptyState.setVisibility(View.INVISIBLE);
+            if (adapter.getItemCount() > 4) {
+                floatingActionButton.setVisibility(View.INVISIBLE);
+            } else {
+                floatingActionButton.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -251,12 +281,12 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
     public void ShowEmptyState() {
         if (adapter.getItemCount() == 0) {
             requestListRecyclerView.setVisibility(View.INVISIBLE);
-            ShowFabButton();
             emptyStateConstraintLayout.setAlpha(0.0f);
             emptyStateConstraintLayout.animate().alpha(1.0f).setDuration(600).setListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
                     emptyStateConstraintLayout.setVisibility(View.VISIBLE);
+                    ShowFabButton();
                 }
 
                 @Override
@@ -275,7 +305,6 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
                 }
             });
         } else {
-            ShowFabButton();
             emptyStateConstraintLayout.animate().alpha(0.0f).setDuration(400).setListener(new Animator.AnimatorListener() {
                 @Override
                 public void onAnimationStart(Animator animation) {
@@ -286,6 +315,7 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
                 public void onAnimationEnd(Animator animation) {
                     emptyStateConstraintLayout.setVisibility(View.GONE);
                     requestListRecyclerView.setVisibility(View.VISIBLE);
+                    ShowFabButton();
                 }
 
                 @Override

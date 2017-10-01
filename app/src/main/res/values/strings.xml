@@ -28,7 +28,7 @@
     <string name="howToStudentOneDescription">Hai să-ți găsim pacienți!</string>
     <string name="howToStudentTwoDescription">Alege din lista de cereri ce categorie dorești să rezolvi</string>
     <string name="howToStudentThreeDescription">Odată ce ai aplicat, poți suna pacientul și stabili o întâlnire</string>
-    <string name="howToStudentForthDescription">Poți aplica la 2 pacienți pe zi</string>
+    <string name="howToStudentForthDescription">Poți contacta 2 pacienți pe zi</string>
     <string name="howToPatientOneDescription">Dorim să-ți rezolvăm problemele dentare!</string>
     <string name="howToPatientTwoDescription">Adaugă o cerere apăsând butonul albastru din colțul din dreapta</string>
     <string name="howToPatientThreeDescription">După ce a aplicat un studentist, poți apăsa detalii și contacta studentistul</string>
@@ -37,7 +37,7 @@
     <string name="student_can_apply_tomorrow">Mâine e o nouă zi</string>
     <string name="deleteRequestButtonText">Șterge</string>
     <string name="student_cant_apply_message">Nu mai poți aplica astăzi pentru pacienți</string>
-    <string name="apply_button_text">Aplică</string>
+    <string name="apply_button_text">Contactează</string>
     <string name="nothing_found_message">Nu am găsit nimic</string>
     <string name="studentist_name">Studentist</string>
     <string name="about_you_text">Informații despre tine</string>
@@ -85,4 +85,17 @@
     <string name="tell_more_about_label">Spune-ți părerea pe :</string>
     <string name="available_only_Tm">Disponibil momentan doar in Timișoara</string>
     <string name="internet_fail_connected_text">Nu ești conectat la internet !</string>
+    <string name="howToPageSkipText">Sari peste</string>
+    <string name="howToPageDoneText">Terminat</string>
+    <string name="howToPatientPageOneTitle">Bine ai venit !</string>
+    <string name="howToPatientPageTwoTitle">Adauga o cerere</string>
+    <string name="howToPatientPageThreeTitle">Asteapta un studentist</string>
+    <string name="howToPatientPageFourTitle">Nu uita !</string>
+    <string name="howToStudentPageOneTitle">Bine ai venit !</string>
+    <string name="howToStudentPageTwoTitle">Alege un pacient</string>
+    <string name="howToStudentPageThreeTitle">Contactează pacientul</string>
+    <string name="howToStudentPageFourTitle">Nu-i lua pe toți !</string>
+
+
+
 </resources>

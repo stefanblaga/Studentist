@@ -14,8 +14,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,7 +54,7 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_Memorium, MODE_PRIVATE);
         boolean showMemoriumPage = sp.getBoolean(Constants.DISPLAY_MemoriumBool,true);
-        if(showMemoriumPage == true)
+        if(showMemoriumPage)
         {
             Intent memoriumPage = new Intent(getApplicationContext(),MemoriumActivity.class);
             startActivity(memoriumPage);
@@ -196,7 +194,6 @@ public class StartActivity extends AppCompatActivity {
                     Intent createUserActivity = new Intent(getApplicationContext(), CreateProfileActivity.class);
                     startActivity(createUserActivity);
                     finish();
-                    return;
                 } else {
                     UserApp user = dataSnapshot.child(userUid).getValue(UserApp.class);
                     if(user.appVersion == null || !user.appVersion.equals(Constants.APP_VERSION))
@@ -217,7 +214,6 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Constants.ShowErrorFragment(getSupportFragmentManager());
-                return;
             }
         });
     }
@@ -255,7 +251,6 @@ public class StartActivity extends AppCompatActivity {
                 break;
             default:
                 Constants.ShowErrorFragment(getSupportFragmentManager());
-                return;
         }
     }
 }

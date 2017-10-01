@@ -7,23 +7,6 @@
     tools:context="com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity">
 
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAddPatientRequest"
-        android:visibility="invisible"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="top|left|end|start"
-        android:clickable="true"
-        android:src="@drawable/ic_add"
-        app:fabSize="normal"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="9dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"></android.support.design.widget.FloatingActionButton>
-
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/PatientRequestListToolbar"
@@ -57,7 +40,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/emptyStateConstraintLayout"
         android:layout_width="0dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_height="0dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
@@ -65,11 +48,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/PatientRequestListToolbar"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintBottom_toTopOf="@+id/fabAddPatientRequest"
-        tools:layout_editor_absoluteX="12dp">
+        app:layout_constraintBottom_toBottomOf="parent">
 
 
         <ImageView
@@ -81,11 +63,12 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginRight="8dp"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="80dp"
+            app:layout_constraintHorizontal_bias="0.545"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
-            app:layout_constraintVertical_bias="0.59000003" />
+            app:layout_constraintVertical_bias="0.229" />
 
         <TextView
             android:id="@+id/textView6"
@@ -118,6 +101,7 @@
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fabAddPatientRequestEmptyState"
+            android:visibility="invisible"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
@@ -145,7 +129,7 @@
         android:id="@+id/patientRequestRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="16dp"
@@ -159,9 +143,28 @@
         app:layout_constraintTop_toBottomOf="@+id/PatientRequestListToolbar"
         app:layout_constraintVertical_bias="1.0"
         android:clipToPadding="false"
-        android:paddingBottom="64dp">
+        android:paddingBottom="70dp">
+
 
 
     </android.support.v7.widget.RecyclerView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAddPatientRequest"
+        android:visibility="invisible"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="top|left|end|start"
+        android:clickable="true"
+        android:src="@drawable/ic_add"
+        app:fabSize="normal"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"></android.support.design.widget.FloatingActionButton>
+
 
 </android.support.constraint.ConstraintLayout>

@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.mario22gmail.vasile.studentist.ErrorFragment;
 import com.mario22gmail.vasile.studentist.R;
-import com.mario22gmail.vasile.studentist.account.DeleteAccountStudentFragment;
 
 /**
  * Created by mario on 14/04/2017.
@@ -89,6 +88,8 @@ public class Constants {
     }
 
     public static boolean IsNetworkAvailable(ConnectivityManager connectivityManager) {
+        if(connectivityManager == null)
+            return false;
         return connectivityManager.getActiveNetworkInfo() != null
                 && connectivityManager.getActiveNetworkInfo().isConnected();
     }
