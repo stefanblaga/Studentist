@@ -69,9 +69,11 @@ public class PatientAddRequest extends AppCompatActivity {
         int white = ContextCompat.getColor(getApplicationContext(), R.color.white);
         add_request_toolbar.setTitleTextColor(white);
 
-        setSupportActionBar(add_request_toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if(getSupportActionBar() != null) {
+            setSupportActionBar(add_request_toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         categoryDescriptionTextView.setText(categoryDescription);
         typeOfRequest = categoryDescription;
@@ -146,7 +148,7 @@ public class PatientAddRequest extends AppCompatActivity {
         }
 
         String patientName = patientNameEditText.getText().toString();
-        if(patientName.equals("") || patientName == null || patientName.trim().length() <= 0)
+        if( patientName == null || patientName.equals("") || patientName.trim().length() <= 0)
         {
             patientNameEditText.setError("Adauga numele tau");
             return false;

@@ -19,6 +19,7 @@ import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -68,7 +69,14 @@ public class CreateProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_profile);
         ButterKnife.bind(this);
 
-        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser == null)
+        {
+            Constants.ShowErrorFragment(getSupportFragmentManager());
+            return;
+        }
+
+        String userName = currentUser.getDisplayName();
         if(userName != null && !userName.equals(""))
             nameEditText.setText(userName);
 
@@ -162,6 +170,13 @@ public class CreateProfileActivity extends AppCompatActivity {
         if (!ValidateInformation())
             return;
 
+        FirebaseUser authUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(authUser == null)
+        {
+            Constants.ShowErrorFragment(getSupportFragmentManager());
+            return;
+        }
+
         progressBar.setVisibility(View.VISIBLE);
 
         final UserApp user = new UserApp();
@@ -174,8 +189,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         else if (radioStudent.isChecked())
             user.role = Constants.StudentUserType;
 
-        user.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
+        user.uid = authUser.getUid();
 
         DatabaseReference usersTable = FirebaseLogic.getInstance().GetUserTableReference();
         usersTable.child(user.uid).setValue(user, new DatabaseReference.CompletionListener() {

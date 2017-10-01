@@ -71,7 +71,7 @@ public class AllRequestsFragment extends Fragment {
         }
 
         this.adapter = new PatientRequestForStundentsAdapter(getActivity().getApplicationContext());
-        this.userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        this.userUUID = currentUser.getUid();
 
         GetRightView();
         return fragmentView;

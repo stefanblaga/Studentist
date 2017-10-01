@@ -30,9 +30,11 @@ public class PatientRequestDetails extends AppCompatActivity {
         toolbar.setTitle(R.string.detailRequestToolbarLabel);
         int white = ContextCompat.getColor(getApplicationContext(), R.color.white);
         toolbar.setTitleTextColor(white);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if(getSupportActionBar() != null) {
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
 //        guideline.setp
         String  requestUUID ="";
@@ -41,7 +43,7 @@ public class PatientRequestDetails extends AppCompatActivity {
             requestUUID = bundleFromListView.getString(Constants.requestUuidIntentExtraName);
         }
 
-        if(requestUUID.equals(""))
+        if(requestUUID != null && requestUUID.equals(""))
         {
             Constants.ShowErrorFragment(getSupportFragmentManager());
             return;

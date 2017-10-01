@@ -196,6 +196,11 @@ public class StartActivity extends AppCompatActivity {
                     finish();
                 } else {
                     UserApp user = dataSnapshot.child(userUid).getValue(UserApp.class);
+                    if(user == null)
+                    {
+                        Constants.ShowErrorFragment(getSupportFragmentManager());
+                        return;
+                    }
                     if(user.appVersion == null || !user.appVersion.equals(Constants.APP_VERSION))
                     {
                         user.appVersion = Constants.APP_VERSION;

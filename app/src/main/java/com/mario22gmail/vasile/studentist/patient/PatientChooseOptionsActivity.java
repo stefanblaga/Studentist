@@ -45,8 +45,10 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
         int white = ContextCompat.getColor(getApplicationContext(), R.color.white);
         toolbar.setTitleTextColor(white);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
     }
 

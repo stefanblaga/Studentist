@@ -135,7 +135,7 @@ public class StudentDetailFragment extends Fragment {
     @OnClick({R.id.callStudentImageButton, R.id.studentTelTextView, R.id.mainIconPatientRequestDetail})
     public void CallStudentButtonClick(View view) {
         String studentTelephone = studentTelTextView.getText().toString();
-        if (studentTelephone == null || studentTelephone.equals("")) {
+        if (studentTelephone.equals("")) {
             Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
             return;
         }
@@ -147,7 +147,7 @@ public class StudentDetailFragment extends Fragment {
     @OnClick(R.id.sendMessageStudentImageButton)
     public void SendMessageStudentButtonClick(View view) {
         String studentTelephone = studentTelTextView.getText().toString();
-        if (studentTelephone == null || studentTelephone.equals("")) {
+        if (studentTelephone.equals("")) {
             Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
             return;
         }

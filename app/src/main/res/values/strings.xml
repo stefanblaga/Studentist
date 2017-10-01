@@ -5,12 +5,8 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fb123903511466812</string>
     <!-- Strings related to login -->
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_activity_patient_make_request">PatientMakeRequestActivity</string>
-    <string name="patientDetailRequest_AcceptButton">Am Rezolvat</string>
     <string name="studentFound_RequestDetail">Am găsit un studentist !!!</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="requestDescriptionLabel">Descriere</string>
     <string name="detailRequestToolbarLabel">Cererea mea</string>
     <string name="detailRequestForStudentToolbarLabel">Informații pacient</string>
     <string name="detailsButtonsText">Detalii</string>
@@ -33,7 +29,6 @@
     <string name="howToPatientTwoDescription">Adaugă o cerere apăsând butonul albastru din colțul din dreapta</string>
     <string name="howToPatientThreeDescription">După ce a aplicat un studentist, poți apăsa detalii și contacta studentistul</string>
     <string name="howToPatientForthDescription">Apasă AM REZOLVAT pentru a șterge postarea, sau NU AM REZOLVAT pentru a reactiva anunțul</string>
-    <string name="title_activity_student_request_details">StudentRequestDetailsActivity</string>
     <string name="student_can_apply_tomorrow">Mâine e o nouă zi</string>
     <string name="deleteRequestButtonText">Șterge</string>
     <string name="student_cant_apply_message">Nu mai poți aplica astăzi pentru pacienți</string>

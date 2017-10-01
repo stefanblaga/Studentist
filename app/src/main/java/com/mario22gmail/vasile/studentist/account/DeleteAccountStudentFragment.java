@@ -4,16 +4,21 @@ package com.mario22gmail.vasile.studentist.account;
         import android.app.AlertDialog;
         import android.app.Dialog;
         import android.content.Context;
+        import android.content.Intent;
         import android.net.ConnectivityManager;
         import android.os.Bundle;
         import android.support.annotation.NonNull;
         import android.support.v4.app.DialogFragment;
         import android.support.v4.app.Fragment;
+        import android.support.v4.app.FragmentActivity;
         import android.support.v4.content.ContextCompat;
         import android.support.v7.widget.Toolbar;
         import android.view.LayoutInflater;
         import android.view.View;
 
+        import com.firebase.ui.auth.AuthUI;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.Task;
         import com.mario22gmail.vasile.studentist.R;
 
         import Helpers.Constants;
@@ -67,6 +72,15 @@ public class DeleteAccountStudentFragment extends DialogFragment {
         }
 
         FirebaseLogic.getInstance().DeleteAllDataForStudent(getActivity());
+        //signout
+        AuthUI.getInstance().signOut((FragmentActivity) getActivity()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Intent loginActivity = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
+                startActivity(loginActivity);
+                getActivity().finish();
+            }
+        });
         this.dismiss();
     }
 }

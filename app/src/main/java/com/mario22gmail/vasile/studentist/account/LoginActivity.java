@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,7 +84,13 @@ public class LoginActivity extends AppCompatActivity {
         if (requestCode == signUpId) {
             if (resultCode == ResultCodes.OK) {
                 DatabaseReference userTable = FirebaseLogic.getInstance().GetUserTableReference();
-                String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if(currentUser == null)
+                {
+                    Constants.ShowErrorFragment(getSupportFragmentManager());
+                    return;
+                }
+                final String uuid = currentUser.getUid();
                 userTable.getRef().orderByChild("uid").startAt(uuid).endAt(uuid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -92,13 +99,12 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(createProfileActivity);
                             finish();
                         } else {
-                            UserApp user = dataSnapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).getValue(UserApp.class);
+                            UserApp user = dataSnapshot.child(uuid).getValue(UserApp.class);
                             if(user == null)
                             {
                                 Constants.ShowErrorFragment(getSupportFragmentManager());
                                 return;
                             }
-                            String uuid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             GetTheRightActivity(user.role, uuid);
                         }
                     }

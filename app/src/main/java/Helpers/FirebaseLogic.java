@@ -218,8 +218,7 @@ public class FirebaseLogic {
                                             PatientShowRequestListActivity patientActivity = (PatientShowRequestListActivity) context;
                                             patientActivity.finishAffinity();
                                         } else {
-                                            //// TODO: 27/09/2017 error page show
-                                            // Deletion failed
+                                            Constants.ShowErrorFragment(((FragmentActivity) context).getSupportFragmentManager());
                                         }
                                     }
                                 });

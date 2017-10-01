@@ -73,7 +73,7 @@ public class PatientRequestDetailFragment extends Fragment {
         ButterKnife.bind(this, mainView);
         requestUUID = getArguments().getString(Constants.requestUuidIntentExtraName);
 
-        if(requestUUID.equals(""))
+        if(requestUUID != null && requestUUID.equals(""))
         {
             getActivity().finish();
             return mainView;
@@ -127,7 +127,7 @@ public class PatientRequestDetailFragment extends Fragment {
     public void CallStudentClick(View view)
     {
         String studentTelephone = telTextView.getText().toString();
-        if (studentTelephone == null || studentTelephone.equals("")) {
+        if (studentTelephone.equals("")) {
             Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
             return;
         }
@@ -139,7 +139,7 @@ public class PatientRequestDetailFragment extends Fragment {
     @OnClick(R.id.sendMessagePatientImageButton)
     public void SendMessageStudentButtonClick(View view) {
         String studentTelephone = telTextView.getText().toString();
-        if (studentTelephone == null || studentTelephone.equals("")) {
+        if (studentTelephone.equals("")) {
             Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
             return;
         }
