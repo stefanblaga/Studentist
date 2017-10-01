@@ -4,15 +4,15 @@ package com.mario22gmail.vasile.studentist;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -46,7 +46,6 @@ public class AboutDialogFragment extends DialogFragment {
         builder.setView(dialogView);
         ButterKnife.bind(this, dialogView);
 
-//        fbLinkTextView.setMovementMethod(LinkMovementMethod.getInstance());
         return builder.create();
     }
 
@@ -64,8 +63,24 @@ public class AboutDialogFragment extends DialogFragment {
         String  link = gmailLink.getText().toString();
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                 "mailto",link, null));
-//        startActivity(Intent.createChooser(emailIntent, "Send email..."));
         startActivity(emailIntent);
 
+    }
+
+    @OnClick(R.id.fbLinkTextView)
+    public void FbLinkClick(View view)
+    {
+        PackageManager packageManager = getActivity().getPackageManager();
+        Uri uri = Uri.parse(getActivity().getString(R.string.fb_page));
+        try {
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo("com.facebook.katana", 0);
+            if (applicationInfo.enabled) {
+                uri = Uri.parse("fb://facewebmodal/f?href=" + uri);
+            }
+        } catch (PackageManager.NameNotFoundException ignored) {
+
+        }
+        Intent fbIntent =new Intent(Intent.ACTION_VIEW, uri);
+        getActivity().startActivity(fbIntent);
     }
 }

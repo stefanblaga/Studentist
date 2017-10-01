@@ -6,26 +6,27 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
+import com.facebook.AccessToken;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mario22gmail.vasile.studentist.Account.LoginActivity;
-import com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity;
-import com.mario22gmail.vasile.studentist.Student.StudentRequestListActivity;
+import com.mario22gmail.vasile.studentist.account.LoginActivity;
+import com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity;
+import com.mario22gmail.vasile.studentist.student.StudentRequestListActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import PatientComponent.PatientRequest;
 import StudentComponent.RequestStatus;
@@ -68,18 +69,15 @@ public class FirebaseLogic {
 
 
     public DatabaseReference GetPatientRequestTableReference() {
-        DatabaseReference requestDb = firebaseDatabase.getReference(FirebaseLogic.FirebasePatientRequestTable);
-        return requestDb;
+        return firebaseDatabase.getReference(FirebaseLogic.FirebasePatientRequestTable);
     }
 
     public DatabaseReference GetStudentsRequestTableReference() {
-        DatabaseReference studentsRequestDb = firebaseDatabase.getReference(FirebaseLogic.FirebaseStudentsRequestTable);
-        return studentsRequestDb;
+        return firebaseDatabase.getReference(FirebaseLogic.FirebaseStudentsRequestTable);
     }
 
     public DatabaseReference GetUserTableReference() {
-        DatabaseReference userTable = firebaseDatabase.getReference(FirebaseLogic.FirebaseUsersTable);
-        return userTable;
+        return firebaseDatabase.getReference(FirebaseLogic.FirebaseUsersTable);
     }
 
     protected FirebaseLogic() {
@@ -107,6 +105,7 @@ public class FirebaseLogic {
             DatabaseReference studentRequestCollection = GetStudentsRequestTableReference();
             studentRequestCollection.child(studentRequestUUID)
                     .child(Constants.StudentRequestStatus).setValue(RequestStatus.Deleted);
+
         }
     }
 
@@ -166,8 +165,7 @@ public class FirebaseLogic {
                                 final StudentRequest studentRequest = new StudentRequest(studentUUID,
                                         studentUser.telephoneNumber, studentRequestUUID.toString(),
                                         currentDateTime, patientRequest.requestUid,
-                                        patientRequest.patientName, patientRequest.typeOfRequest, patientRequest.patientUid,
-                                        RequestStatus.Waiting);
+                                        patientRequest.patientName, patientRequest.typeOfRequest, patientRequest.patientUid);
                                 DatabaseReference patientsRequestTable = GetPatientRequestTableReference();
 
                                 //order matter!!!!
@@ -240,12 +238,85 @@ public class FirebaseLogic {
                 });
     }
 
+//
+//    public void DeleteAccountExperimental()
+//    {
+//        AccessToken token = AccessToken.getCurrentAccessToken();
+//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//        String providerName =  currentUser.getProviderData().
+//                get(currentUser.getProviderData().size() -1).getProviderId();
+//        if(providerName.equals("facebook.com"))
+//        {
+//            AuthCredential fbAuthCredentials = FacebookAuthProvider.getCredential(currentUser.getUid());
+//            currentUser.reauthenticate(fbAuthCredentials).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    if(task.isSuccessful()) {
+//                        FirebaseAuth.getInstance().getCurrentUser().delete();
+//                        AuthUI.getInstance()
+//                                .delete((FragmentActivity) mainActivity)
+//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        if (task.isSuccessful()) {
+//                                            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+//                                            mainActivity.startActivity(loginActivity);
+//                                            StudentRequestListActivity studentActivity = (StudentRequestListActivity) mainActivity;
+//                                            studentActivity.finishAffinity();
+//                                        } else {
+//                                            //// TODO: 27/09/2017 error page show
+//                                            // Deletion failed
+//                                        }
+//                                    }
+//                                });
+//                    }else
+//                    {
+//                        Log.i("MMM", "error");
+//                    }
+//                }
+//            });
+//        }
+//        else
+//        {
+//            AuthCredential googleAuthCredentials = GoogleAuthProvider.getCredential(currentUser.getUid(),null);
+//            currentUser.reauthenticate(googleAuthCredentials).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    if(task.isSuccessful())
+//                    {
+//                        FirebaseAuth.getInstance().getCurrentUser().delete();
+//                        AuthUI.getInstance()
+//                                .delete((FragmentActivity) mainActivity)
+//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        if (task.isSuccessful()) {
+//                                            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+//                                            mainActivity.startActivity(loginActivity);
+//                                            StudentRequestListActivity studentActivity = (StudentRequestListActivity) mainActivity;
+//                                            studentActivity.finishAffinity();
+//                                        } else {
+//                                            //// TODO: 27/09/2017 error page show
+//                                            // Deletion failed
+//                                        }
+//                                    }
+//                                });
+//                    }else
+//                    {
+//                        Log.i("MMM", "error");
+//                    }
+//                }
+//            });
+//        }
+//    }
+
     public void DeleteAllDataForStudent(final Context context)
     {
         final FragmentActivity fragmentActivity = (FragmentActivity) context;
         String studentUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference userTable = GetUserTableReference();
         userTable.child(studentUUID).getRef().removeValue();
+
 
         DatabaseReference patientRequestTable = GetStudentsRequestTableReference();
         patientRequestTable.getRef()
@@ -259,22 +330,6 @@ public class FirebaseLogic {
                             studentRequest.getRef().removeValue();
                         }
 
-                        AuthUI.getInstance()
-                                .delete(fragmentActivity)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-                                            context.startActivity(loginActivity);
-                                            StudentRequestListActivity studentActivity = (StudentRequestListActivity) context;
-                                            studentActivity.finishAffinity();
-                                        } else {
-                                            //// TODO: 27/09/2017 error page show
-                                            // Deletion failed
-                                        }
-                                    }
-                                });
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

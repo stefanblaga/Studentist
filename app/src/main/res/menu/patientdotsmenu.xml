@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="menu"
+        android:title="@string/menu_title"
         android:id="@+id/empty"
         android:icon="@drawable/ic_more_vert"
         android:orderInCategory="101"
@@ -12,25 +12,25 @@
                 android:id="@+id/howToPagePatientMenuItem"
                 android:icon="@drawable/ic_help_outline"
                 android:orderInCategory="96"
-                android:title="Cum sa folosesti"
+                android:title="@string/how_to_use_menu_label"
                 app:showAsAction="never" />
             <item
                 android:id="@+id/aboutAppMenuItem"
                 android:icon="@drawable/ic_info_outline"
                 android:orderInCategory="97"
-                android:title="Contact" />
+                android:title="@string/contact_menu_label" />
             <item android:id="@+id/signOutMenuItem"
                 android:orderInCategory="98"
                 android:icon="@drawable/ic_power_settings_new"
-                android:title="Sign out"/>
+                android:title="@string/sign_out_menu_label"/>
             <item android:id="@+id/deleteAccountMenuItem"
                 android:orderInCategory="99"
                 android:icon="@drawable/ic_delete_forever"
-                android:title="Delete account"/>
+                android:title="@string/delete_account_menu_label"/>
             <item android:id="@+id/exitAppMenuItem"
                 android:icon="@drawable/ic_exit_to_app"
                 android:orderInCategory="100"
-                android:title="Iesire"/>
+                android:title="@string/exit_menu_label"/>
 
 
         </menu>

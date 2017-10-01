@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,17 +14,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mario22gmail.vasile.studentist.Patient.DeleteRequestDialog;
-import com.mario22gmail.vasile.studentist.Patient.PatientRequestDetailStudentFoundFragment;
-import com.mario22gmail.vasile.studentist.Patient.PatientRequestDetails;
-import com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity;
+import com.mario22gmail.vasile.studentist.patient.DeleteRequestDialog;
+import com.mario22gmail.vasile.studentist.patient.PatientRequestDetails;
+import com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity;
 import com.mario22gmail.vasile.studentist.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import Helpers.Constants;
-import StudentComponent.StudentRequest;
 
 /**
  * Created by mario on 09/04/2017.
@@ -76,8 +73,7 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
     public PatientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = layoutInflater.inflate(R.layout.requestitemforpatient,parent,false);
-        PatientViewHolder patientViewHolder = new PatientViewHolder(view);
-        return patientViewHolder;
+        return new PatientViewHolder(view);
     }
 
     @Override
@@ -144,13 +140,6 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
                 patientDetailRequest.putExtra(Constants.requestUuidIntentExtraName, request.requestUid);
                 patientDetailRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 holder.contextViewHolder.startActivity(patientDetailRequest);
-
-
-//                Intent patientDetailRequest = new Intent(holder.contextViewHolder, PatientDetailRequest.class);
-//                patientDetailRequest.putExtra(Constants.requestUuidIntentExtraName, request.requestUid);
-//                patientDetailRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                holder.contextViewHolder.startActivity(patientDetailRequest);
-
             }
         });
 

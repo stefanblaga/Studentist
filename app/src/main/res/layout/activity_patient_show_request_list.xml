@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity">
+    tools:context="com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity">
 
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAddPatientRequest"
+        android:visibility="invisible"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_gravity="top|left"
-
+        android:layout_gravity="top|left|end|start"
         android:clickable="true"
         android:src="@drawable/ic_add"
         app:fabSize="normal"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="9dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"></android.support.design.widget.FloatingActionButton>
 
@@ -41,7 +41,7 @@
             android:id="@+id/textViewToolBarPatientRequestList"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Cererile mele"
+            android:text="@string/my_request_title"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -53,36 +53,6 @@
             android:layout_height="50dp"
             android:text="Switch"/>
     </android.support.v7.widget.Toolbar>
-
-    <!--<android.support.design.widget.TabLayout-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="52dp"-->
-        <!--app:tabMode="fixed"-->
-        <!--app:tabSelectedTextColor="@color/blueLight"-->
-        <!--app:tabTextColor="@color/white"-->
-        <!--android:background="@color/colorPrimary"-->
-        <!--app:layout_constraintHorizontal_bias="1.0"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/PatientRequestListToolbar"-->
-        <!--android:id="@+id/tabLayoutPacientList"></android.support.design.widget.TabLayout>-->
-
-    <!--<android.support.v4.view.ViewPager-->
-        <!--android:id="@+id/viewPagerPatientList"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_marginLeft="8dp"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/tabLayoutPacientList"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--app:layout_constraintVertical_bias="1.0"></android.support.v4.view.ViewPager>-->
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/emptyStateConstraintLayout"
@@ -103,7 +73,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/patientEmptyStateImageView"
             android:layout_width="277dp"
             android:layout_height="214dp"
             app:srcCompat="@drawable/patientrequestemptystate"
@@ -125,7 +95,7 @@
             android:layout_marginRight="8dp"
             android:textSize="18sp"
             android:gravity="center"
-            android:text="Hei, sunt aici ca sa te ajut !!!"
+            android:text="@string/patient_empty_state_description1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginBottom="8dp"
@@ -140,11 +110,35 @@
             android:layout_marginRight="8dp"
             android:textSize="18sp"
             android:gravity="center"
-            android:text="Adauga o cerere noua"
+            android:text="@string/patient_empty_state_description2"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView" />
+            app:layout_constraintBottom_toTopOf="@+id/patientEmptyStateImageView" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAddPatientRequestEmptyState"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="top|left|end|start"
+
+            android:clickable="true"
+            android:src="@drawable/ic_add"
+            app:fabSize="normal"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="9dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/patientEmptyStateImageView"></android.support.design.widget.FloatingActionButton>
+
+
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v7.widget.RecyclerView

@@ -1,17 +1,21 @@
 package Helpers;
 
-import android.content.Context;
 import android.net.ConnectivityManager;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 
+import com.mario22gmail.vasile.studentist.ErrorFragment;
 import com.mario22gmail.vasile.studentist.R;
+import com.mario22gmail.vasile.studentist.account.DeleteAccountStudentFragment;
 
 /**
  * Created by mario on 14/04/2017.
  */
 
 public class Constants {
+
+    public static int PhoneNumberMinLength = 8;
 
     public static String studentRequestUUIDExtraName = "studentRequestUUID";
 
@@ -26,6 +30,10 @@ public class Constants {
     public static String LogKey = "MMM_MMM";
 
     public static String DISPLAY_HOW_TO = "display_howTo";
+
+    public static String DISPLAY_Memorium = "display_memorium";
+
+    public static String DISPLAY_MemoriumBool = "display_memorium_key";
 
     public static String DISPLAY_HOW_TO_PATIENT = "display_howTo_patient_key";
 
@@ -86,7 +94,15 @@ public class Constants {
     }
 
     public static void DisplaySnackbarForInternetConnection(View view) {
-            Snackbar.make(view, "Nu esti conectat la internet !", Snackbar.LENGTH_LONG).show();
+            String alertText = view.getResources().getString(R.string.internet_fail_connected_text);
+            Snackbar.make(view, alertText, Snackbar.LENGTH_LONG).show();
+    }
+
+
+    public static void ShowErrorFragment(FragmentManager fragmentManager)
+    {
+        ErrorFragment errorFragment = new ErrorFragment();
+        errorFragment.show(fragmentManager, "delete account dialog");
     }
 
 }

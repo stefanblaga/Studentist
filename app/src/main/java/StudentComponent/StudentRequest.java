@@ -15,7 +15,7 @@ public class StudentRequest {
     public RequestStatus status;
     public String patientUUID;
 
-    public StudentRequest(String studentUUID,String studentTelephoneNumber, String studentRequestUUID,String requestDate, String patientRequestUUID, String patientName, String patientRequestType,String patientUUID, RequestStatus status )
+    public StudentRequest(String studentUUID,String studentTelephoneNumber, String studentRequestUUID,String requestDate, String patientRequestUUID, String patientName, String patientRequestType,String patientUUID)
     {
         this.studentUUID = studentUUID;
         this.studentTel = studentTelephoneNumber;
@@ -25,7 +25,7 @@ public class StudentRequest {
         this.patientName = patientName;
         this.patientRequestType = patientRequestType;
         this.patientUUID = patientUUID;
-        this.status = status;
+        this.status = RequestStatus.Waiting;
     }
 
     public StudentRequest()

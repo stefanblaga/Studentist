@@ -1,48 +1,88 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Studentist</string>
-
     <string name="facebook_application_id" translatable="false">123903511466812</string>
     <!-- Facebook Application ID, prefixed by 'fb'.  Enables Chrome Custom tabs. -->
     <string name="facebook_login_protocol_scheme" translatable="false">fb123903511466812</string>
     <!-- Strings related to login -->
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_patient_make_request">PatientMakeRequestActivity</string>
     <string name="patientDetailRequest_AcceptButton">Am Rezolvat</string>
-    <string name="studentFound_RequestDetail">Am gasit un studentist !!!</string>
-    <string name="helloMarioDemo">Hello <xliff:g id="nameOfUser">%1$s</xliff:g> You have <xliff:g id="temperature">%2$d</xliff:g> </string>
-
+    <string name="studentFound_RequestDetail">Am găsit un studentist !!!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="requestDescriptionLabel">Descriere</string>
     <string name="detailRequestToolbarLabel">Cererea mea</string>
-    <string name="detailRequestForStudentToolbarLabel">Informatii pacient</string>
+    <string name="detailRequestForStudentToolbarLabel">Informații pacient</string>
     <string name="detailsButtonsText">Detalii</string>
-    <string name="waitingStatusCard">In asteptare...</string>
-    <string name="requestRejectedStatusText">Cerere respinsa</string>
-    <string name="requestDeletedStatusText">Cerere stearsa</string>
+    <string name="waitingStatusCard">În așteptare...</string>
+    <string name="requestRejectedStatusText">Cerere respinsă</string>
+    <string name="requestDeletedStatusText">Cerere ștearsă</string>
     <string name="requestResolvedStatusText">Rezolvat</string>
-    <string name="deleteRequestToolbar">Stergere cerere</string>
-    <string name="deleteAccountToolbar">Sterge cont</string>
+    <string name="deleteRequestToolbar">Ștergere cerere</string>
+    <string name="deleteAccountToolbar">Șterge cont</string>
     <string name="requestCariType">Carii</string>
     <string name="requestPainType">Durere</string>
     <string name="requestCleaningType">Igienizare</string>
-    <string name="requestMissingToothType">Lucrari</string>
+    <string name="requestMissingToothType">Lucrări</string>
     <string name="chooseRequestTypeLabel">Alege o categorie</string>
-    <string name="howToStudentOneDescription">Hai sa-ti gasim pacienti!</string>
-    <string name="howToStudentTwoDescription">Alege din lista de cereri ce categorie doresti sa rezolvi</string>
-    <string name="howToStudentThreeDescription">Odata ce ai aplicat, poti suna pacientul si stabili o intalnire</string>
-    <string name="howToStudentForthDescription">Poti aplica la 2 pacienti pe zi</string>
-    <string name="howToPatientOneDescription">Dorim sa-ti rezolvam problemele dentare!</string>
-    <string name="howToPatientTwoDescription">Adauga o cerere apasand butonul albastru din coltul din dreapta</string>
-    <string name="howToPatientThreeDescription">Dupa ce a aplicat un studentist, poti apasa detalii si contacta studentistul</string>
-    <string name="howToPatientForthDescription">Apasa AM REZOLVAT pentru a sterge postarea, sau NU AM REZOLVAT pentru a reactiva anuntul</string>
+    <string name="howToStudentOneDescription">Hai să-ți găsim pacienți!</string>
+    <string name="howToStudentTwoDescription">Alege din lista de cereri ce categorie dorești să rezolvi</string>
+    <string name="howToStudentThreeDescription">Odată ce ai aplicat, poți suna pacientul și stabili o întâlnire</string>
+    <string name="howToStudentForthDescription">Poți aplica la 2 pacienți pe zi</string>
+    <string name="howToPatientOneDescription">Dorim să-ți rezolvăm problemele dentare!</string>
+    <string name="howToPatientTwoDescription">Adaugă o cerere apăsând butonul albastru din colțul din dreapta</string>
+    <string name="howToPatientThreeDescription">După ce a aplicat un studentist, poți apăsa detalii și contacta studentistul</string>
+    <string name="howToPatientForthDescription">Apasă AM REZOLVAT pentru a șterge postarea, sau NU AM REZOLVAT pentru a reactiva anunțul</string>
     <string name="title_activity_student_request_details">StudentRequestDetailsActivity</string>
-    <string name="student_can_apply_tomorrow">Maine e o noua zi</string>
-    <string name="deleteRequestButtonText">Sterge</string>
-    <string name="student_cant_apply_message">Nu mai poti aplica astazi pentru pacienti</string>
-    <string name="apply_button_text">Aplica</string>
-    <string name="nothing_found_message">Nu am gasit nimic</string>
+    <string name="student_can_apply_tomorrow">Mâine e o nouă zi</string>
+    <string name="deleteRequestButtonText">Șterge</string>
+    <string name="student_cant_apply_message">Nu mai poți aplica astăzi pentru pacienți</string>
+    <string name="apply_button_text">Aplică</string>
+    <string name="nothing_found_message">Nu am găsit nimic</string>
     <string name="studentist_name">Studentist</string>
-
+    <string name="about_you_text">Informații despre tine</string>
+    <string name="create_account_name_label">Nume*</string>
+    <string name="create_account_phone_label">Vreau sa fiu contactat la numărul*</string>
+    <string name="create_account_done_button_text">Gata</string>
+    <string name="create_account_patient_type_message">Am probleme dentare</string>
+    <string name="create_account_student_type_label">Sunt student/ă la medicină dentară</string>
+    <string name="add_request_tel_label">Vreau sa fiu contactat la numărul*</string>
+    <string name="add_request_send_button_text">Trimite</string>
+    <string name="add_request_description">Trimite o cerere și un Studentist te va contacta în cel mai scurt timp</string>
+    <string name="add_request_extra_info_label">Informații suplimentare (optional)</string>
+    <string name="my_request_title">Cererile mele</string>
+    <string name="patient_empty_state_description1">Hei, sunt aici ca să te ajut !!!</string>
+    <string name="patient_empty_state_description2">Adaugă o cerere nouă</string>
+    <string name="city_name">Timisoara</string>
+    <string name="yes_label">Da</string>
+    <string name="no_label">Nu</string>
+    <string name="student_applied_label">Un student a aplicat !</string>
+    <string name="delete_request_label">Dorești să ștergi cererea ?</string>
+    <string name="our_mission_label">- Misiunea noastră -</string>
+    <string name="about_description">Să punem în contact studenții de la medicină dentară cu oamenii care doresc servicii medicale</string>
+    <string name="about_disclaimer">Applicația \'Studentist\' nu oferă servicii medicale și nu își asumă nici o responsabilitate privind efectuarea acestor servicii</string>
+    <string name="gmail_account">studentist.app@gmail.com</string>
+    <string name="fb_page">https://www.facebook.com/studentistul</string>
+    <string name="close_description">Închide</string>
+    <string name="student_empty_state_description">Ne pare rău, nu există cereri active</string>
+    <string name="delete_account_label">Dorești să ștergi contul ?</string>
+    <string name="back_to_main_list_label">Înapoi la listă</string>
+    <string name="description_label">Descriere:</string>
+    <string name="request_not_resolved_label">Nu am rezolvat</string>
+    <string name="request_resolved_label">Am rezolvat</string>
+    <string name="menu_title">menu</string>
+    <string name="how_to_use_menu_label">Cum să folosești</string>
+    <string name="contact_menu_label">Contact</string>
+    <string name="sign_out_menu_label">Deconectare</string>
+    <string name="delete_account_menu_label">Ștergere cont</string>
+    <string name="exit_menu_label">Ieșire</string>
+    <string name="close_dialog_text">Inchide</string>
+    <string name="request_description_label">Descriere:</string>
+    <string name="data_label">Data :</string>
+    <string name="request_details_button_label">Detalii</string>
+    <string name="wait_for_student_request_label">Așteptăm un studentist...</string>
+    <string name="request_phone_label">Telefon:</string>
+    <string name="tell_more_about_label">Spune-ți părerea pe :</string>
+    <string name="available_only_Tm">Disponibil momentan doar in Timișoara</string>
+    <string name="internet_fail_connected_text">Nu ești conectat la internet !</string>
 </resources>

@@ -28,6 +28,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/imgdurere"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="8dp" />
@@ -39,8 +40,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
-                android:text="Control"
+                android:text="@string/requestPainType"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toRightOf="@+id/request_icon_description"
@@ -54,6 +56,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="@color/fui_transparent"
                 android:src="@drawable/ic_cancel"
                 app:layout_constraintRight_toRightOf="parent"
@@ -66,8 +69,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:gravity="center_vertical"
-                android:text="Descriere:"
+                android:text="@string/request_description_label"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/request_icon_description" />
@@ -78,10 +82,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="text"
+                android:text=""
                 app:layout_constraintLeft_toRightOf="@+id/patientRequestItemDescriptionLabel"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/request_icon_description" />
@@ -90,11 +95,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:text="Data :"
+                android:text="@string/data_label"
                 android:id="@+id/textView2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintLeft_toLeftOf="parent" />
 
             <TextView
@@ -103,8 +109,9 @@
                 android:layout_height="20dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:gravity="center_vertical"
-                android:text="text"
+                android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/textView2" />
 
@@ -120,10 +127,11 @@
                 android:paddingRight="@dimen/paddingButtons"
                 android:paddingEnd="@dimen/paddingButtons"
                 android:paddingStart="@dimen/paddingButtons"
-                android:text="Detalii"
+                android:text="@string/request_details_button_label"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
@@ -131,12 +139,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                android:text="Asteptam un studentist..."
+                android:text="@string/wait_for_student_request_label"
                 android:textColor="@color/alertColor"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/patientRequestItemType"
                 app:layout_constraintLeft_toRightOf="@+id/request_icon_description"
-                android:layout_marginLeft="24dp" />
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                />
 
 
             <TextView
@@ -144,21 +154,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                android:text="Un studentist a aplicat"
+                android:text="@string/student_applied_label"
                 android:textColor="@color/greenCall"
                 android:layout_marginTop="8dp"
                 app:layout_constraintTop_toBottomOf="@+id/patientRequestItemType"
                 app:layout_constraintLeft_toRightOf="@+id/request_icon_description"
-                android:layout_marginLeft="24dp" />
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                />
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="54dp"
                 android:layout_height="17dp"
-                android:text="Telefon:"
+                android:text="@string/request_phone_label"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/textView2"
                 android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 app:layout_constraintLeft_toLeftOf="parent" />
 
             <TextView
@@ -167,7 +180,8 @@
                 android:layout_height="17dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="4dp"
-                android:text="0724916975"
+                android:layout_marginStart="4dp"
+                android:text=""
                 app:layout_constraintBottom_toTopOf="@+id/patientRequestItemDate"
                 app:layout_constraintLeft_toRightOf="@+id/textView11" />
 

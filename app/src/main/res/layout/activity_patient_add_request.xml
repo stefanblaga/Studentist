@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mario22gmail.vasile.studentist.Patient.PatientAddRequest">
+    tools:context="com.mario22gmail.vasile.studentist.patient.PatientAddRequest">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -53,37 +53,11 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:gravity="center_vertical"
-            android:text="Carii"
+            android:text="@string/requestCariType"
             android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/add_request_img_type" />
-
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/add_request_Tel_TextLayout"
-            android:layout_width="330dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:theme="@style/TextLabel"
-            app:errorEnabled="true"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_request_Name_TextLayout">
-
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/add_request_pacient_tel_EditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Numar de telefon*"
-                android:inputType="number"
-                android:paddingBottom="8dp"
-                android:paddingTop="16dp" />
-        </android.support.design.widget.TextInputLayout>
 
 
         <Button
@@ -97,7 +71,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/roundbuttoncategoryiconsstyle"
-            android:text="Trimite"
+            android:text="@string/add_request_send_button_text"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -116,7 +90,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="Trimite o cerere si un Studentist te va contacta in cel mai scurt timp"
+            android:text="@string/add_request_description"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -124,7 +98,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/add_request_Name_TextLayout"
-            android:layout_width="330dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
@@ -141,7 +115,7 @@
                 android:id="@+id/add_request_Name_EditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Nume*"
+                android:hint="@string/create_account_name_label"
                 android:imeOptions="actionNext"
                 android:inputType="textNoSuggestions"
                 android:lines="1" />
@@ -149,7 +123,7 @@
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/add_request_Info_TextLayout"
-            android:layout_width="330dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -164,14 +138,39 @@
                 android:id="@+id/add_request_Info_EditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Informatii suplimentare (optional)"
-                android:inputType="text"
-                android:scrollHorizontally="false"
+                android:hint="@string/add_request_extra_info_label"
                 android:imeOptions="actionDone"
+                android:inputType="text"
                 android:lines="3"
-                android:maxLines="3"
                 android:maxLength="120"
-               />
+                android:maxLines="3"
+                android:scrollHorizontally="false" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/add_request_Tel_TextLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:theme="@style/TextLabel"
+            app:errorEnabled="true"
+            app:layout_constraintHorizontal_bias="0.523"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_request_Name_TextLayout">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/add_request_pacient_tel_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/add_request_tel_label"
+                android:inputType="number"
+                android:paddingBottom="8dp"
+                android:paddingTop="16dp" />
         </android.support.design.widget.TextInputLayout>
 
 

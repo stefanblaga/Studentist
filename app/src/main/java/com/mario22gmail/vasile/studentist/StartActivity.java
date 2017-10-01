@@ -14,18 +14,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.mario22gmail.vasile.studentist.Account.CreateProfileActivity;
-import com.mario22gmail.vasile.studentist.Account.LoginActivity;
-import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUsePatientActivity;
-import com.mario22gmail.vasile.studentist.HowToPage.Patient.HowToUseStudent;
-import com.mario22gmail.vasile.studentist.Patient.PatientShowRequestListActivity;
-import com.mario22gmail.vasile.studentist.Student.StudentRequestListActivity;
-
-import org.w3c.dom.Text;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.mario22gmail.vasile.studentist.account.CreateProfileActivity;
+import com.mario22gmail.vasile.studentist.account.LoginActivity;
+import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
+import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
+import com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity;
+import com.mario22gmail.vasile.studentist.student.StudentRequestListActivity;
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
@@ -53,10 +54,22 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_Memorium, MODE_PRIVATE);
+        boolean showMemoriumPage = sp.getBoolean(Constants.DISPLAY_MemoriumBool,true);
+        if(showMemoriumPage == true)
+        {
+            Intent memoriumPage = new Intent(getApplicationContext(),MemoriumActivity.class);
+            startActivity(memoriumPage);
+            finish();
+            return;
+        }
+
+
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
 
-        snackbarInternetConnection = Snackbar.make(mainLayout, "Verifica conexiunea la internet", Snackbar.LENGTH_INDEFINITE);
+        String notConnectedText = getResources().getString(R.string.internet_fail_connected_text);
+        snackbarInternetConnection = Snackbar.make(mainLayout, notConnectedText, Snackbar.LENGTH_INDEFINITE);
         snackbarInternetConnection.setAction("Activate", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +82,6 @@ public class StartActivity extends AppCompatActivity {
         //set title
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/mainfont.ttf");
         logoTitle.setTypeface(custom_font);
-        logoTitle.setText("Studentist");
 
         cityNameTextView.setTypeface(custom_font);
     }
@@ -93,8 +105,6 @@ public class StartActivity extends AppCompatActivity {
         super.onDestroy();
         Log.i(Constants.LogKey,"entered on destroy");
         handler.removeCallbacks(_networkRunnable);
-
-
     }
 
     final private Runnable _networkRunnable = new Runnable() {
@@ -163,18 +173,18 @@ public class StartActivity extends AppCompatActivity {
                 public void run() {
                     Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(loginActivity);
+                    finish();
                 }
             }, 1000);
             return;
         }
-
+        String providerName =  auth.getCurrentUser().getProviderData().
+                get(auth.getCurrentUser().getProviderData().size() -1).getProviderId();
+        Log.i("MMM", "Last Provider " + providerName);
         Log.i("MMM", "UserApp autentificat cu numarul " + auth.getCurrentUser().getProviderId());
         Log.i("MMM", "UserApp autentificat cu uid " + auth.getCurrentUser().getUid());
         Log.i("MMM", "UserApp autentificat cu email " + auth.getCurrentUser().getEmail());
         Log.i("MMM", "UserApp autentificat cu display name " + auth.getCurrentUser().getDisplayName());
-//                auth.getCurrentUser().getUid()
-//                auth.signOut();
-//                LoginManager.getInstance().logOut();
 
 
         final String userUid = auth.getCurrentUser().getUid();
@@ -186,21 +196,28 @@ public class StartActivity extends AppCompatActivity {
                     Intent createUserActivity = new Intent(getApplicationContext(), CreateProfileActivity.class);
                     startActivity(createUserActivity);
                     finish();
+                    return;
                 } else {
                     UserApp user = dataSnapshot.child(userUid).getValue(UserApp.class);
                     if(user.appVersion == null || !user.appVersion.equals(Constants.APP_VERSION))
                     {
                         user.appVersion = Constants.APP_VERSION;
-                        dataSnapshot.child(userUid).getRef().setValue(user);
                     }
 
+                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                    if(user.deviceToken != null && !user.deviceToken.equals(deviceToken))
+                    {
+                        user.deviceToken = deviceToken;
+                    }
+                    dataSnapshot.child(userUid).getRef().setValue(user);
                     StartRightActivity(user);
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Constants.ShowErrorFragment(getSupportFragmentManager());
+                return;
             }
         });
     }
@@ -220,7 +237,7 @@ public class StartActivity extends AppCompatActivity {
                 Intent patientActivitity = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
                 patientActivitity.putExtra("uid", user.uid);
                 startActivity(patientActivitity);
-                //// TODO: 30/06/2017 pune finish
+                finish();
                 break;
             case "student":
                 boolean showHowToStudentPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_STUDENT,true);
@@ -234,8 +251,11 @@ public class StartActivity extends AppCompatActivity {
                 Intent studentActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
                 studentActivity.putExtra("uid", user.uid);
                 startActivity(studentActivity);
-                //// TODO: 30/06/2017 pune finish
+                finish();
                 break;
+            default:
+                Constants.ShowErrorFragment(getSupportFragmentManager());
+                return;
         }
     }
 }

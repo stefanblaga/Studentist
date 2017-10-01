@@ -7,6 +7,7 @@
     <color name="cyanLight">#009688</color>
     <color name="blueLight">#03A9F4</color>
     <color name="blue">#42A5F5</color>
+    <color name="black">#000000</color>
     <color name="grey">#fafafa</color>
     <color name="textColorGrey">#757575</color>
     <color name="grey300">#E0E0E0</color>

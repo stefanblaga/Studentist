@@ -14,7 +14,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="- Misiunea noastra -"
+        android:text="@string/our_mission_label"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -28,7 +28,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Sa punem in contact studentii de la medicina dentara cu oamenii din Timisoara"
+        android:text="@string/about_description"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
@@ -38,20 +38,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/fblogo"
-        android:layout_marginLeft="32dp"
+        android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/logogmail"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        android:layout_marginLeft="32dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <TextView
         android:id="@+id/textView14"
@@ -60,11 +60,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Applicatia 'Studentist' nu ofera servicii medicale si nu isi asuma nici o responsabilitate privind efectuarea acestor servicii"
+        android:text="@string/about_disclaimer"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
         android:id="@+id/gmailLinkTextView"
@@ -72,8 +73,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="studentist.app@gmail.com"
+        android:text="@string/gmail_account"
         android:textColor="@color/blue"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintLeft_toRightOf="@+id/imageView5"
@@ -85,10 +87,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="www.facebook.com"
-        android:linksClickable="true"
-        android:autoLink="web"
+        android:textSize="14sp"
+        android:layout_marginRight="16dp"
+        android:text="@string/fb_page"
         android:textColor="@color/blue"
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintLeft_toRightOf="@+id/imageView4"
@@ -98,14 +101,37 @@
         android:id="@+id/aboutCloseDialogButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Inchide"
+        android:text="@string/close_description"
         android:textColor="@color/blue"
         android:background="@color/fui_transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/gmailLinkTextView" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tell_more_about_label"
+        android:layout_marginTop="9dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/available_only_Tm"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
 </android.support.constraint.ConstraintLayout>

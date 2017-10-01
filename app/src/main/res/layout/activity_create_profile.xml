@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
-    tools:context="com.mario22gmail.vasile.studentist.Account.CreateProfileActivity">
+    tools:context="com.mario22gmail.vasile.studentist.account.CreateProfileActivity">
 
 
     <TextView
@@ -16,7 +16,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="48dp"
         android:gravity="center"
-        android:text="Informatii despre tine"
+        android:text="@string/about_you_text"
         android:textSize="23sp"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,7 +25,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/user_create_name_TextInput"
-        android:layout_width="330dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -43,7 +43,7 @@
             android:id="@+id/user_create_name_EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nume*"
+            android:hint="@string/create_account_name_label"
             android:inputType="text"
             android:maxLength="50"
             android:paddingBottom="8dp"
@@ -52,7 +52,7 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/user_create_tel_TextInput"
-        android:layout_width="330dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -69,7 +69,7 @@
             android:id="@+id/user_create_tel_nr_EditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Numar de telefon*"
+            android:hint="@string/create_account_phone_label"
             android:inputType="number"
             android:paddingBottom="8dp"
             android:paddingTop="16dp" />
@@ -84,7 +84,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/amber"
-        android:text="Gata"
+        android:text="@string/create_account_done_button_text"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,61 +106,48 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/radioGroupType" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Am probleme dentare"
-        android:textSize="20dp"
-        app:layout_constraintRight_toLeftOf="@+id/radioGroupType"
-        app:layout_constraintTop_toTopOf="@+id/radioGroupType" />
-
-
-
 
     <RadioGroup
         android:id="@+id/radioGroupType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_create_tel_TextInput">
 
         <RadioButton
             android:id="@+id/radioPatient"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginBottom="8dp"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeTextType="uniform"
             android:buttonTint="@color/blueLight"
             android:checked="false"
-            android:textSize="14dp" />
+            android:text="@string/create_account_patient_type_message"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radioStudent"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeMinTextSize="10sp"
+            android:autoSizeTextType="uniform"
             android:buttonTint="@color/blueLight"
             android:checked="false"
-            android:textSize="14dp" />
-    </RadioGroup>
 
-    <TextView
-        android:id="@+id/textView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:layout_marginRight="8dp"
-        android:text="Sunt un studentist"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/radioGroupType"
-        app:layout_constraintRight_toLeftOf="@+id/radioGroupType" />
+            android:text="@string/create_account_student_type_label"
+            android:textSize="20sp" />
+    </RadioGroup>
 
 
 </android.support.constraint.ConstraintLayout>
