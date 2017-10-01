@@ -185,10 +185,6 @@ public class PatientShowRequestListActivity extends AppCompatActivity {
                             }
                         });
                         return true;
-                    case R.id.deleteAccountMenuItem:
-                        DeleteAccountFragment deleteAccountFragment = new DeleteAccountFragment();
-                        deleteAccountFragment.show(getSupportFragmentManager(), "delete account dialog");
-                        return true;
                     case R.id.exitAppMenuItem:
                         finishAffinity();
                         return true;

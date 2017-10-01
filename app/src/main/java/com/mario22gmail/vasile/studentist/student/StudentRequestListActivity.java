@@ -132,10 +132,6 @@ public class StudentRequestListActivity extends AppCompatActivity {
                             }
                         });
                         return true;
-                    case R.id.deleteAccountMenuItem:
-                        DeleteAccountStudentFragment deleteAccountFragment = new DeleteAccountStudentFragment();
-                        deleteAccountFragment.show(getSupportFragmentManager(), "delete account dialog");
-                        return true;
                     case R.id.exitAppMenuItem:
                         finishAffinity();
                         return true;

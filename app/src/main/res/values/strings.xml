@@ -70,7 +70,7 @@
     <string name="contact_menu_label">Contact</string>
     <string name="sign_out_menu_label">Deconectare</string>
     <string name="delete_account_menu_label">Ștergere cont</string>
-    <string name="exit_menu_label">Ieșire</string>
+    <string name="exit_menu_label">Ieșire din aplicație</string>
     <string name="close_dialog_text">Inchide</string>
     <string name="request_description_label">Descriere:</string>
     <string name="data_label">Data :</string>

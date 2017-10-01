@@ -23,13 +23,9 @@
                 android:orderInCategory="98"
                 android:icon="@drawable/ic_power_settings_new"
                 android:title="@string/sign_out_menu_label"/>
-            <item android:id="@+id/deleteAccountMenuItem"
-                android:orderInCategory="99"
-                android:icon="@drawable/ic_delete_forever"
-                android:title="@string/delete_account_menu_label"/>
             <item android:id="@+id/exitAppMenuItem"
                 android:icon="@drawable/ic_exit_to_app"
-                android:orderInCategory="100"
+                android:orderInCategory="99"
                 android:title="@string/exit_menu_label"/>
 
 

@@ -30,8 +30,8 @@ public class PatientRequestDetails extends AppCompatActivity {
         toolbar.setTitle(R.string.detailRequestToolbarLabel);
         int white = ContextCompat.getColor(getApplicationContext(), R.color.white);
         toolbar.setTitleTextColor(white);
+        setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
-            setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
