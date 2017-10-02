@@ -23,8 +23,6 @@ import com.mario22gmail.vasile.studentist.account.CreateProfileActivity;
 import com.mario22gmail.vasile.studentist.account.LoginActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
-import com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity;
-import com.mario22gmail.vasile.studentist.student.StudentRequestListActivity;
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
@@ -53,10 +51,9 @@ public class StartActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_Memorium, MODE_PRIVATE);
-        boolean showMemoriumPage = sp.getBoolean(Constants.DISPLAY_MemoriumBool,true);
-        if(showMemoriumPage)
-        {
-            Intent memoriumPage = new Intent(getApplicationContext(),MemoriumActivity.class);
+        boolean showMemoriumPage = sp.getBoolean(Constants.DISPLAY_MemoriumBool, true);
+        if (showMemoriumPage) {
+            Intent memoriumPage = new Intent(getApplicationContext(), MemoriumActivity.class);
             startActivity(memoriumPage);
             finish();
             return;
@@ -87,13 +84,13 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(Constants.LogKey,"entered on pause");
+        Log.i(Constants.LogKey, "entered on pause");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i(Constants.LogKey,"entered on destroy");
+        Log.i(Constants.LogKey, "entered on destroy");
         handler.removeCallbacks(_networkRunnable);
 
     }
@@ -101,7 +98,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(Constants.LogKey,"entered on destroy");
+        Log.i(Constants.LogKey, "entered on destroy");
         handler.removeCallbacks(_networkRunnable);
     }
 
@@ -112,8 +109,7 @@ public class StartActivity extends AppCompatActivity {
             if (_checkingInternetConnection) {
                 _isConnectedToInternet = isNetworkAvailable();
                 DisplayViewBasedOnNetworkState(_isConnectedToInternet);
-                if(_isConnectedToInternet)
-                {
+                if (_isConnectedToInternet) {
                     Log.i(Constants.LogKey, "Runnable removed");
                     handler.removeCallbacks(this);
                 }
@@ -147,17 +143,14 @@ public class StartActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.i(Constants.LogKey, "On resume entered");
-        if(!isNetworkAvailable()) {
+        if (!isNetworkAvailable()) {
             _checkingInternetConnection = true;
             _isConnectedToInternet = false;
             handler.postDelayed(_networkRunnable, 2000);
-        }else
-        {
+        } else {
             handler.removeCallbacks(_networkRunnable);
             GetUserFromFirebase();
         }
-
-
 
 
     }
@@ -176,8 +169,8 @@ public class StartActivity extends AppCompatActivity {
             }, 1000);
             return;
         }
-        String providerName =  auth.getCurrentUser().getProviderData().
-                get(auth.getCurrentUser().getProviderData().size() -1).getProviderId();
+        String providerName = auth.getCurrentUser().getProviderData().
+                get(auth.getCurrentUser().getProviderData().size() - 1).getProviderId();
         Log.i("MMM", "Last Provider " + providerName);
         Log.i("MMM", "UserApp autentificat cu numarul " + auth.getCurrentUser().getProviderId());
         Log.i("MMM", "UserApp autentificat cu uid " + auth.getCurrentUser().getUid());
@@ -196,19 +189,16 @@ public class StartActivity extends AppCompatActivity {
                     finish();
                 } else {
                     UserApp user = dataSnapshot.child(userUid).getValue(UserApp.class);
-                    if(user == null)
-                    {
+                    if (user == null) {
                         Constants.ShowErrorFragment(getSupportFragmentManager());
                         return;
                     }
-                    if(user.appVersion == null || !user.appVersion.equals(Constants.APP_VERSION))
-                    {
+                    if (user.appVersion == null || !user.appVersion.equals(Constants.APP_VERSION)) {
                         user.appVersion = Constants.APP_VERSION;
                     }
 
                     String deviceToken = FirebaseInstanceId.getInstance().getToken();
-                    if(user.deviceToken != null && !user.deviceToken.equals(deviceToken))
-                    {
+                    if (user.deviceToken != null && !user.deviceToken.equals(deviceToken)) {
                         user.deviceToken = deviceToken;
                     }
                     dataSnapshot.child(userUid).getRef().setValue(user);
@@ -224,34 +214,36 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void StartRightActivity(UserApp user) {
+
+
         final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
+        Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
         switch (user.role) {
             case "patient":
-                boolean showHowToPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_PATIENT,true);
-                if(showHowToPage)
-                {
-                    Intent howToPatientActivity= new Intent(getApplicationContext(), HowToUsePatientActivity.class);
+                boolean showHowToPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_PATIENT, true);
+                if (showHowToPage) {
+                    Intent howToPatientActivity = new Intent(getApplicationContext(), HowToUsePatientActivity.class);
                     startActivity(howToPatientActivity);
                     finish();
                     return;
                 }
-                Intent patientActivitity = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
-                patientActivitity.putExtra("uid", user.uid);
-                startActivity(patientActivitity);
+
+                navActivity.putExtra("uid", user.uid);
+                navActivity.putExtra(Constants.UserTypeKey, user.role);
+                startActivity(navActivity);
                 finish();
                 break;
             case "student":
-                boolean showHowToStudentPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_STUDENT,true);
-                if(showHowToStudentPage)
-                {
-                    Intent howToStudentActivity= new Intent(getApplicationContext(), HowToUseStudent.class);
+                boolean showHowToStudentPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_STUDENT, true);
+                if (showHowToStudentPage) {
+                    Intent howToStudentActivity = new Intent(getApplicationContext(), HowToUseStudent.class);
                     startActivity(howToStudentActivity);
                     finish();
                     return;
                 }
-                Intent studentActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
-                studentActivity.putExtra("uid", user.uid);
-                startActivity(studentActivity);
+                navActivity.putExtra("uid", user.uid);
+                navActivity.putExtra(Constants.UserTypeKey, user.role);
+                startActivity(navActivity);
                 finish();
                 break;
             default:

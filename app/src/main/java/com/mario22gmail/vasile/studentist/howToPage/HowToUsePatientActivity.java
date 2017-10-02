@@ -11,7 +11,8 @@ import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder;
 import com.github.paolorotolo.appintro.model.SliderPage;
-import com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity;
+import com.mario22gmail.vasile.studentist.MainNavigationActivity;
+import com.mario22gmail.vasile.studentist.patient.PatientMainFragment;
 import com.mario22gmail.vasile.studentist.R;
 
 import Helpers.Constants;
@@ -78,9 +79,9 @@ public class HowToUsePatientActivity extends AppIntro {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         // Do something when users tap on Skip button.
-        Intent patientListActivity = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
-        startActivity(patientListActivity);
-       // super.onSkipPressed(currentFragment);
+        Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
+        navActivity.putExtra(Constants.UserTypeKey, "patient");
+        startActivity(navActivity);
 
         finish();
     }
@@ -94,8 +95,9 @@ public class HowToUsePatientActivity extends AppIntro {
         final SharedPreferences.Editor pendingEdits = sp.edit().putBoolean(Constants.DISPLAY_HOW_TO_PATIENT, false);
         pendingEdits.apply();
 
-        Intent patientListActivity = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
-        startActivity(patientListActivity);
+        Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
+        navActivity.putExtra(Constants.UserTypeKey, "patient");
+        startActivity(navActivity);
         finish();
     }
 

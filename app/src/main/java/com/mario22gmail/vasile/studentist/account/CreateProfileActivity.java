@@ -25,9 +25,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
-import com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity;
+import com.mario22gmail.vasile.studentist.patient.PatientMainFragment;
 import com.mario22gmail.vasile.studentist.R;
-import com.mario22gmail.vasile.studentist.student.StudentRequestListActivity;
+import com.mario22gmail.vasile.studentist.student.StudentMainFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -208,7 +208,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                         finish();
                         return;
                     }
-                    Intent patientActivitity = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
+                    Intent patientActivitity = new Intent(getApplicationContext(), PatientMainFragment.class);
                     patientActivitity.putExtra("uid", user.uid);
                     startActivity(patientActivitity);
                     finish();
@@ -221,7 +221,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                         finish();
                         return;
                     }
-                    Intent studentActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
+                    Intent studentActivity = new Intent(getApplicationContext(), StudentMainFragment.class);
                     studentActivity.putExtra("uid", user.uid);
                     startActivity(studentActivity);
                     finish();

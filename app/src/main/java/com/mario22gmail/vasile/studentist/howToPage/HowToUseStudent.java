@@ -11,8 +11,9 @@ import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder;
 import com.github.paolorotolo.appintro.model.SliderPage;
+import com.mario22gmail.vasile.studentist.MainNavigationActivity;
 import com.mario22gmail.vasile.studentist.R;
-import com.mario22gmail.vasile.studentist.student.StudentRequestListActivity;
+import com.mario22gmail.vasile.studentist.student.StudentMainFragment;
 
 import Helpers.Constants;
 
@@ -69,8 +70,9 @@ public class HowToUseStudent extends AppIntro {
         final SharedPreferences.Editor pendingEdits = sp.edit().putBoolean(Constants.DISPLAY_HOW_TO_STUDENT, false);
         pendingEdits.apply();
 
-        Intent studentListActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
-        startActivity(studentListActivity);
+        Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
+        navActivity.putExtra(Constants.UserTypeKey, "student");
+        startActivity(navActivity);
         finish();
     }
 
@@ -78,8 +80,9 @@ public class HowToUseStudent extends AppIntro {
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
 
-        Intent studentListActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
-        startActivity(studentListActivity);
+        Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
+        navActivity.putExtra(Constants.UserTypeKey, "student");
+        startActivity(navActivity);
         finish();
     }
 

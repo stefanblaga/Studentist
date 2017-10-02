@@ -3,6 +3,7 @@ package com.mario22gmail.vasile.studentist.student.studentRequests;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mario22gmail.vasile.studentist.R;
-import com.mario22gmail.vasile.studentist.student.StudentRequestListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +28,13 @@ public class StudentRequestsAdapter extends RecyclerView.Adapter<StudentAppliedR
     LayoutInflater layoutInflater;
     List<StudentRequest> studentRequestList = new ArrayList<StudentRequest>();
     Context _context;
+    FragmentManager _fragmentManager;
 
 
-    public StudentRequestsAdapter(Context context) {
+    public StudentRequestsAdapter(Context context, FragmentManager fragmentManager) {
 
         _context = context;
+        _fragmentManager = fragmentManager;
         layoutInflater = LayoutInflater.from(context);
     }
 
@@ -125,13 +127,12 @@ public class StudentRequestsAdapter extends RecyclerView.Adapter<StudentAppliedR
         holder.buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StudentRequestListActivity activity = (StudentRequestListActivity) _context;
                 Bundle bundleForFragment = new Bundle();
                 bundleForFragment.putString(Constants.studentRequestUUIDExtraName, studentRequest.studentRequestUUID);
                 bundleForFragment.putString(Constants.studentUUIDBundleKey, studentRequest.studentUUID);
                 DeleteStudentRequestDialog deleteRequestDialog = new DeleteStudentRequestDialog();
                 deleteRequestDialog.setArguments(bundleForFragment);
-                deleteRequestDialog.show(activity.getSupportFragmentManager(), "delete dialog");
+                deleteRequestDialog.show(_fragmentManager, "delete dialog");
 
             }
         });

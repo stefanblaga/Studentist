@@ -17,6 +17,7 @@
     <string name="deleteRequestToolbar">Ștergere cerere</string>
     <string name="deleteAccountToolbar">Șterge cont</string>
     <string name="requestCariType">Carii</string>
+    <string name="myProfileLabel">Profilul meu</string>
     <string name="requestPainType">Durere</string>
     <string name="requestCleaningType">Igienizare</string>
     <string name="requestMissingToothType">Lucrări</string>
@@ -43,6 +44,8 @@
     <string name="create_account_student_type_label">Sunt student/ă la medicină dentară</string>
     <string name="add_request_tel_label">Vreau sa fiu contactat la numărul*</string>
     <string name="add_request_send_button_text">Trimite</string>
+    <string name="save_changes_button_text">Salvează</string>
+    <string name="change_account_label_toolbar">Informații cont</string>
     <string name="add_request_description">Trimite o cerere și un Studentist te va contacta în cel mai scurt timp</string>
     <string name="add_request_extra_info_label">Informații suplimentare (optional)</string>
     <string name="my_request_title">Cererile mele</string>
@@ -67,7 +70,7 @@
     <string name="request_resolved_label">Am rezolvat</string>
     <string name="menu_title">menu</string>
     <string name="how_to_use_menu_label">Cum să folosești</string>
-    <string name="contact_menu_label">Contact</string>
+    <string name="contact_menu_label">Despre</string>
     <string name="sign_out_menu_label">Deconectare</string>
     <string name="delete_account_menu_label">Ștergere cont</string>
     <string name="exit_menu_label">Ieșire din aplicație</string>
@@ -90,7 +93,13 @@
     <string name="howToStudentPageTwoTitle">Alege un pacient</string>
     <string name="howToStudentPageThreeTitle">Contactează pacientul</string>
     <string name="howToStudentPageFourTitle">Nu-i lua pe toți !</string>
+    <string name="title_activity_main_navigation">MainNavigationActivity</string>
+    <string name="communicateTitle">Spune-ți părerea</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 
 </resources>
