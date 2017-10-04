@@ -23,11 +23,6 @@
             android:layout_marginLeft="0dp"
             app:layout_constraintLeft_toLeftOf="parent">
 
-            <Switch
-                android:id="@+id/SwitchRoles"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="Switch"/>
         </android.support.v7.widget.Toolbar>
 
     <include

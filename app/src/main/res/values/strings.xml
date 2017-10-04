@@ -32,7 +32,7 @@
     <string name="howToPatientForthDescription">Apasă AM REZOLVAT pentru a șterge postarea, sau NU AM REZOLVAT pentru a reactiva anunțul</string>
     <string name="student_can_apply_tomorrow">Mâine e o nouă zi</string>
     <string name="deleteRequestButtonText">Șterge</string>
-    <string name="student_cant_apply_message">Nu mai poți aplica astăzi pentru pacienți</string>
+    <string name="student_cant_apply_message">Nu mai poți contacta astăzi pacienți</string>
     <string name="apply_button_text">Contactează</string>
     <string name="nothing_found_message">Nu am găsit nimic</string>
     <string name="studentist_name">Studentist</string>

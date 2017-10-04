@@ -53,8 +53,6 @@ public class StudentMainFragment extends Fragment {
     @BindView(R.id.studentListActivityViewPager)
     ViewPager mainViewPager;
 
-    @BindView(R.id.userNameNavigationDrawerTextView)
-    TextView UserNameNavTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

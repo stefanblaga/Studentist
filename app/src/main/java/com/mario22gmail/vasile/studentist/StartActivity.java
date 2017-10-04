@@ -194,14 +194,13 @@ public class StartActivity extends AppCompatActivity {
                         return;
                     }
                     if (user.appVersion == null || !user.appVersion.equals(Constants.APP_VERSION)) {
-                        user.appVersion = Constants.APP_VERSION;
+                        dataSnapshot.child(userUid).child("appVersion").getRef().setValue(Constants.APP_VERSION);
                     }
 
                     String deviceToken = FirebaseInstanceId.getInstance().getToken();
                     if (user.deviceToken != null && !user.deviceToken.equals(deviceToken)) {
-                        user.deviceToken = deviceToken;
+                        dataSnapshot.child(userUid).child("deviceToken").getRef().setValue(deviceToken);
                     }
-                    dataSnapshot.child(userUid).getRef().setValue(user);
                     StartRightActivity(user);
                 }
             }

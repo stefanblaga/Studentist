@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.mario22gmail.vasile.studentist.MainNavigationActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
 import com.mario22gmail.vasile.studentist.patient.PatientMainFragment;
@@ -208,8 +209,9 @@ public class CreateProfileActivity extends AppCompatActivity {
                         finish();
                         return;
                     }
-                    Intent patientActivitity = new Intent(getApplicationContext(), PatientMainFragment.class);
+                    Intent patientActivitity = new Intent(getApplicationContext(), MainNavigationActivity.class);
                     patientActivitity.putExtra("uid", user.uid);
+                    patientActivitity.putExtra(Constants.UserTypeKey, user.role);
                     startActivity(patientActivitity);
                     finish();
                     return;
@@ -221,8 +223,9 @@ public class CreateProfileActivity extends AppCompatActivity {
                         finish();
                         return;
                     }
-                    Intent studentActivity = new Intent(getApplicationContext(), StudentMainFragment.class);
+                    Intent studentActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
                     studentActivity.putExtra("uid", user.uid);
+                    studentActivity.putExtra(Constants.UserTypeKey, user.role);
                     startActivity(studentActivity);
                     finish();
                     return;

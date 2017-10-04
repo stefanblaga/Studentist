@@ -54,10 +54,6 @@ import butterknife.Optional;
 public class MainNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
-    @BindView(R.id.SwitchRoles)
-    Switch swithRoles;
-
     TextView userNameTextView;
 
 
@@ -78,39 +74,6 @@ public class MainNavigationActivity extends AppCompatActivity
         toolbar.setTitleTextColor(white);
         setSupportActionBar(toolbar);
 
-
-        swithRoles.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    final DatabaseReference userTable = FirebaseLogic.getInstance().GetUserTableReference();
-                    userTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            UserApp user = dataSnapshot.getValue(UserApp.class);
-                            if (user != null) {
-                                if (_userType.equals("patient")) {
-                                    user.role = "student";
-                                    userTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
-                                } else {
-                                    StudentUser studentUser = dataSnapshot.getValue(StudentUser.class);
-                                    studentUser.NumberOfRequest = 0;
-                                    studentUser.role = "patient";
-                                    userTable.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(studentUser);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-        });
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -127,7 +90,6 @@ public class MainNavigationActivity extends AppCompatActivity
             Constants.ShowErrorFragment(getSupportFragmentManager());
 
         View header = navigationView.getHeaderView(0);
-/*View view=navigationView.inflateHeaderView(R.layout.nav_header_main);*/
         userNameTextView = (TextView) header.findViewById(R.id.userNameNavigationDrawerTextView);
 
         GetRightFragment(_userType);
