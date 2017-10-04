@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
@@ -18,16 +17,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.mario22gmail.vasile.studentist.MainNavigationActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
-import com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity;
+import com.mario22gmail.vasile.studentist.patient.PatientMainFragment;
 import com.mario22gmail.vasile.studentist.R;
-import com.mario22gmail.vasile.studentist.student.StudentRequestListActivity;
+import com.mario22gmail.vasile.studentist.student.StudentMainFragment;
 
 import java.util.Arrays;
 
 import Helpers.Constants;
-import Helpers.FacebookApiLogic;
 import Helpers.FirebaseLogic;
 import Helpers.UserApp;
 import butterknife.BindView;
@@ -131,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
+        Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
         switch (role) {
             case "student":
                 boolean showHowToStudentPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_STUDENT, true);
@@ -140,10 +140,9 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                     return;
                 }
-                Intent studentActivity = new Intent(getApplicationContext(), StudentRequestListActivity.class);
-                studentActivity.putExtra("uid", uid);
-                startActivity(studentActivity);
-                finish();
+                navActivity.putExtra("uid", uid);
+                navActivity.putExtra(Constants.UserTypeKey, role);
+                startActivity(navActivity);
                 break;
             case "patient":
                 boolean showHowToPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_PATIENT, true);
@@ -153,10 +152,9 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                     return;
                 }
-                Intent patientActivitity = new Intent(getApplicationContext(), PatientShowRequestListActivity.class);
-                patientActivitity.putExtra("uid", uid);
-                startActivity(patientActivitity);
-                finish();
+                navActivity.putExtra("uid",uid);
+                navActivity.putExtra(Constants.UserTypeKey, role);
+                startActivity(navActivity);
                 break;
             default:
                 Constants.ShowErrorFragment(getSupportFragmentManager());

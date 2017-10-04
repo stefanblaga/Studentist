@@ -98,7 +98,7 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
     {
         Intent addRequestActivity = new Intent(getApplicationContext(), PatientAddRequest.class);
         addRequestActivity.putExtra("type_img", R.drawable.imgprotetica);
-        addRequestActivity.putExtra("type_desc", getResources().getString(R.string.requestMissingToothType));
+        addRequestActivity.putExtra("type_desc", "Lucrari");
         startActivity(addRequestActivity);
         finish();
     }

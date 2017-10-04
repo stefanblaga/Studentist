@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mario22gmail.vasile.studentist">
+    package="com.mario22gmail.vasile.studentist"
+    android:versionCode="1"
+    android:versionName="Studentist">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -16,20 +18,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".account.LoginActivity" />
-        <activity android:name=".patient.PatientChooseOptionsActivity" />
-        <activity android:name=".StartActivity">
+        <activity
+            android:name=".patient.PatientChooseOptionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StartActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".patient.PatientAddRequest" />
-        <activity android:name=".patient.PatientShowRequestListActivity" />
+        <activity
+            android:name=".patient.PatientAddRequest"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".account.CreateProfileActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".patient.PatientRequestDetails" />
+        <activity
+            android:name=".patient.PatientRequestDetails"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".howToPage.HowToUsePatientActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
@@ -37,10 +46,16 @@
         <activity
             android:name=".howToPage.HowToUseStudent"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity android:name=".student.StudentRequestListActivity" />
         <activity
             android:name=".MemoriumActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".MainNavigationActivity"
+            android:label="@string/title_activity_main_navigation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".account.ChangeAccountInfoActivity"></activity>
     </application>
 
-</manifest> <!-- android:screenOrientation="portrait" -->
+</manifest>

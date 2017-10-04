@@ -1,22 +1,15 @@
 package Helpers;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mario22gmail.vasile.studentist.account.LoginActivity;
-import com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,8 +18,6 @@ import java.util.UUID;
 import PatientComponent.PatientRequest;
 import StudentComponent.RequestStatus;
 import StudentComponent.StudentRequest;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by mario on 16/04/2017.
@@ -188,48 +179,48 @@ public class FirebaseLogic {
         });
     }
 
-
-    public void DeleteAllDataForPatient(final Context context) {
-        final FragmentActivity fragmentActivity = (FragmentActivity) context;
-        String patientUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference userTable = GetUserTableReference();
-        userTable.child(patientUUID).getRef().removeValue();
-
-        DatabaseReference patientRequestTable = GetPatientRequestTableReference();
-        patientRequestTable.getRef()
-                .orderByChild("patientUid")
-                .startAt(patientUUID)
-                .endAt(patientUUID)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot patientRequest : dataSnapshot.getChildren()) {
-                            patientRequest.getRef().removeValue();
-                        }
-
-                        AuthUI.getInstance()
-                                .delete(fragmentActivity)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-                                            context.startActivity(loginActivity);
-                                            PatientShowRequestListActivity patientActivity = (PatientShowRequestListActivity) context;
-                                            patientActivity.finishAffinity();
-                                        } else {
-                                            Constants.ShowErrorFragment(((FragmentActivity) context).getSupportFragmentManager());
-                                        }
-                                    }
-                                });
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-    }
+//
+//    public void DeleteAllDataForPatient(final Context context) {
+//        final FragmentActivity fragmentActivity = (FragmentActivity) context;
+//        String patientUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        DatabaseReference userTable = GetUserTableReference();
+//        userTable.child(patientUUID).getRef().removeValue();
+//
+//        DatabaseReference patientRequestTable = GetPatientRequestTableReference();
+//        patientRequestTable.getRef()
+//                .orderByChild("patientUid")
+//                .startAt(patientUUID)
+//                .endAt(patientUUID)
+//                .addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                        for (DataSnapshot patientRequest : dataSnapshot.getChildren()) {
+//                            patientRequest.getRef().removeValue();
+//                        }
+//
+//                        AuthUI.getInstance()
+//                                .delete(fragmentActivity)
+//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        if (task.isSuccessful()) {
+//                                            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
+//                                            context.startActivity(loginActivity);
+//                                            PatientMainFragment patientActivity = (PatientMainFragment) context;
+//                                            patientActivity.finishAffinity();
+//                                        } else {
+//                                            Constants.ShowErrorFragment(((FragmentActivity) context).getSupportFragmentManager());
+//                                        }
+//                                    }
+//                                });
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//    }
 
 //
 //    public void DeleteAccountExperimental()
@@ -254,7 +245,7 @@ public class FirebaseLogic {
 //                                        if (task.isSuccessful()) {
 //                                            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
 //                                            mainActivity.startActivity(loginActivity);
-//                                            StudentRequestListActivity studentActivity = (StudentRequestListActivity) mainActivity;
+//                                            StudentMainFragment studentActivity = (StudentMainFragment) mainActivity;
 //                                            studentActivity.finishAffinity();
 //                                        } else {
 //                                            //// TODO: 27/09/2017 error page show
@@ -286,7 +277,7 @@ public class FirebaseLogic {
 //                                        if (task.isSuccessful()) {
 //                                            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
 //                                            mainActivity.startActivity(loginActivity);
-//                                            StudentRequestListActivity studentActivity = (StudentRequestListActivity) mainActivity;
+//                                            StudentMainFragment studentActivity = (StudentMainFragment) mainActivity;
 //                                            studentActivity.finishAffinity();
 //                                        } else {
 //                                            //// TODO: 27/09/2017 error page show

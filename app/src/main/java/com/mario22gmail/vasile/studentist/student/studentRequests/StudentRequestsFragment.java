@@ -50,7 +50,7 @@ public class StudentRequestsFragment extends Fragment {
         // Inflate the layout for this fragment
         View mainView = inflater.inflate(R.layout.fragment_student_requests, container, false);
         ButterKnife.bind(this, mainView);
-        this.adapter = new StudentRequestsAdapter(getActivity());
+        this.adapter = new StudentRequestsAdapter(getActivity(), getFragmentManager());
         studentRequestRecycleView.setAdapter(adapter);
         studentRequestRecycleView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 

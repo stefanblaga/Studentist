@@ -16,6 +16,8 @@ public class Constants {
 
     public static int PhoneNumberMinLength = 8;
 
+    public static String UserTypeKey = "userTypeKey";
+
     public static String studentRequestUUIDExtraName = "studentRequestUUID";
 
     public static String GoogleProviderKey ="GoogleProvider";

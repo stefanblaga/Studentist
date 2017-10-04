@@ -4,50 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mario22gmail.vasile.studentist.student.StudentRequestListActivity">
+    tools:context="com.mario22gmail.vasile.studentist.student.StudentMainFragment">
 
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarRequestsForStudentsList"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        android:elevation="5dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textViewToolBarPatientRequestList"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/studentist_name"
-            android:textColor="@color/white"
-            android:textSize="21sp"
-            android:textStyle="bold"
-            android:gravity="center_vertical"/>
-
-        <Switch
-            android:id="@+id/SwitchRoles"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="Switch"/>
-    </android.support.v7.widget.Toolbar>
 
 
     <android.support.design.widget.TabLayout
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimary"
         app:tabTextColor="@color/white"
         app:tabSelectedTextColor="@color/white"
         android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="0dp"
-        android:elevation="5dp"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarRequestsForStudentsList"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:id="@+id/studentActivityTabLayout">

@@ -69,8 +69,8 @@ public class PatientAddRequest extends AppCompatActivity {
         int white = ContextCompat.getColor(getApplicationContext(), R.color.white);
         add_request_toolbar.setTitleTextColor(white);
 
+        setSupportActionBar(add_request_toolbar);
         if(getSupportActionBar() != null) {
-            setSupportActionBar(add_request_toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }

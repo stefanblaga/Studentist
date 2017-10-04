@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    tools:context="com.mario22gmail.vasile.studentist.account.ChangeAccountInfoActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/ChangeProfileToolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/add_request_type_description_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center_vertical"
+        android:text="@string/myProfileLabel"
+        android:textSize="@dimen/add_requst_description_text_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ChangeProfileToolbar" />
+
+
+    <Button
+        android:id="@+id/saveAccountButton"
+        android:layout_width="162dp"
+        android:layout_height="41dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/roundbuttoncategoryiconsstyle"
+        android:text="@string/save_changes_button_text"
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Tel_TextLayout">
+
+        <requestFocus />
+    </Button>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/Name_TextLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:theme="@style/TextLabel"
+        app:errorEnabled="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_request_type_description_label">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/Name_EditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/create_account_name_label"
+            android:imeOptions="actionNext"
+            android:inputType="textNoSuggestions"
+            android:lines="1" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/Tel_TextLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:theme="@style/TextLabel"
+        app:errorEnabled="true"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Name_TextLayout">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/tel_EditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/add_request_tel_label"
+            android:inputType="number"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp" />
+    </android.support.design.widget.TextInputLayout>
+</android.support.constraint.ConstraintLayout>

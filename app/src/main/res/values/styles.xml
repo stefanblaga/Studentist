@@ -33,8 +33,7 @@
     </style>
 
     <!-- custom style -->
-    <style name="radionbutton"
-        parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
+    <style name="radionbutton" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@color/blue</item>
         <item name="android:windowContentOverlay">@null</item>

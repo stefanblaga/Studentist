@@ -3,6 +3,7 @@ package PatientComponent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 
 import com.mario22gmail.vasile.studentist.patient.DeleteRequestDialog;
 import com.mario22gmail.vasile.studentist.patient.PatientRequestDetails;
-import com.mario22gmail.vasile.studentist.patient.PatientShowRequestListActivity;
 import com.mario22gmail.vasile.studentist.R;
 
 import java.util.ArrayList;
@@ -32,10 +32,12 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
     LayoutInflater layoutInflater;
     List<PatientRequest> requestList = new ArrayList<PatientRequest>( );
     Context _context;
+    FragmentManager _fragmentManager;
 
-    public PatientRequestAdapter(Context context){
+    public PatientRequestAdapter(Context context, FragmentManager fragmentManager){
         _context = context;
-        layoutInflater = LayoutInflater.from(context);
+        this._fragmentManager = fragmentManager;
+        layoutInflater = LayoutInflater.from(_context);
     }
 
     public void DeletePatientFromList(PatientRequest request)
@@ -108,14 +110,13 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
             @Override
             public void onClick(View v) {
                 DeleteRequestDialog deleteRequestDialog = new DeleteRequestDialog();
-                PatientShowRequestListActivity activity = (PatientShowRequestListActivity) _context;
 
                 Bundle bundleForFragment = new Bundle();
                 bundleForFragment.putString(Constants.requestUuidIntentExtraName,request.requestUid);
                 if(request.studentRequest != null && request.studentRequest.studentRequestUUID != null)
                     bundleForFragment.putString(Constants.studentRequestUUIDExtraName, request.studentRequest.studentRequestUUID);
                 deleteRequestDialog.setArguments(bundleForFragment);
-                deleteRequestDialog.show(activity.getSupportFragmentManager(), "delete dialog");
+                deleteRequestDialog.show(_fragmentManager, "delete dialog");
             }
         });
 
