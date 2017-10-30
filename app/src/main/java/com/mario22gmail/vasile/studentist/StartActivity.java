@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.mario22gmail.vasile.studentist.account.CreateAccountActivity;
 import com.mario22gmail.vasile.studentist.account.CreateProfileActivity;
 import com.mario22gmail.vasile.studentist.account.LoginActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
@@ -26,6 +27,7 @@ import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
+import Helpers.SharedPreferenceLogic;
 import Helpers.UserApp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,13 +39,10 @@ public class StartActivity extends AppCompatActivity {
     @BindView(R.id.start_activity_layout)
     View mainLayout;
 
-    @BindView(R.id.cityNameTextView)
-    TextView cityNameTextView;
-
     private boolean _isConnectedToInternet = false;
     final private Handler handler = new Handler();
     private boolean _checkingInternetConnection = true;
-    Snackbar snackbarInternetConnection;
+    Snackbar snackBarInternetConnection;
 
 
     @Override
@@ -59,13 +58,12 @@ public class StartActivity extends AppCompatActivity {
             return;
         }
 
-
         setContentView(R.layout.activity_start);
         ButterKnife.bind(this);
 
         String notConnectedText = getResources().getString(R.string.internet_fail_connected_text);
-        snackbarInternetConnection = Snackbar.make(mainLayout, notConnectedText, Snackbar.LENGTH_INDEFINITE);
-        snackbarInternetConnection.setAction("Activate", new View.OnClickListener() {
+        snackBarInternetConnection = Snackbar.make(mainLayout, notConnectedText, Snackbar.LENGTH_INDEFINITE);
+        snackBarInternetConnection.setAction("Activate", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -78,7 +76,13 @@ public class StartActivity extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/mainfont.ttf");
         logoTitle.setTypeface(custom_font);
 
-        cityNameTextView.setTypeface(custom_font);
+        if (SharedPreferenceLogic.ShowHowToPageStudent( getApplicationContext())) {
+            SharedPreferenceLogic.SetHowToPageStudent(getApplicationContext(),false);
+            Intent showHowToPage = new Intent(getApplicationContext(), HowToUseStudent.class);
+            startActivity(showHowToPage);
+            finish();
+            return;
+        }
     }
 
     @Override
@@ -129,13 +133,13 @@ public class StartActivity extends AppCompatActivity {
     private void DisplayViewBasedOnNetworkState(boolean isConnected) {
         if (isConnected) {
             if (_checkingInternetConnection) {
-                snackbarInternetConnection.dismiss();
+                snackBarInternetConnection.dismiss();
                 _checkingInternetConnection = false;
                 GetUserFromFirebase();
             }
 
         } else {
-            snackbarInternetConnection.show();
+            snackBarInternetConnection.show();
         }
     }
 
@@ -165,18 +169,11 @@ public class StartActivity extends AppCompatActivity {
                     Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(loginActivity);
                     finish();
+                    return;
                 }
             }, 1000);
             return;
         }
-        String providerName = auth.getCurrentUser().getProviderData().
-                get(auth.getCurrentUser().getProviderData().size() - 1).getProviderId();
-        Log.i("MMM", "Last Provider " + providerName);
-        Log.i("MMM", "UserApp autentificat cu numarul " + auth.getCurrentUser().getProviderId());
-        Log.i("MMM", "UserApp autentificat cu uid " + auth.getCurrentUser().getUid());
-        Log.i("MMM", "UserApp autentificat cu email " + auth.getCurrentUser().getEmail());
-        Log.i("MMM", "UserApp autentificat cu display name " + auth.getCurrentUser().getDisplayName());
-
 
         final String userUid = auth.getCurrentUser().getUid();
         DatabaseReference userTableRef = FirebaseLogic.getInstance().GetUserTableReference();
@@ -184,7 +181,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
-                    Intent createUserActivity = new Intent(getApplicationContext(), CreateProfileActivity.class);
+                    Intent createUserActivity = new Intent(getApplicationContext(), CreateAccountActivity.class);
                     startActivity(createUserActivity);
                     finish();
                 } else {
@@ -201,6 +198,8 @@ public class StartActivity extends AppCompatActivity {
                     if (user.deviceToken != null && !user.deviceToken.equals(deviceToken)) {
                         dataSnapshot.child(userUid).child("deviceToken").getRef().setValue(deviceToken);
                     }
+
+                    FirebaseLogic.SetUserApp(user);
                     StartRightActivity(user);
                 }
             }
@@ -213,33 +212,15 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void StartRightActivity(UserApp user) {
-
-
-        final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
         Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
         switch (user.role) {
             case "patient":
-                boolean showHowToPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_PATIENT, true);
-                if (showHowToPage) {
-                    Intent howToPatientActivity = new Intent(getApplicationContext(), HowToUsePatientActivity.class);
-                    startActivity(howToPatientActivity);
-                    finish();
-                    return;
-                }
-
                 navActivity.putExtra("uid", user.uid);
                 navActivity.putExtra(Constants.UserTypeKey, user.role);
                 startActivity(navActivity);
                 finish();
                 break;
             case "student":
-                boolean showHowToStudentPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_STUDENT, true);
-                if (showHowToStudentPage) {
-                    Intent howToStudentActivity = new Intent(getApplicationContext(), HowToUseStudent.class);
-                    startActivity(howToStudentActivity);
-                    finish();
-                    return;
-                }
                 navActivity.putExtra("uid", user.uid);
                 navActivity.putExtra(Constants.UserTypeKey, user.role);
                 startActivity(navActivity);

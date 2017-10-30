@@ -46,9 +46,12 @@ public class StudentRequestDetailsActivity extends AppCompatActivity {
             return;
         }
 
+        String requestCity = bundleFromListView.getString(Constants.requestCityInternal);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         Bundle bundleForFragment = new Bundle();
         bundleForFragment.putString(Constants.requestUuidIntentExtraName, requestUUID);
+        bundleForFragment.putString(Constants.requestCityInternal, requestCity);
 
         PatientRequestDetailFragment requestDetailFragment = new PatientRequestDetailFragment();
         requestDetailFragment.setArguments(bundleForFragment);

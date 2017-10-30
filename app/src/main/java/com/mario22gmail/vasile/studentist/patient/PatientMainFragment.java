@@ -19,6 +19,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.mario22gmail.vasile.studentist.R;
 
+import Helpers.Constants;
 import Helpers.FirebaseLogic;
+import Helpers.SharedPreferenceLogic;
 import Helpers.UserApp;
 import PatientComponent.PatientRequest;
 import PatientComponent.PatientRequestAdapter;
@@ -51,24 +54,41 @@ public class PatientMainFragment extends Fragment {
 
     private PatientRequestAdapter adapter;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View mainView =  inflater.inflate(R.layout.activity_patient_show_request_list, container, false);
-            ButterKnife.bind(this, mainView);
 
+        if (SharedPreferenceLogic.IsPatientFirstTime(getActivity().getApplicationContext())) {
+            Intent choosePatientActivity = new Intent(getActivity(), PatientChooseOptionsActivity.class);
+            getActivity().startActivity(choosePatientActivity);
+        }
+
+        View mainView = inflater.inflate(R.layout.activity_patient_show_request_list, container, false);
+        ButterKnife.bind(this, mainView);
 
         SetUpFabButtonClick();
         adapter = new PatientRequestAdapter(getContext(), getFragmentManager());
-        getRequestsFromFirebase();
+
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser == null) {
+            Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
+            return null;
+        }
+
+        if(FirebaseLogic.CurrentUser == null)
+        {
+            Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
+            return null;
+        }
+
+        getRequestsFromFirebase(FirebaseLogic.CurrentUser.city);
         return mainView;
     }
 
 
-    public void SetUpFabButtonClick()
-    {
+    public void SetUpFabButtonClick() {
         fabButtonEmptyState.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,8 +127,9 @@ public class PatientMainFragment extends Fragment {
         }
     }
 
-    public void getRequestsFromFirebase() {
-        DatabaseReference patientRequestNode = FirebaseLogic.getInstance().GetPatientRequestTableReference();
+    public void getRequestsFromFirebase(String userCity) {
+
+        DatabaseReference patientRequestNode = FirebaseLogic.getInstance().GetPatientRequestTableReference(userCity);
         requestListRecyclerView.setAdapter(adapter);
         requestListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         String currentUserUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();

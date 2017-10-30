@@ -5,6 +5,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
+import com.google.firebase.database.DatabaseReference;
 import com.mario22gmail.vasile.studentist.ErrorFragment;
 import com.mario22gmail.vasile.studentist.R;
 
@@ -15,6 +16,14 @@ import com.mario22gmail.vasile.studentist.R;
 public class Constants {
 
     public static int PhoneNumberMinLength = 8;
+
+    public static String TimisoaraCity ="timisoara";
+
+    public static String ClujCity = "cluj";
+
+    public static String BucurestiCity = "bucuresti";
+
+    public static String IasiCity = "iasi";
 
     public static String UserTypeKey = "userTypeKey";
 
@@ -64,6 +73,8 @@ public class Constants {
 
     public static String requestUuidIntentExtraName = "requestUID";
 
+    public static String requestCityInternal = "requestCity";
+
     public static String MaleGender = "male";
 
     public static String FeamaleGender = "female";
@@ -73,6 +84,9 @@ public class Constants {
     public static String StudentUserType = "student";
 
     public static String APP_VERSION = "1.0.0";
+
+
+
 
 
     public static int GetIconValue(String typeOfRequest) {

@@ -70,10 +70,18 @@ public class AllRequestsFragment extends Fragment {
             return fragmentView;
         }
 
+        if(FirebaseLogic.CurrentUser == null)
+        {
+            Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
+            return fragmentView;
+        }
+
         this.adapter = new PatientRequestForStundentsAdapter(getActivity().getApplicationContext());
         this.userUUID = currentUser.getUid();
 
-        GetRightView();
+        requestRecycleView.setAdapter(adapter);
+        requestRecycleView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        GetPatientRequestsFromFirebase(FirebaseLogic.CurrentUser.city);
         return fragmentView;
     }
 
@@ -154,10 +162,8 @@ public class AllRequestsFragment extends Fragment {
     }
 
 
-    private void GetRightView() {
-        DatabaseReference patientRequestTable = FirebaseLogic.getInstance().GetPatientRequestTableReference();
-        requestRecycleView.setAdapter(adapter);
-        requestRecycleView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+    private void GetPatientRequestsFromFirebase(String studentCity) {
+        DatabaseReference patientRequestTable = FirebaseLogic.getInstance().GetPatientRequestTableReference(studentCity);
         patientRequestTable.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -253,4 +259,8 @@ public class AllRequestsFragment extends Fragment {
             });
         }
     }
+
+
+
+
 }

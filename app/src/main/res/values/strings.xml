@@ -36,10 +36,10 @@
     <string name="apply_button_text">Contactează</string>
     <string name="nothing_found_message">Nu am găsit nimic</string>
     <string name="studentist_name">Studentist</string>
-    <string name="about_you_text">Informații despre tine</string>
+    <string name="about_you_text">Bine ai venit Studentistule !</string>
     <string name="create_account_name_label">Nume*</string>
     <string name="create_account_phone_label">Vreau sa fiu contactat la numărul*</string>
-    <string name="create_account_done_button_text">Gata</string>
+    <string name="create_account_done_button_text">Incantat de cunostinta !</string>
     <string name="create_account_patient_type_message">Am probleme dentare</string>
     <string name="create_account_student_type_label">Sunt student/ă la medicină dentară</string>
     <string name="add_request_tel_label">Vreau sa fiu contactat la numărul*</string>
@@ -100,6 +100,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="timisoaraCity">Timisoara</string>
+    <string name="bucurestCity">Bucuresti</string>
+    <string name="clujCity">Cluj</string>
+    <string name="iasiCity">Iasi</string>
 
 
 </resources>

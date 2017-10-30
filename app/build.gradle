@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
@@ -37,13 +38,14 @@ dependencies {
     compile 'com.google.firebase:firebase-database:11.0.4'
     compile 'com.google.android.gms:play-services-auth:11.0.4'
     compile 'com.facebook.android:facebook-android-sdk:4.22.1'
-    compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
     compile 'com.matthew-tamlin:sliding-intro-screen:3.2.0'
     compile 'com.airbnb.android:lottie:2.0.0-rc1'
     compile 'com.github.apl-devs:appintro:v4.2.2'
     testCompile 'junit:junit:4.12'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
 allprojects {
@@ -79,4 +81,8 @@ allprojects {
 
 
 
+
+
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'

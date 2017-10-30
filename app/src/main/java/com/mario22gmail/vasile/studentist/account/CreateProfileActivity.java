@@ -20,8 +20,11 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mario22gmail.vasile.studentist.MainNavigationActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
@@ -47,19 +50,6 @@ public class CreateProfileActivity extends AppCompatActivity {
 
     @BindView(R.id.user_create_tel_nr_EditText)
     AppCompatEditText telephoneNumberEditText;
-
-    @BindView(R.id.radioPatient)
-    AppCompatRadioButton radioPatient;
-
-    @BindView(R.id.radioStudent)
-    AppCompatRadioButton radioStudent;
-
-
-    @BindView(R.id.radioGroupType)
-    RadioGroup radioGroup;
-
-    @BindView(R.id.userTypeErrorTextView)
-    TextView userTypeErrorTextView;
 
     @BindView(R.id.progressBarCreateProfile)
     ProgressBar progressBar;
@@ -126,12 +116,6 @@ public class CreateProfileActivity extends AppCompatActivity {
         request.executeAsync();
     }
 
-
-    @OnClick({R.id.radioPatient, R.id.radioStudent})
-    public void RadioSelected(View view) {
-        userTypeErrorTextView.setText("");
-    }
-
     public boolean ValidateInformation() {
         String name = nameEditText.getText().toString();
         if (name.equals("") || name.trim().length() <= 0) {
@@ -151,14 +135,13 @@ public class CreateProfileActivity extends AppCompatActivity {
             return false;
         }
 
-        if (!radioPatient.isChecked() && !radioStudent.isChecked()) {
-            userTypeErrorTextView.setText("Alege o varianta !");
-            return false;
-        }
-
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        return;
+    }
 
     @OnClick(R.id.createProfileButton)
     public void CreateProfileButtonClick(final View view) {
@@ -174,68 +157,39 @@ public class CreateProfileActivity extends AppCompatActivity {
         FirebaseUser authUser = FirebaseAuth.getInstance().getCurrentUser();
         if(authUser == null)
         {
-            Constants.ShowErrorFragment(getSupportFragmentManager());
-            return;
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
 
         progressBar.setVisibility(View.VISIBLE);
-
-        final UserApp user = new UserApp();
-        user.appVersion = Constants.APP_VERSION;
-        user.deviceToken = FirebaseInstanceId.getInstance().getToken();
-        user.name = nameEditText.getText().toString();
-        user.telephoneNumber = telephoneNumberEditText.getText().toString();
-        if (radioPatient.isChecked())
-            user.role = Constants.PatientUserType;
-        else if (radioStudent.isChecked())
-            user.role = Constants.StudentUserType;
-
-        user.uid = authUser.getUid();
-
-        DatabaseReference usersTable = FirebaseLogic.getInstance().GetUserTableReference();
-        usersTable.child(user.uid).setValue(user, new DatabaseReference.CompletionListener() {
+        final String userId = authUser.getUid();
+        FirebaseLogic.getInstance().GetUserTableReference().child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError != null) {
-                    Constants.ShowErrorFragment(getSupportFragmentManager());
-                    return;
-                }
-                final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
-                if (user.role.equals(Constants.PatientUserType)) {
-                    boolean showHowToPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_PATIENT, true);
-                    if (showHowToPage) {
-                        Intent howToPatientActivity = new Intent(getApplicationContext(), HowToUsePatientActivity.class);
-                        startActivity(howToPatientActivity);
-                        finish();
-                        return;
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    UserApp userInfo = dataSnapshot.getValue(UserApp.class);
+                    if (userInfo == null) {
+                        Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     }
-                    Intent patientActivitity = new Intent(getApplicationContext(), MainNavigationActivity.class);
-                    patientActivitity.putExtra("uid", user.uid);
-                    patientActivitity.putExtra(Constants.UserTypeKey, user.role);
-                    startActivity(patientActivitity);
-                    finish();
-                    return;
-                } else if (user.role.equals(Constants.StudentUserType)) {
-                    boolean showHowToStudentPage = sp.getBoolean(Constants.DISPLAY_HOW_TO_STUDENT, true);
-                    if (showHowToStudentPage) {
-                        Intent howToStudentActivity = new Intent(getApplicationContext(), HowToUseStudent.class);
-                        startActivity(howToStudentActivity);
-                        finish();
-                        return;
-                    }
-                    Intent studentActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
-                    studentActivity.putExtra("uid", user.uid);
-                    studentActivity.putExtra(Constants.UserTypeKey, user.role);
-                    startActivity(studentActivity);
-                    finish();
-                    return;
-                }
 
-                Constants.ShowErrorFragment(getSupportFragmentManager());
-                progressBar.setVisibility(View.INVISIBLE);
+                    userInfo.telephoneNumber = telephoneNumberEditText.getText().toString();
+                    userInfo.name = nameEditText.getText().toString();
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(nameEditText.getText().toString()).build();
+                    FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+
+                    FirebaseLogic.getInstance().GetUserTableReference().child(userId).setValue(userInfo);
+                    finish();
+                }
             }
 
-
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Constants.ShowErrorFragment(getSupportFragmentManager());
+            }
         });
     }
 

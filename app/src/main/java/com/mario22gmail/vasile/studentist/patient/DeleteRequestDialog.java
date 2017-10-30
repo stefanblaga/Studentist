@@ -32,6 +32,7 @@ public class DeleteRequestDialog extends DialogFragment {
 
     String requestUUID;
     String studentRequestUUID = "";
+    String requestCity = "";
 
     @NonNull
     @Override
@@ -46,6 +47,7 @@ public class DeleteRequestDialog extends DialogFragment {
 
         requestUUID = getArguments().getString(Constants.requestUuidIntentExtraName);
         studentRequestUUID = getArguments().getString(Constants.studentRequestUUIDExtraName);
+        requestCity = getArguments().getString(Constants.requestCityInternal);
 
         toolbar.setTitle(R.string.deleteRequestToolbar);
         int white = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.white);
@@ -71,7 +73,7 @@ public class DeleteRequestDialog extends DialogFragment {
             return;
         }
 
-        FirebaseLogic.getInstance().DeletePatientRequest(requestUUID, studentRequestUUID);
+        FirebaseLogic.getInstance().DeletePatientRequest(requestUUID, studentRequestUUID, requestCity);
         this.dismiss();
     }
 

@@ -45,7 +45,7 @@ public class StudentDetailFragment extends Fragment {
     @BindView(R.id.mainIconPatientRequestDetail)
     ImageView mainIcon;
 
-    String requestUUID = "";
+    String _requestUUID = "";
     String _studentRequestUUID = "";
     PatientRequest _patientRequest;
 
@@ -59,7 +59,7 @@ public class StudentDetailFragment extends Fragment {
         View mainView = inflater.inflate(R.layout.fragment_patient_request_detail_student_found, container, false);
         ButterKnife.bind(this, mainView);
 
-        requestUUID = getArguments().getString(Constants.requestUuidIntentExtraName);
+        _requestUUID = getArguments().getString(Constants.requestUuidIntentExtraName);
 
         return mainView;
     }
@@ -67,14 +67,20 @@ public class StudentDetailFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (requestUUID == null || requestUUID.equals("")) {
+        if (_requestUUID == null || _requestUUID.equals("")) {
+            Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
+            return;
+        }
+
+        if(FirebaseLogic.CurrentUser == null)
+        {
             Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
             return;
         }
 
         DatabaseReference patientRequestReference = FirebaseLogic.getInstance()
-                .GetPatientRequestTableReference();
-        patientRequestReference.child(requestUUID)
+                .GetPatientRequestTableReference(FirebaseLogic.CurrentUser.city);
+        patientRequestReference.child(_requestUUID)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -166,12 +172,12 @@ public class StudentDetailFragment extends Fragment {
             return;
         }
 
-        if (requestUUID.equals("") || _studentRequestUUID.equals("")) {
+        if (_requestUUID.equals("") || _studentRequestUUID.equals("")) {
             Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
             return;
         }
 
-        FirebaseLogic.getInstance().PatientRequestResolved(requestUUID, _studentRequestUUID);
+        FirebaseLogic.getInstance().PatientRequestResolved(_requestUUID, _studentRequestUUID, FirebaseLogic.CurrentUser.city);
         Log.i(Constants.LogKey,"Finish from accept");
         getActivity().finish();
     }

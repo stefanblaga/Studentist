@@ -57,6 +57,7 @@ public class PatientRequestDetailFragment extends Fragment {
     ConstraintLayout descriptionContainer;
 
     String requestUUID;
+    String requestCity ="";
 
     public PatientRequestDetailFragment() {
         // Required empty public constructor
@@ -72,14 +73,16 @@ public class PatientRequestDetailFragment extends Fragment {
         View mainView = inflater.inflate(R.layout.fragment_patient_request_detail, container, false);
         ButterKnife.bind(this, mainView);
         requestUUID = getArguments().getString(Constants.requestUuidIntentExtraName);
+        requestCity = getArguments().getString(Constants.requestCityInternal);
 
         if(requestUUID != null && requestUUID.equals(""))
         {
-            getActivity().finish();
+            Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
             return mainView;
         }
 
-        DatabaseReference patientRequestCollection = FirebaseLogic.getInstance().GetPatientRequestTableReference();
+        DatabaseReference patientRequestCollection = FirebaseLogic.getInstance().
+                GetPatientRequestTableReference(requestCity);
         patientRequestCollection.child(requestUUID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

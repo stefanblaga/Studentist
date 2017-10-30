@@ -22,13 +22,6 @@ public class HowToUsePatientActivity extends AppIntro {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Instead of fragments, you can also use our default slide
-        // Just set a title, description, background and image. AppIntro will do the rest.
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         SliderPage sliderPageOne = new SliderPage();
         sliderPageOne.setBgColor(Color.parseColor("#3CB6AA"));
@@ -79,10 +72,6 @@ public class HowToUsePatientActivity extends AppIntro {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         // Do something when users tap on Skip button.
-        Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
-        navActivity.putExtra(Constants.UserTypeKey, "patient");
-        startActivity(navActivity);
-
         finish();
     }
 
@@ -95,9 +84,6 @@ public class HowToUsePatientActivity extends AppIntro {
         final SharedPreferences.Editor pendingEdits = sp.edit().putBoolean(Constants.DISPLAY_HOW_TO_PATIENT, false);
         pendingEdits.apply();
 
-        Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
-        navActivity.putExtra(Constants.UserTypeKey, "patient");
-        startActivity(navActivity);
         finish();
     }
 

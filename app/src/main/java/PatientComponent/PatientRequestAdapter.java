@@ -113,6 +113,7 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
 
                 Bundle bundleForFragment = new Bundle();
                 bundleForFragment.putString(Constants.requestUuidIntentExtraName,request.requestUid);
+                bundleForFragment.putString(Constants.requestCityInternal, request.city);
                 if(request.studentRequest != null && request.studentRequest.studentRequestUUID != null)
                     bundleForFragment.putString(Constants.studentRequestUUIDExtraName, request.studentRequest.studentRequestUUID);
                 deleteRequestDialog.setArguments(bundleForFragment);

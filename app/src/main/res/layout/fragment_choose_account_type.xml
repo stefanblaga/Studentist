@@ -1,0 +1,166 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.mario22gmail.vasile.studentist.account.ChooseAccountTypeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <ImageView
+        android:id="@+id/StudentAccountTypeImageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/mainiconnobg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/PatientAccountTypeImageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:paddingTop="14dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:foregroundGravity="bottom"
+        android:src="@drawable/patientaccountimage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.constraint.Guideline
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/guideline2"
+        app:layout_constraintGuide_percent="0.5"
+        />
+
+    <TextView
+        android:id="@+id/WhoAreYouTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Tu din ce categorie faci parte?"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/PatientAccountTypeImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/PatientLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Pacient"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/PatientAccountTypeImageView"
+        app:layout_constraintStart_toStartOf="@+id/PatientAccountTypeImageView"
+        app:layout_constraintTop_toBottomOf="@+id/PatientAccountTypeImageView" />
+
+    <TextView
+        android:id="@+id/StudentLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="24sp"
+        android:textColor="@color/white"
+        android:text="Studentist"
+        app:layout_constraintEnd_toEndOf="@+id/StudentAccountTypeImageView"
+        app:layout_constraintStart_toStartOf="@+id/StudentAccountTypeImageView"
+        app:layout_constraintTop_toBottomOf="@+id/StudentAccountTypeImageView" />
+
+    <TextView
+        android:id="@+id/StudentAccountDescriptionTextView"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:lines="2"
+        android:text="Student la medicina dentara"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/StudentAccountTypeImageView"
+        app:layout_constraintTop_toBottomOf="@+id/StudentLabelTextView" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/Password_TextLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:visibility="invisible"
+        android:theme="@style/TextLabelPassword"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/StudentAccountDescriptionTextView">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/Password_EditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Parola pentru studentist"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:paddingBottom="8dp"
+            android:paddingTop="16dp"
+            android:textColorHint="@color/white" />
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/ChooseSomethingTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Alege ce esti!"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WhoAreYouTextView" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:text="Vreau sa imi rezolv problemele dentare"
+        app:layout_constraintEnd_toEndOf="@+id/PatientAccountTypeImageView"
+        app:layout_constraintStart_toStartOf="@+id/PatientAccountTypeImageView"
+        app:layout_constraintTop_toBottomOf="@+id/PatientLabelTextView" />
+</android.support.constraint.ConstraintLayout>

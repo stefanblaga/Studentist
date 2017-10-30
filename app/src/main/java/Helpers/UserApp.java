@@ -13,17 +13,19 @@ public class UserApp {
     public String telephoneNumber;
     public String appVersion;
     public String deviceToken;
+    public String city;
 
     public UserApp()
     {
     }
 
-    public UserApp(String name, String uid, String birthDate, String role, String telephoneNumber) {
+    public UserApp(String name, String uid, String birthDate, String role, String telephoneNumber, String city) {
         this.name = name;
         this.uid = uid;
         this.birthDate = birthDate;
         this.role = role;
         this.telephoneNumber = telephoneNumber;
+        this.city = city;
     }
 
 

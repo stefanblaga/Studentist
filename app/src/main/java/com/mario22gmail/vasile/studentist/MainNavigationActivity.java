@@ -1,10 +1,12 @@
 package com.mario22gmail.vasile.studentist;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -56,17 +58,30 @@ public class MainNavigationActivity extends AppCompatActivity
 
     TextView userNameTextView;
 
-
     private String _userType = "";
     private Activity _thisActivity;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
         ButterKnife.bind(this);
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser == null) {
+            Constants.ShowErrorFragment(getSupportFragmentManager());
+            return;
+        }
+
+        if (FirebaseLogic.CurrentUser == null) {
+            Constants.ShowErrorFragment(getSupportFragmentManager());
+            return;
+        }
+
         _thisActivity = this;
-        _userType = getIntent().getStringExtra(Constants.UserTypeKey);
+        _userType = FirebaseLogic.CurrentUser.role;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Studentist");
@@ -84,11 +99,6 @@ public class MainNavigationActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (firebaseUser == null)
-            Constants.ShowErrorFragment(getSupportFragmentManager());
-
         View header = navigationView.getHeaderView(0);
         userNameTextView = (TextView) header.findViewById(R.id.userNameNavigationDrawerTextView);
 
@@ -103,9 +113,15 @@ public class MainNavigationActivity extends AppCompatActivity
         }
     }
 
-    public void GetRightFragment(String userType) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        switch (userType) {
+    public void GetRightFragment(String userRole) {
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if (!Constants.IsNetworkAvailable((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
+            Constants.DisplaySnackbarForInternetConnection(toolBar);
+            return;
+        }
+
+        switch (userRole) {
             case "patient":
                 PatientMainFragment patientMainFragment = new PatientMainFragment();
                 fragmentManager.beginTransaction().add(R.id.frameLayoutNavigationDrawer, patientMainFragment).commit();
@@ -115,7 +131,7 @@ public class MainNavigationActivity extends AppCompatActivity
                 fragmentManager.beginTransaction().add(R.id.frameLayoutNavigationDrawer, studentMainFragment).commit();
                 break;
             default:
-                Constants.ShowErrorFragment(getSupportFragmentManager());
+                Constants.ShowErrorFragment(fragmentManager);
         }
     }
 
@@ -152,9 +168,8 @@ public class MainNavigationActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.howToPagePatientMenuItem) {
-            GetRightHowToPage(_userType);
+            GetRightHowToPage(FirebaseLogic.CurrentUser.role);
         } else if (id == R.id.aboutAppMenuItem) {
             AboutDialogFragment aboutDialogFragment = new AboutDialogFragment();
             aboutDialogFragment.show(getSupportFragmentManager(), "about dialog");
@@ -172,6 +187,7 @@ public class MainNavigationActivity extends AppCompatActivity
             finishAffinity();
 
         } else if (id == R.id.nav_share) {
+
             ShareLinkContent content = new ShareLinkContent.Builder()
                     .setContentUrl(Uri.parse(getString(R.string.fb_page)))
                     .build();

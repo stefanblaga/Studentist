@@ -13,6 +13,7 @@ import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder;
 import com.github.paolorotolo.appintro.model.SliderPage;
 import com.mario22gmail.vasile.studentist.MainNavigationActivity;
 import com.mario22gmail.vasile.studentist.R;
+import com.mario22gmail.vasile.studentist.StartActivity;
 import com.mario22gmail.vasile.studentist.student.StudentMainFragment;
 
 import Helpers.Constants;
@@ -70,7 +71,7 @@ public class HowToUseStudent extends AppIntro {
         final SharedPreferences.Editor pendingEdits = sp.edit().putBoolean(Constants.DISPLAY_HOW_TO_STUDENT, false);
         pendingEdits.apply();
 
-        Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
+        Intent navActivity = new Intent(getApplicationContext(), StartActivity.class);
         navActivity.putExtra(Constants.UserTypeKey, "student");
         startActivity(navActivity);
         finish();
@@ -80,7 +81,7 @@ public class HowToUseStudent extends AppIntro {
     public void onSkipPressed(Fragment currentFragment) {
         super.onSkipPressed(currentFragment);
 
-        Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
+        Intent navActivity = new Intent(getApplicationContext(), StartActivity.class);
         navActivity.putExtra(Constants.UserTypeKey, "student");
         startActivity(navActivity);
         finish();

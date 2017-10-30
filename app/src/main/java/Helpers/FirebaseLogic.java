@@ -2,13 +2,19 @@ package Helpers;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
+import com.firebase.ui.auth.User;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -28,8 +34,9 @@ public class FirebaseLogic {
     private static FirebaseLogic instance = null;
 
     public static FirebaseLogic getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new FirebaseLogic();
+        }
 
         return instance;
     }
@@ -49,12 +56,62 @@ public class FirebaseLogic {
 
     public static String FirebaseStudentsRequestTable = "studentsRequest";
 
+    public static final String FirebarePasswordTable = "passwordStudents";
+
+    public static final String PatientRequestBucuresti = "patientRequestsBucuresti";
+
+    public static final String PatientRequestIasi = "patientRequestsIasi";
+
+    public static final String PatientRequestCluj = "patientRequestsCluj";
+
+    public static final String PatientRequestTimisoara = "patientRequests";
+
+    public static final String TotalPatientRequests = "TotalPatientRequestsInfo";
+
+    public static final String TotalPatientRequestsAdded= "RequestsAdded";
+
+    public static final String TotalPatientsRequestsDeleted = "RequestsDeleted";
+
+    public static final String TotalPatientRequestResolved = "RequestsResolved";
+
+    public static final String TotalResolvedRequestsDeletedByStudents = "RequestResolvedDeletedByStudents";
+
+    public static final String TotalRequestsNotResolved = "RequestsNotResolved";
+
+    public static final String TotalStudentsApplied = "TotalStudentsApplied";
+
+    public static UserApp CurrentUser;
+
+    public static void SetUserApp(UserApp user)
+    {
+        CurrentUser = user;
+    }
 
     private FirebaseDatabase firebaseDatabase;
 
+    public DatabaseReference GetPatientRequestTableReference(String city) {
+        if(city == null)
+            city = Constants.TimisoaraCity;
 
-    public DatabaseReference GetPatientRequestTableReference() {
-        return firebaseDatabase.getReference(FirebaseLogic.FirebasePatientRequestTable);
+        switch (city)
+        {
+            case "timisoara":
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestTimisoara);
+            case "bucuresti":
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestBucuresti);
+            case "cluj":
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestCluj);
+            case "iasi":
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestIasi);
+            default:
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestTimisoara);
+        }
+    }
+
+
+    public DatabaseReference GetCollectionReference(String collectionName)
+    {
+        return firebaseDatabase.getReference(collectionName);
     }
 
     public DatabaseReference GetStudentsRequestTableReference() {
@@ -63,6 +120,10 @@ public class FirebaseLogic {
 
     public DatabaseReference GetUserTableReference() {
         return firebaseDatabase.getReference(FirebaseLogic.FirebaseUsersTable);
+    }
+
+    public DatabaseReference GetPasswordTableRefernce() {
+        return firebaseDatabase.getReference(FirebaseLogic.FirebarePasswordTable);
     }
 
     protected FirebaseLogic() {
@@ -75,15 +136,62 @@ public class FirebaseLogic {
         Log.i("MMMM", "User added");
     }
 
-    public void WriteRequestToTable(PatientRequest request) {
-        DatabaseReference patientsRequestTable = GetPatientRequestTableReference();
-        patientsRequestTable.child(request.requestUid).setValue(request);
-        patientsRequestTable.push();
 
+    public void UpdateUserNameAndTelephone(final String userId, final String userName, final String userPhone)
+    {
+        final DatabaseReference userTable = GetUserTableReference();
+        userTable.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists())
+                    return;
+
+                UserApp currentUser = dataSnapshot.getValue(UserApp.class);
+                if(currentUser == null)
+                    return;
+
+                currentUser.name = userName;
+                currentUser.telephoneNumber = userPhone;
+
+                userTable.child(userId).setValue(currentUser);
+                FirebaseLogic.SetUserApp(currentUser);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
-    public void DeletePatientRequest(String requestUUID, String studentRequestUUID) {
-        DatabaseReference patientsRequestTable = GetPatientRequestTableReference();
+    public void WriteRequestToTable(PatientRequest request) {
+        DatabaseReference patientsRequestTable = GetPatientRequestTableReference(request.city);
+        patientsRequestTable.child(request.requestUid).setValue(request);
+        Log.i(Constants.LogKey, "request id is " + request.requestUid);
+        patientsRequestTable.push();
+
+        final DatabaseReference totalPatientRequests =  GetCollectionReference(FirebaseLogic.TotalPatientRequests);
+        totalPatientRequests.child(TotalPatientRequestsAdded).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    int currentVal = dataSnapshot.getValue(int.class);
+                    currentVal++;
+                    totalPatientRequests.child(TotalPatientRequestsAdded).setValue(currentVal);
+                    totalPatientRequests.push();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void DeletePatientRequest(String requestUUID, String studentRequestUUID, String city) {
+        DatabaseReference patientsRequestTable = GetPatientRequestTableReference(city);
         patientsRequestTable.child(requestUUID).removeValue();
 
         if (studentRequestUUID != null && !studentRequestUUID.equals("")) {
@@ -92,6 +200,25 @@ public class FirebaseLogic {
                     .child(Constants.StudentRequestStatus).setValue(RequestStatus.Deleted);
 
         }
+
+        final DatabaseReference totalPatientRequests =  GetCollectionReference(FirebaseLogic.TotalPatientRequests);
+        totalPatientRequests.child(TotalPatientsRequestsDeleted).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    int currentVal = dataSnapshot.getValue(int.class);
+                    currentVal++;
+                    totalPatientRequests.child(TotalPatientsRequestsDeleted).setValue(currentVal);
+                    totalPatientRequests.push();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void DeleteStudentRequest(final String requestUUID, final String studentUUID) {
@@ -107,6 +234,25 @@ public class FirebaseLogic {
 
                 if (request.status != RequestStatus.Waiting && request.studentUUID.equals(studentUUID)) {
                     studentRequestCollection.child(requestUUID).removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        final DatabaseReference totalPatientRequests =  GetCollectionReference(FirebaseLogic.TotalPatientRequests);
+        totalPatientRequests.child(TotalResolvedRequestsDeletedByStudents).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    int currentVal = dataSnapshot.getValue(int.class);
+                    currentVal++;
+                    totalPatientRequests.child(TotalResolvedRequestsDeletedByStudents).setValue(currentVal);
+                    totalPatientRequests.push();
                 }
             }
 
@@ -151,7 +297,8 @@ public class FirebaseLogic {
                                         studentUser.telephoneNumber, studentRequestUUID.toString(),
                                         currentDateTime, patientRequest.requestUid,
                                         patientRequest.patientName, patientRequest.typeOfRequest, patientRequest.patientUid);
-                                DatabaseReference patientsRequestTable = GetPatientRequestTableReference();
+
+                                DatabaseReference patientsRequestTable = GetPatientRequestTableReference(patientRequest.city);
 
                                 //order matter!!!!
                                 patientsRequestTable.child(patientRequest.requestUid).child(Constants.PatientRequestIsActive).setValue(false);
@@ -160,6 +307,25 @@ public class FirebaseLogic {
 
                                 DatabaseReference studentsRequestTable = GetStudentsRequestTableReference();
                                 studentsRequestTable.child(studentRequestUUID.toString()).setValue(studentRequest);
+
+                                final DatabaseReference totalPatientRequests =  GetCollectionReference(FirebaseLogic.TotalPatientRequests);
+                                totalPatientRequests.child(TotalStudentsApplied).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if(dataSnapshot.exists())
+                                        {
+                                            int currentVal = dataSnapshot.getValue(int.class);
+                                            currentVal++;
+                                            totalPatientRequests.child(TotalStudentsApplied).setValue(currentVal);
+                                            totalPatientRequests.push();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
                             }
                         }
                     }
@@ -294,8 +460,7 @@ public class FirebaseLogic {
 //        }
 //    }
 
-    public void DeleteAllDataForStudent(final Context context)
-    {
+    public void DeleteAllDataForStudent(final Context context) {
         final FragmentActivity fragmentActivity = (FragmentActivity) context;
         String studentUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference userTable = GetUserTableReference();
@@ -315,6 +480,7 @@ public class FirebaseLogic {
                         }
 
                     }
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
@@ -412,14 +578,34 @@ public class FirebaseLogic {
             return;
 
 
+
         DatabaseReference studentRequestCollection = GetStudentsRequestTableReference();
         studentRequestCollection.child(patientRequest.studentRequest.studentRequestUUID)
                 .child(Constants.StudentRequestStatus).setValue(RequestStatus.Rejected);
 
 
-        DatabaseReference patientRequestTable = GetPatientRequestTableReference();
+        DatabaseReference patientRequestTable = GetPatientRequestTableReference(patientRequest.city);
         patientRequestTable.child(patientRequest.requestUid).child("studentRequest").setValue(null);
         patientRequestTable.child(patientRequest.requestUid).child("isActive").setValue(true);
+
+        final DatabaseReference totalPatientRequests =  GetCollectionReference(FirebaseLogic.TotalPatientRequests);
+        totalPatientRequests.child(TotalRequestsNotResolved).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    int currentVal = dataSnapshot.getValue(int.class);
+                    currentVal++;
+                    totalPatientRequests.child(TotalRequestsNotResolved).setValue(currentVal);
+                    totalPatientRequests.push();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 //        patientRequest.studentRequest = null;
 //        patientRequest.isActive = true;
 //
@@ -429,13 +615,13 @@ public class FirebaseLogic {
 
     }
 
-    public void PatientRequestResolved(final String patientRequestUUID, final String studentRequestUUID) {
+    public void PatientRequestResolved(final String patientRequestUUID, final String studentRequestUUID, String requestCity) {
 
         if (patientRequestUUID == null || patientRequestUUID.equals(""))
             return;
 
 
-        DeletePatientRequest(patientRequestUUID, null);
+        DeletePatientRequest(patientRequestUUID, null , requestCity);
 
 
         if (studentRequestUUID == null || studentRequestUUID.equals(""))
@@ -445,7 +631,24 @@ public class FirebaseLogic {
         final DatabaseReference studentsRequestTable = GetStudentsRequestTableReference();
         studentsRequestTable.child(studentRequestUUID)
                 .child(Constants.StudentRequestStatus).setValue(RequestStatus.Resolved);
+
+        final DatabaseReference totalPatientRequests =  GetCollectionReference(FirebaseLogic.TotalPatientRequests);
+        totalPatientRequests.child(TotalPatientRequestResolved).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                {
+                    int currentVal = dataSnapshot.getValue(int.class);
+                    currentVal++;
+                    totalPatientRequests.child(TotalPatientRequestResolved).setValue(currentVal);
+                    totalPatientRequests.push();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
-
-
 }

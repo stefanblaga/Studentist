@@ -12,6 +12,7 @@ public class StudentRequest {
     public String patientRequestUUID;
     public String patientName;
     public String patientRequestType;
+    public String patientCity;
     public RequestStatus status;
     public String patientUUID;
 

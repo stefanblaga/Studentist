@@ -55,7 +55,10 @@
             android:label="@string/title_activity_main_navigation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".account.ChangeAccountInfoActivity"></activity>
+        <activity android:name=".account.ChangeAccountInfoActivity" />
+        <activity android:name=".account.CreateAccountActivity">
+
+        </activity>
     </application>
 
 </manifest>

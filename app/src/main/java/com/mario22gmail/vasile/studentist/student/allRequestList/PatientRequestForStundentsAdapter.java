@@ -118,6 +118,7 @@ public class PatientRequestForStundentsAdapter extends RecyclerView.Adapter<Pati
 
                     Intent patientDetailRequest = new Intent(holder.contextViewHolder, StudentRequestDetailsActivity.class);
                     patientDetailRequest.putExtra(Constants.requestUuidIntentExtraName, request.requestUid);
+                    patientDetailRequest.putExtra(Constants.requestCityInternal, request.city);
                     patientDetailRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     holder.contextViewHolder.startActivity(patientDetailRequest);
                 }

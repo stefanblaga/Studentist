@@ -25,6 +25,7 @@ import java.util.UUID;
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
+import Helpers.SharedPreferenceLogic;
 import Helpers.UserApp;
 import PatientComponent.PatientRequest;
 import butterknife.BindView;
@@ -35,7 +36,6 @@ public class PatientAddRequest extends AppCompatActivity {
 
     @BindView(R.id.add_request_img_type)
     ImageView categoryImageView;
-
 
     @BindView(R.id.add_request_type_description_label)
     TextView categoryDescriptionTextView;
@@ -70,7 +70,7 @@ public class PatientAddRequest extends AppCompatActivity {
         add_request_toolbar.setTitleTextColor(white);
 
         setSupportActionBar(add_request_toolbar);
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -79,6 +79,15 @@ public class PatientAddRequest extends AppCompatActivity {
         typeOfRequest = categoryDescription;
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            Constants.ShowErrorFragment(getSupportFragmentManager());
+            return;
+        }
+
+        if (FirebaseLogic.CurrentUser == null) {
+            Constants.ShowErrorFragment(getSupportFragmentManager());
+            return;
+        }
 
 
         int imageResourceName = bundle.getInt("type_img");
@@ -86,8 +95,9 @@ public class PatientAddRequest extends AppCompatActivity {
         requestInfoEditText.setHorizontallyScrolling(false);
         requestInfoEditText.setMaxLines(Integer.MAX_VALUE);
 
-        FindTelNumber();
+        FindUserInformation();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -103,53 +113,32 @@ public class PatientAddRequest extends AppCompatActivity {
         return super.onOptionsItemSelected(menuItem);
     }
 
-    private void FindTelNumber()
-    {
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseLogic.getInstance().GetUserTableReference().child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                {
-                    UserApp userInfo = dataSnapshot.getValue(UserApp.class);
-                    if(userInfo != null)
-                    {
-                        patientTelNumberEditText.setText(userInfo.telephoneNumber);
-                        patientNameEditText.setText(userInfo.name);
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    private void FindUserInformation() {
+        if (FirebaseLogic.CurrentUser != null) {
+            patientTelNumberEditText.setText(FirebaseLogic.CurrentUser.telephoneNumber);
+            patientNameEditText.setText(FirebaseLogic.CurrentUser.name);
+        }
     }
 
-    public boolean ValidateForm(View view)
-    {
-        if(!Constants.IsNetworkAvailable((ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE)))
-        {
+    public boolean ValidateForm(View view) {
+        if (!Constants.IsNetworkAvailable((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
             Constants.DisplaySnackbarForInternetConnection(view);
             return false;
         }
 
         String telephoneNumber = patientTelNumberEditText.getText().toString();
-        if(telephoneNumber.equals(""))
-        {
+        if (telephoneNumber.equals("")) {
             patientTelNumberEditText.setError("Adauga un numar de telefon valid");
             return false;
         }
 
-        if(telephoneNumber.length() <= Constants.PhoneNumberMinLength)
-        {
+        if (telephoneNumber.length() <= Constants.PhoneNumberMinLength) {
             patientTelNumberEditText.setError("Numarul de telefon prea scurt");
             return false;
         }
 
         String patientName = patientNameEditText.getText().toString();
-        if( patientName == null || patientName.equals("") || patientName.trim().length() <= 0)
-        {
+        if (patientName == null || patientName.equals("") || patientName.trim().length() <= 0) {
             patientNameEditText.setError("Adauga numele tau");
             return false;
         }
@@ -160,8 +149,15 @@ public class PatientAddRequest extends AppCompatActivity {
     @OnClick(R.id.pacientSendRequestButton)
     public void AddPatientRequest(View view) {
 
-        if(!ValidateForm(view))
+        if (!ValidateForm(view))
             return;
+
+        if(FirebaseLogic.CurrentUser == null)
+        {
+            Constants.ShowErrorFragment(getSupportFragmentManager());
+            return;
+        }
+
         String patientName = patientNameEditText.getText().toString();
         String userUid = currentUser.getUid();
         String requestInfo = requestInfoEditText.getText().toString();
@@ -173,13 +169,16 @@ public class PatientAddRequest extends AppCompatActivity {
 
         String requestUUID = UUID.randomUUID().toString();
 
-        PatientRequest request = new PatientRequest(patientName,requestInfo,typeOfRequest,userUid,
-                requestUUID,currentDateTime, telephoneNumber);
+        PatientRequest request = new PatientRequest(patientName, requestInfo, typeOfRequest, userUid,
+                requestUUID, currentDateTime, telephoneNumber, FirebaseLogic.CurrentUser.city);
         FirebaseLogic.getInstance().WriteRequestToTable(request);
 
+        if (SharedPreferenceLogic.IsPatientFirstTime(getApplicationContext())) {
+            FirebaseLogic.getInstance().UpdateUserNameAndTelephone(currentUser.getUid(), patientName, telephoneNumber);
+            SharedPreferenceLogic.SetPatientFirstTime(getApplicationContext(), false);
+        }
         finish();
     }
-
 
 
 }

@@ -24,6 +24,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +34,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.mario22gmail.vasile.studentist.AboutDialogFragment;
+import com.mario22gmail.vasile.studentist.account.CreateProfileActivity;
 import com.mario22gmail.vasile.studentist.account.LoginActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
 import com.mario22gmail.vasile.studentist.R;
@@ -42,6 +44,7 @@ import com.mario22gmail.vasile.studentist.student.studentRequests.StudentRequest
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
 import Helpers.StudentUser;
+import Helpers.UserApp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -59,20 +62,45 @@ public class StudentMainFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View mainView =  inflater.inflate(R.layout.activity_student_request_list, container, false);
+        View mainView = inflater.inflate(R.layout.activity_student_request_list, container, false);
         ButterKnife.bind(this, mainView);
 
         StudentListAdapter adapter = new StudentListAdapter(getFragmentManager());
         mainViewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(mainViewPager);
 
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser == null) {
+            Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
+            return null;
+        }
 
+        if (FirebaseLogic.CurrentUser == null) {
+            Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
+            return null;
+        }
 
         String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseLogic.getInstance().UpdateStudentProfileForAddingRequest(userUUID);
-
+        CheckIfUserHasNameAndPhone(userUUID);
         return mainView;
     }
+
+    public void CheckIfUserHasNameAndPhone(String userUUID) {
+        if (FirebaseLogic.CurrentUser == null) {
+            Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
+            return;
+        }
+
+        UserApp currentUser = FirebaseLogic.CurrentUser;
+        if (currentUser.name == null || currentUser.name.equals("") ||
+                currentUser.telephoneNumber == null || currentUser.telephoneNumber.equals("")) {
+            Intent finishStudentProfile = new Intent(getContext(), CreateProfileActivity.class);
+            getActivity().startActivity(finishStudentProfile);
+            return;
+        }
+    }
+
 
 //
 //    public void SetToolbarMenu(Toolbar toolbar)

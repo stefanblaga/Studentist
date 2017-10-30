@@ -20,10 +20,11 @@ public class PatientRequest {
     public String patientName;
     public String dateRequestMade;
     public String telephoneNumber;
+    public String city;
     public Boolean isActive;
     public StudentRequest studentRequest;
 
-    public PatientRequest(String name, String description, String typeOfRequest, String patientUid, String requestUid, String deteRequestMade, String telephoneNumber) {
+    public PatientRequest(String name, String description, String typeOfRequest, String patientUid, String requestUid, String deteRequestMade, String telephoneNumber, String city) {
         this.patientName = name;
         this.description = description;
         this.typeOfRequest = typeOfRequest;
@@ -32,6 +33,7 @@ public class PatientRequest {
         this.dateRequestMade = deteRequestMade;
         this.telephoneNumber = telephoneNumber;
         this.isActive = true;
+        this.city = city;
     }
 
     public PatientRequest() {
@@ -57,6 +59,7 @@ public class PatientRequest {
         result.put("telephoneNumber", telephoneNumber);
         result.put("isActive", isActive);
         result.put("typeOfRequest", typeOfRequest);
+        result.put("city", city);
 
         HashMap<String, Object> finalResponse = new HashMap<>();
         finalResponse.put(requestUid, result);

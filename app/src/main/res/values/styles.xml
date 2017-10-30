@@ -73,6 +73,16 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
+    <style name="TextLabelPassword" parent="AppTheme">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
     <style name="myRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/imgrating</item>
         <item name="android:indeterminateDrawable">@drawable/imgprotetica</item>
