@@ -68,7 +68,13 @@ public class FirebaseLogic {
 
     public static final String TotalPatientRequests = "TotalPatientRequestsInfo";
 
-    public static final String TotalPatientRequestsAdded= "RequestsAdded";
+    public static final String TimisoaraTotalPatientRequestsAdded= "RequestsAddedTimisoara";
+    public static final String BucurestTotalPatientRequestsAdded= "RequestsAddedBucuresti";
+    public static final String IasiTotalPatientRequestsAdded= "RequestsAddedIasi";
+    public static final String ClujTotalPatientRequestsAdded= "RequestsAddedCluj";
+    public static final String TotalPatientRequestsAdded= "RequestsAddedWithoutCity";
+
+
 
     public static final String TotalPatientsRequestsDeleted = "RequestsDeleted";
 
@@ -105,6 +111,25 @@ public class FirebaseLogic {
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestIasi);
             default:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestTimisoara);
+        }
+    }
+
+    public String GetAddTableInfoName(String city) {
+        if(city == null)
+            city = Constants.TimisoaraCity;
+
+        switch (city)
+        {
+            case "timisoara":
+                return TimisoaraTotalPatientRequestsAdded;
+            case "bucuresti":
+                return BucurestTotalPatientRequestsAdded;
+            case "cluj":
+                return ClujTotalPatientRequestsAdded;
+            case "iasi":
+                return IasiTotalPatientRequestsAdded;
+            default:
+                return TotalPatientRequestsAdded;
         }
     }
 
@@ -171,14 +196,15 @@ public class FirebaseLogic {
         patientsRequestTable.push();
 
         final DatabaseReference totalPatientRequests =  GetCollectionReference(FirebaseLogic.TotalPatientRequests);
-        totalPatientRequests.child(TotalPatientRequestsAdded).addListenerForSingleValueEvent(new ValueEventListener() {
+        final String totalAddedRequestTableName = GetAddTableInfoName(request.city);
+        totalPatientRequests.child(totalAddedRequestTableName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists())
                 {
                     int currentVal = dataSnapshot.getValue(int.class);
                     currentVal++;
-                    totalPatientRequests.child(TotalPatientRequestsAdded).setValue(currentVal);
+                    totalPatientRequests.child(totalAddedRequestTableName).setValue(currentVal);
                     totalPatientRequests.push();
                 }
             }

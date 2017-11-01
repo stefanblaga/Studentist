@@ -56,9 +56,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity android:name=".account.ChangeAccountInfoActivity" />
-        <activity android:name=".account.CreateAccountActivity">
-
-        </activity>
+        <activity android:name=".account.CreateAccountActivity"></activity>
+        <activity android:name=".patient.PatientCelebrationActivity"></activity>
     </application>
 
 </manifest>

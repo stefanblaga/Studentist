@@ -37,7 +37,7 @@ public class Constants {
 
     public static String StudentUUIDKey = "studentUUID";
 
-    public static String LogKey = "MMM_MMM";
+    public static String LogKey = "xxx_MMM_MMM";
 
     public static String DISPLAY_HOW_TO = "display_howTo";
 
@@ -83,7 +83,7 @@ public class Constants {
 
     public static String StudentUserType = "student";
 
-    public static String APP_VERSION = "1.0.0";
+    public static String APP_VERSION = "1.2.0";
 
 
 

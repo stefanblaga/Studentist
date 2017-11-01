@@ -38,8 +38,8 @@
     <string name="studentist_name">Studentist</string>
     <string name="about_you_text">Bine ai venit Studentistule !</string>
     <string name="create_account_name_label">Nume*</string>
-    <string name="create_account_phone_label">Vreau sa fiu contactat la numărul*</string>
-    <string name="create_account_done_button_text">Incantat de cunostinta !</string>
+    <string name="create_account_phone_label">Vreau să fiu contactat la numărul*</string>
+    <string name="create_account_done_button_text">Hai să găsim pacienți</string>
     <string name="create_account_patient_type_message">Am probleme dentare</string>
     <string name="create_account_student_type_label">Sunt student/ă la medicină dentară</string>
     <string name="add_request_tel_label">Vreau sa fiu contactat la numărul*</string>
@@ -47,9 +47,9 @@
     <string name="save_changes_button_text">Salvează</string>
     <string name="change_account_label_toolbar">Informații cont</string>
     <string name="add_request_description">Trimite o cerere și un Studentist te va contacta în cel mai scurt timp</string>
-    <string name="add_request_extra_info_label">Informații suplimentare (optional)</string>
+    <string name="add_request_extra_info_label">Informații suplimentare</string>
     <string name="my_request_title">Cererile mele</string>
-    <string name="patient_empty_state_description1">Hei, sunt aici ca să te ajut !!!</string>
+    <string name="patient_empty_state_description1">Hei, sunt aici ca să te ajut!</string>
     <string name="patient_empty_state_description2">Adaugă o cerere nouă</string>
     <string name="city_name">Timisoara</string>
     <string name="yes_label">Da</string>
@@ -107,6 +107,8 @@
     <string name="bucurestCity">Bucuresti</string>
     <string name="clujCity">Cluj</string>
     <string name="iasiCity">Iasi</string>
+    <string name="numarul_de_telefon">Numărul de telefon</string>
+    <string name="numele_tau_este">Numele tau este</string>
 
 
 </resources>

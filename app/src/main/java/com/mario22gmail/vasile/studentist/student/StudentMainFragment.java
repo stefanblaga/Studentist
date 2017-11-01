@@ -82,11 +82,11 @@ public class StudentMainFragment extends Fragment {
 
         String userUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseLogic.getInstance().UpdateStudentProfileForAddingRequest(userUUID);
-        CheckIfUserHasNameAndPhone(userUUID);
+        CheckIfUserHasNameAndPhone();
         return mainView;
     }
 
-    public void CheckIfUserHasNameAndPhone(String userUUID) {
+    public void CheckIfUserHasNameAndPhone() {
         if (FirebaseLogic.CurrentUser == null) {
             Constants.ShowErrorFragment(getActivity().getSupportFragmentManager());
             return;
@@ -101,8 +101,13 @@ public class StudentMainFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        CheckIfUserHasNameAndPhone();
+    }
 
-//
+    //
 //    public void SetToolbarMenu(Toolbar toolbar)
 //    {
 //        Drawable threeDotsMenu = ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_more_vert);

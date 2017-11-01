@@ -12,11 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.mario22gmail.vasile.studentist.R;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +25,6 @@ import java.util.UUID;
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
 import Helpers.SharedPreferenceLogic;
-import Helpers.UserApp;
 import PatientComponent.PatientRequest;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,6 +59,7 @@ public class PatientAddRequest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_add_request);
         ButterKnife.bind(this);
+
 
         Bundle bundle = getIntent().getExtras();
         String categoryDescription = bundle.getString("type_desc");
@@ -117,6 +116,11 @@ public class PatientAddRequest extends AppCompatActivity {
         if (FirebaseLogic.CurrentUser != null) {
             patientTelNumberEditText.setText(FirebaseLogic.CurrentUser.telephoneNumber);
             patientNameEditText.setText(FirebaseLogic.CurrentUser.name);
+            if(FirebaseLogic.CurrentUser.name != null && !FirebaseLogic.CurrentUser.name.equals("") &&
+                    FirebaseLogic.CurrentUser.telephoneNumber != null && !FirebaseLogic.CurrentUser.telephoneNumber.equals(""))
+            {
+                requestInfoEditText.requestFocus();
+            }
         }
     }
 

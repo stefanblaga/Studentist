@@ -149,7 +149,6 @@ public class StudentRequestsAdapter extends RecyclerView.Adapter<StudentAppliedR
             public void onClick(View v) {
                 Intent patientDetailRequest = new Intent(holder.contextViewHolder, StudentRequestDetailsActivity.class);
                 patientDetailRequest.putExtra(Constants.requestUuidIntentExtraName, studentRequest.patientRequestUUID);
-                patientDetailRequest.putExtra(Constants.requestCityInternal, studentRequest.patientCity);
                 patientDetailRequest.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 holder.contextViewHolder.startActivity(patientDetailRequest);
             }

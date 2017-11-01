@@ -111,8 +111,8 @@ public class CreateAccountActivity extends AppIntro2 implements ICreateAccount {
                     finish();
                     return;
                 } else if (user.role.equals(Constants.StudentUserType)) {
-                    Intent studentActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
-                    startActivity(studentActivity);
+                    Intent finishStudentProfile = new Intent(getApplicationContext(), CreateProfileActivity.class);
+                    startActivity(finishStudentProfile);
                     finish();
                     return;
                 }

@@ -58,7 +58,6 @@ public class MainNavigationActivity extends AppCompatActivity
 
     TextView userNameTextView;
 
-    private String _userType = "";
     private Activity _thisActivity;
 
     @BindView(R.id.toolbar)
@@ -81,7 +80,6 @@ public class MainNavigationActivity extends AppCompatActivity
         }
 
         _thisActivity = this;
-        _userType = FirebaseLogic.CurrentUser.role;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Studentist");
@@ -102,7 +100,7 @@ public class MainNavigationActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         userNameTextView = (TextView) header.findViewById(R.id.userNameNavigationDrawerTextView);
 
-        GetRightFragment(_userType);
+        GetRightFragment(FirebaseLogic.CurrentUser.role);
     }
 
     @Override

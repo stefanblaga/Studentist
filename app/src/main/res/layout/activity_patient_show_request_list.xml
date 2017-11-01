@@ -28,7 +28,7 @@
             android:id="@+id/patientEmptyStateImageView"
             android:layout_width="277dp"
             android:layout_height="214dp"
-            app:srcCompat="@drawable/patientrequestemptystate"
+            app:srcCompat="@drawable/mainiconsuperman"
             android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginRight="8dp"

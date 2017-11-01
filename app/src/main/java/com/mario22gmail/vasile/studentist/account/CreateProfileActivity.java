@@ -140,7 +140,7 @@ public class CreateProfileActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        return;
+        finish();
     }
 
     @OnClick(R.id.createProfileButton)
@@ -182,6 +182,11 @@ public class CreateProfileActivity extends AppCompatActivity {
                     FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
 
                     FirebaseLogic.getInstance().GetUserTableReference().child(userId).setValue(userInfo);
+                    FirebaseLogic.CurrentUser = userInfo;
+
+                    Intent mainActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
+                    mainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(mainActivity);
                     finish();
                 }
             }

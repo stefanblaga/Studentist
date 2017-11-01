@@ -76,8 +76,8 @@ public class StartActivity extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/mainfont.ttf");
         logoTitle.setTypeface(custom_font);
 
-        if (SharedPreferenceLogic.ShowHowToPageStudent( getApplicationContext())) {
-            SharedPreferenceLogic.SetHowToPageStudent(getApplicationContext(),false);
+        if (SharedPreferenceLogic.ShowHowToPageStudent(getApplicationContext())) {
+            SharedPreferenceLogic.SetHowToPageStudent(getApplicationContext(), false);
             Intent showHowToPage = new Intent(getApplicationContext(), HowToUseStudent.class);
             startActivity(showHowToPage);
             finish();
@@ -217,6 +217,13 @@ public class StartActivity extends AppCompatActivity {
                 finish();
                 break;
             case "student":
+                if (user.telephoneNumber == null || user.telephoneNumber.equals("") ||
+                        user.name == null || user.name.equals("")) {
+                    Intent finishStudentProfile = new Intent(getApplicationContext(), CreateProfileActivity.class);
+                    startActivity(finishStudentProfile);
+                    finish();
+                    return;
+                }
                 navActivity.putExtra("uid", user.uid);
                 navActivity.putExtra(Constants.UserTypeKey, user.role);
                 startActivity(navActivity);

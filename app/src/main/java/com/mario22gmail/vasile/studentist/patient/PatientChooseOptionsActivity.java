@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.mario22gmail.vasile.studentist.R;
 
+import Helpers.Constants;
+import Helpers.FirebaseLogic;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -26,14 +28,26 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
     @BindView(R.id.cariiOptionLabelTextView)
     TextView controlLabel;
 
+    @BindView(R.id.CariiDoctorTextView)
+    TextView doctorCariiTextView;
+
     @BindView(R.id.durereRequestLabelTextView)
     TextView durereLabel;
+
+    @BindView(R.id.DurereDoctorTextView)
+    TextView doctorDurereTextView;
 
     @BindView(R.id.IgienizareRequestLabelTextView)
     TextView igienizareLabel;
 
+    @BindView(R.id.IgienizareDoctorTextView)
+    TextView doctorIgienizareTextView;
+
     @BindView(R.id.ProteticaRequestLabelTextView)
     TextView proteticaLabel;
+
+    @BindView(R.id.LucrariDoctorTextView)
+    TextView doctorLucrariTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +64,13 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+        if(FirebaseLogic.CurrentUser == null)
+        {
+            Constants.ShowErrorFragment(getSupportFragmentManager());
+            return;
+        }
+
+        GetDoctorsNameBaseOnCity(FirebaseLogic.CurrentUser.city);
     }
 
     @Override
@@ -101,5 +122,26 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
         addRequestActivity.putExtra("type_desc", "Lucrari");
         startActivity(addRequestActivity);
         finish();
+    }
+
+    public void GetDoctorsNameBaseOnCity(String city)
+    {
+        switch (city)
+        {
+            case "timisoara":
+                doctorCariiTextView.setText(" dr Oana Velea");
+                doctorLucrariTextView.setText("dr. Luciana Goguță");
+                doctorDurereTextView.setText("dr. Mariana Miron");
+                doctorIgienizareTextView.setText("dr. Daniela Jumanca");
+                return ;
+            case "bucuresti":
+                return ;
+            case "cluj":
+                return ;
+            case "iasi":
+                return ;
+            default:
+                return ;
+        }
     }
 }

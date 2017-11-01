@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,7 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
 
         if(request.studentRequest != null)
         {
+            Log.i(Constants.LogKey, "student request uuid " + request.studentRequest.studentRequestUUID);
             holder.requestIsWaitingTextView.setVisibility(View.INVISIBLE);
             holder.studentAppliedTextView.setVisibility(View.VISIBLE);
             holder.viewStudentWhoAppliedButton.setVisibility(View.VISIBLE);
