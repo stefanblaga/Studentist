@@ -109,17 +109,14 @@ public class StartActivity extends AppCompatActivity {
     final private Runnable _networkRunnable = new Runnable() {
         @Override
         public void run() {
-            Log.i(Constants.LogKey, "Thread is running");
             if (_checkingInternetConnection) {
                 _isConnectedToInternet = isNetworkAvailable();
                 DisplayViewBasedOnNetworkState(_isConnectedToInternet);
                 if (_isConnectedToInternet) {
-                    Log.i(Constants.LogKey, "Runnable removed");
                     handler.removeCallbacks(this);
                 }
-                Log.i(Constants.LogKey, "Runnable checked internet");
             }
-            handler.postDelayed(this, 2000);
+            handler.postDelayed(this, 500);
         }
     };
 
@@ -146,11 +143,10 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(Constants.LogKey, "On resume entered");
         if (!isNetworkAvailable()) {
             _checkingInternetConnection = true;
             _isConnectedToInternet = false;
-            handler.postDelayed(_networkRunnable, 2000);
+            handler.postDelayed(_networkRunnable, 500);
         } else {
             handler.removeCallbacks(_networkRunnable);
             GetUserFromFirebase();
@@ -171,7 +167,7 @@ public class StartActivity extends AppCompatActivity {
                     finish();
                     return;
                 }
-            }, 1000);
+            }, 500);
             return;
         }
 

@@ -54,8 +54,8 @@
     <string name="city_name">Timisoara</string>
     <string name="yes_label">Da</string>
     <string name="no_label">Nu</string>
-    <string name="student_applied_label">Un student a aplicat !</string>
-    <string name="delete_request_label">Dorești să ștergi cererea ?</string>
+    <string name="student_applied_label">Am găsit un Studentist!</string>
+    <string name="delete_request_label">Dorești să ștergi cererea?</string>
     <string name="our_mission_label">- Misiunea noastră -</string>
     <string name="about_description">Să punem în contact studenții de la medicină dentară cu oamenii care doresc servicii medicale</string>
     <string name="about_disclaimer">Applicația \'Studentist\' nu oferă servicii medicale și nu își asumă nici o responsabilitate privind efectuarea acestor servicii</string>
@@ -78,7 +78,7 @@
     <string name="request_description_label">Descriere:</string>
     <string name="data_label">Data :</string>
     <string name="request_details_button_label">Detalii</string>
-    <string name="wait_for_student_request_label">Așteptăm un studentist...</string>
+    <string name="wait_for_student_request_label">Căutăm un Studentist...</string>
     <string name="request_phone_label">Telefon:</string>
     <string name="tell_more_about_label">Spune-ți părerea pe :</string>
     <string name="available_only_Tm">Disponibil momentan doar in Timișoara</string>
@@ -87,7 +87,7 @@
     <string name="howToPageDoneText">Terminat</string>
     <string name="howToPatientPageOneTitle">Bine ai venit !</string>
     <string name="howToPatientPageTwoTitle">Adauga o cerere</string>
-    <string name="howToPatientPageThreeTitle">Asteapta un studentist</string>
+    <string name="howToPatientPageThreeTitle">Asteaptă un studentist</string>
     <string name="howToPatientPageFourTitle">Nu uita !</string>
     <string name="howToStudentPageOneTitle">Bine ai venit !</string>
     <string name="howToStudentPageTwoTitle">Alege un pacient</string>

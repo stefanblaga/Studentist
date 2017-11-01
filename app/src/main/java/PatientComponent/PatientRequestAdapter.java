@@ -181,7 +181,6 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
             viewStudentWhoAppliedButton = (Button) itemView.findViewById(R.id.buttonStudentsWhoApplied);
             telTextView = (TextView) itemView.findViewById(R.id.patientRequestItemTelNrTextView);
             contextViewHolder = itemView.getContext();
-
         }
     }
 }
