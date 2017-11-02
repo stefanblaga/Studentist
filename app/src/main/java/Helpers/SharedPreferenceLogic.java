@@ -27,6 +27,7 @@ public class SharedPreferenceLogic {
     public static final String PatientAnonymousTel = "patientAnonymousTel";
     public static final String PatientRequestList = "patientRequestList";
     public static final String PatientFirstTime = "patientFirstTime";
+    public static final String PatientViewDetailsFirstTime = "patientViewDetailsFirstTime";
 
 
     public static String GetAnonymousPatientUUID(Context context)
@@ -84,7 +85,7 @@ public class SharedPreferenceLogic {
         return new HashSet<String>(requestList);
     }
 
-    public static Boolean IsPatientFirstTime(Context context)
+    public static boolean IsPatientFirstTime(Context context)
     {
         SharedPreferences settings = context.getSharedPreferences(PatientSharedPrefenceKey, Context.MODE_PRIVATE);
         return settings.getBoolean(PatientFirstTime, true);
@@ -97,6 +98,21 @@ public class SharedPreferenceLogic {
         pendingEdits.apply();
 
         return settings.getBoolean(PatientFirstTime, true);
+    }
+
+    public static boolean IsPatientViewDetailsFirstTime(Context context)
+    {
+        SharedPreferences settings = context.getSharedPreferences(PatientSharedPrefenceKey, Context.MODE_PRIVATE);
+        return settings.getBoolean(PatientViewDetailsFirstTime, true);
+    }
+
+    public static boolean SetPatientViewDetailsFirstTime(Context context, boolean value)
+    {
+        SharedPreferences settings = context.getSharedPreferences(PatientSharedPrefenceKey, Context.MODE_PRIVATE);
+        SharedPreferences.Editor pendingEdits = settings.edit().putBoolean(PatientViewDetailsFirstTime, value);
+        pendingEdits.apply();
+
+        return settings.getBoolean(PatientViewDetailsFirstTime, true);
     }
 
 

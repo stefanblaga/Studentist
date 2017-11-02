@@ -22,6 +22,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.mario22gmail.vasile.studentist.account.CreateAccountActivity;
 import com.mario22gmail.vasile.studentist.account.CreateProfileActivity;
 import com.mario22gmail.vasile.studentist.account.LoginActivity;
+import com.mario22gmail.vasile.studentist.howToPage.HowToUseIntro;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
 
@@ -76,9 +77,9 @@ public class StartActivity extends AppCompatActivity {
         Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/mainfont.ttf");
         logoTitle.setTypeface(custom_font);
 
-        if (SharedPreferenceLogic.ShowHowToPageStudent(getApplicationContext())) {
-            SharedPreferenceLogic.SetHowToPageStudent(getApplicationContext(), false);
-            Intent showHowToPage = new Intent(getApplicationContext(), HowToUseStudent.class);
+        if (SharedPreferenceLogic.ShowHowToPagePatient(getApplicationContext())) {
+            SharedPreferenceLogic.SetHowToPagePatient(getApplicationContext(), false);
+            Intent showHowToPage = new Intent(getApplicationContext(), HowToUseIntro.class);
             startActivity(showHowToPage);
             finish();
             return;

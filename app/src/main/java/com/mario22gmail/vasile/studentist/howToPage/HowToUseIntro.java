@@ -5,19 +5,19 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder;
 import com.github.paolorotolo.appintro.model.SliderPage;
-import com.mario22gmail.vasile.studentist.MainNavigationActivity;
-import com.mario22gmail.vasile.studentist.patient.PatientMainFragment;
 import com.mario22gmail.vasile.studentist.R;
+import com.mario22gmail.vasile.studentist.StartActivity;
 
 import Helpers.Constants;
 
-public class HowToUsePatientActivity extends AppIntro {
+public class HowToUseIntro extends AppIntro {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +72,11 @@ public class HowToUsePatientActivity extends AppIntro {
     @Override
     public void onSkipPressed(Fragment currentFragment) {
         // Do something when users tap on Skip button.
+        final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
+        final SharedPreferences.Editor pendingEdits = sp.edit().putBoolean(Constants.DISPLAY_HOW_TO_PATIENT, false);
+        pendingEdits.apply();
+        Intent mainActivity = new Intent(getApplicationContext(), StartActivity.class);
+        startActivity(mainActivity);
         finish();
     }
 
@@ -83,7 +88,8 @@ public class HowToUsePatientActivity extends AppIntro {
         final SharedPreferences sp = getSharedPreferences(Constants.DISPLAY_HOW_TO, MODE_PRIVATE);
         final SharedPreferences.Editor pendingEdits = sp.edit().putBoolean(Constants.DISPLAY_HOW_TO_PATIENT, false);
         pendingEdits.apply();
-
+        Intent mainActivity = new Intent(getApplicationContext(), StartActivity.class);
+        startActivity(mainActivity);
         finish();
     }
 

@@ -26,9 +26,9 @@
     <string name="howToStudentTwoDescription">Alege din lista de cereri ce categorie dorești să rezolvi</string>
     <string name="howToStudentThreeDescription">Odată ce ai aplicat, poți suna pacientul și stabili o întâlnire</string>
     <string name="howToStudentForthDescription">Poți contacta 2 pacienți pe zi</string>
-    <string name="howToPatientOneDescription">Dorim să-ți rezolvăm problemele dentare!</string>
-    <string name="howToPatientTwoDescription">Adaugă o cerere apăsând butonul albastru din colțul din dreapta</string>
-    <string name="howToPatientThreeDescription">După ce a aplicat un studentist, poți apăsa detalii și contacta studentistul</string>
+    <string name="howToPatientOneDescription">Hai să te punem în legătură cu un student de la medicină dentară și profesorul lui coordonator. Împreună te vor ajuta în rezolvarea poblemelor tale dentare.</string>
+    <string name="howToPatientTwoDescription">Prima dată adaugă o cerere apăsând una din cele patru categorii.</string>
+    <string name="howToPatientThreeDescription">Vei fi contactat pentru o programare în aproximativ 20 de minute</string>
     <string name="howToPatientForthDescription">Apasă AM REZOLVAT pentru a șterge postarea, sau NU AM REZOLVAT pentru a reactiva anunțul</string>
     <string name="student_can_apply_tomorrow">Mâine e o nouă zi</string>
     <string name="deleteRequestButtonText">Șterge</string>
@@ -42,7 +42,7 @@
     <string name="create_account_done_button_text">Hai să găsim pacienți</string>
     <string name="create_account_patient_type_message">Am probleme dentare</string>
     <string name="create_account_student_type_label">Sunt student/ă la medicină dentară</string>
-    <string name="add_request_tel_label">Vreau sa fiu contactat la numărul*</string>
+    <string name="add_request_tel_label">Vreau să fiu contactat la numărul*</string>
     <string name="add_request_send_button_text">Trimite</string>
     <string name="save_changes_button_text">Salvează</string>
     <string name="change_account_label_toolbar">Informații cont</string>
@@ -51,14 +51,14 @@
     <string name="my_request_title">Cererile mele</string>
     <string name="patient_empty_state_description1">Hei, sunt aici ca să te ajut!</string>
     <string name="patient_empty_state_description2">Adaugă o cerere nouă</string>
-    <string name="city_name">Timisoara</string>
+    <string name="city_name">Timișoara</string>
     <string name="yes_label">Da</string>
     <string name="no_label">Nu</string>
     <string name="student_applied_label">Am găsit un Studentist!</string>
     <string name="delete_request_label">Dorești să ștergi cererea?</string>
     <string name="our_mission_label">- Misiunea noastră -</string>
     <string name="about_description">Să punem în contact studenții de la medicină dentară cu oamenii care doresc servicii medicale</string>
-    <string name="about_disclaimer">Applicația \'Studentist\' nu oferă servicii medicale și nu își asumă nici o responsabilitate privind efectuarea acestor servicii</string>
+    <string name="about_disclaimer">Aplicația \'Studentist\' nu oferă servicii medicale și nu își asumă nici o responsabilitate privind efectuarea acestor servicii</string>
     <string name="gmail_account">studentist.app@gmail.com</string>
     <string name="fb_page">https://www.facebook.com/studentistul</string>
     <string name="close_description">Închide</string>
@@ -74,20 +74,20 @@
     <string name="sign_out_menu_label">Deconectare</string>
     <string name="delete_account_menu_label">Ștergere cont</string>
     <string name="exit_menu_label">Ieșire din aplicație</string>
-    <string name="close_dialog_text">Inchide</string>
+    <string name="close_dialog_text">Închide</string>
     <string name="request_description_label">Descriere:</string>
     <string name="data_label">Data :</string>
     <string name="request_details_button_label">Detalii</string>
     <string name="wait_for_student_request_label">Căutăm un Studentist...</string>
     <string name="request_phone_label">Telefon:</string>
     <string name="tell_more_about_label">Spune-ți părerea pe :</string>
-    <string name="available_only_Tm">Disponibil momentan doar in Timișoara</string>
+    <string name="available_only_Tm">Disponibil momentan doar în Timișoara</string>
     <string name="internet_fail_connected_text">Nu ești conectat la internet !</string>
     <string name="howToPageSkipText">Sari peste</string>
-    <string name="howToPageDoneText">Terminat</string>
+    <string name="howToPageDoneText">În regulă</string>
     <string name="howToPatientPageOneTitle">Bine ai venit !</string>
-    <string name="howToPatientPageTwoTitle">Adauga o cerere</string>
-    <string name="howToPatientPageThreeTitle">Asteaptă un studentist</string>
+    <string name="howToPatientPageTwoTitle">Adaugă o cerere</string>
+    <string name="howToPatientPageThreeTitle">Așteaptă un studentist</string>
     <string name="howToPatientPageFourTitle">Nu uita !</string>
     <string name="howToStudentPageOneTitle">Bine ai venit !</string>
     <string name="howToStudentPageTwoTitle">Alege un pacient</string>
@@ -103,12 +103,19 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="timisoaraCity">Timisoara</string>
-    <string name="bucurestCity">Bucuresti</string>
+    <string name="timisoaraCity">Timișoara</string>
+    <string name="bucurestCity">București</string>
     <string name="clujCity">Cluj</string>
-    <string name="iasiCity">Iasi</string>
+    <string name="iasiCity">Iași</string>
     <string name="numarul_de_telefon">Numărul de telefon</string>
-    <string name="numele_tau_este">Numele tau este</string>
+    <string name="numele_tau_este">Numele tău este</string>
+    <string name="disclaimerDescription">Aplicația nu oferă servicii medicale, dar te pune în legătură cu un student de la medicină dentară și profesorul lui coordonator. Cunoaște-i apelând numărul afișat</string>
+    <string-array name="cityArray">
+        <item>Timisoara</item>
+        <item>Bucuresti</item>
+        <item>Cluj</item>
+        <item>Iasi</item>
+    </string-array>
 
 
 </resources>

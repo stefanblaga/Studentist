@@ -1,14 +1,20 @@
 package com.mario22gmail.vasile.studentist.account;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.method.TextKeyListener;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -17,9 +23,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.mario22gmail.vasile.studentist.R;
+import com.mario22gmail.vasile.studentist.StartActivity;
+
+import org.w3c.dom.Text;
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
+import Helpers.StudentUser;
 import Helpers.UserApp;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +45,14 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
 
     @BindView(R.id.ChangeProfileToolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.spinner2)
+    Spinner spinnerCity;
+
+    @BindView(R.id.ChangeCityTextView)
+    TextView ChangeCityAlert;
+
+    String city = "";
 
 
     @Override
@@ -52,6 +70,39 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        if (FirebaseLogic.CurrentUser == null) {
+            Constants.ShowErrorFragment(getSupportFragmentManager());
+            return;
+        }
+
+        city = FirebaseLogic.CurrentUser.city;
+
+        String capitalizeCity = city.substring(0, 1).toUpperCase() + city.substring(1);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.cityArray, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerCity.setAdapter(adapter);
+
+        int spinnerPosition = adapter.getPosition(capitalizeCity);
+        //set the default according to value
+        spinnerCity.setSelection(spinnerPosition);
+
+        spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ChangeCityAlert.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         FindUserInfo();
     }
@@ -82,6 +133,9 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent startActivity = new Intent(getApplicationContext(), StartActivity.class);
+        startActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(startActivity);
         finish();
     }
 
@@ -132,15 +186,37 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
                     if (userInfo == null) {
                         Constants.ShowErrorFragment(getSupportFragmentManager());
                     }
+                    if (userInfo.role.equals(Constants.StudentUserType)) {
+                        StudentUser studentUserInfo = dataSnapshot.getValue(StudentUser.class);
+                        studentUserInfo.telephoneNumber = patientTelNumberEditText.getText().toString();
+                        studentUserInfo.name = patientNameEditText.getText().toString();
+                        studentUserInfo.city = spinnerCity.getSelectedItem().toString().toLowerCase();
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(patientNameEditText.getText().toString()).build();
+                        FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
 
-                    userInfo.telephoneNumber = patientTelNumberEditText.getText().toString();
-                    userInfo.name = patientNameEditText.getText().toString();
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(patientNameEditText.getText().toString()).build();
-                    FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
+                        FirebaseLogic.getInstance().GetUserTableReference().child(userId).setValue(studentUserInfo);
+                        userInfo = (UserApp) studentUserInfo;
+                        FirebaseLogic.SetUserApp(userInfo);
+                        Intent startActivity = new Intent(getApplicationContext(), StartActivity.class);
+                        startActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(startActivity);
+                        finish();
+                    } else {
+                        userInfo.telephoneNumber = patientTelNumberEditText.getText().toString();
+                        userInfo.name = patientNameEditText.getText().toString();
+                        userInfo.city = spinnerCity.getSelectedItem().toString().toLowerCase();
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(patientNameEditText.getText().toString()).build();
+                        FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
 
-                    FirebaseLogic.getInstance().GetUserTableReference().child(userId).setValue(userInfo);
-                    finish();
+                        FirebaseLogic.getInstance().GetUserTableReference().child(userId).setValue(userInfo);
+                        FirebaseLogic.SetUserApp(userInfo);
+                        Intent startActivity = new Intent(getApplicationContext(), StartActivity.class);
+                        startActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(startActivity);
+                        finish();
+                    }
                 }
             }
 

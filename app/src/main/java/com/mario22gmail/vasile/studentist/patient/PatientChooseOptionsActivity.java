@@ -129,7 +129,7 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
         switch (city)
         {
             case "timisoara":
-                doctorCariiTextView.setText(" dr Oana Velea");
+                doctorCariiTextView.setText(" dr. Oana Velea");
                 doctorLucrariTextView.setText("dr. Luciana Goguță");
                 doctorDurereTextView.setText("dr. Mariana Miron");
                 doctorIgienizareTextView.setText("dr. Daniela Jumanca");

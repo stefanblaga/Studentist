@@ -139,12 +139,10 @@ public class MainNavigationActivity extends AppCompatActivity
             case "patient":
                 Intent showHowToPagePatient = new Intent(getApplicationContext(), HowToUsePatientActivity.class);
                 startActivity(showHowToPagePatient);
-                finish();
                 break;
             case "student":
                 Intent howToPageStudent = new Intent(getApplicationContext(), HowToUseStudent.class);
                 startActivity(howToPageStudent);
-                finish();
                 break;
             default:
                 Constants.ShowErrorFragment(getSupportFragmentManager());
@@ -211,7 +209,9 @@ public class MainNavigationActivity extends AppCompatActivity
             startActivity(emailIntent);
         } else if (id == R.id.appSettingsMenuItem) {
             Intent accountActivity = new Intent(getApplicationContext(), ChangeAccountInfoActivity.class);
+            accountActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(accountActivity);
+            finish();
 
         }
         item.setChecked(false);
