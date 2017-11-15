@@ -58,7 +58,7 @@
     <string name="delete_request_label">Dorești să ștergi cererea?</string>
     <string name="our_mission_label">- Misiunea noastră -</string>
     <string name="about_description">Să punem în contact studenții de la medicină dentară cu oamenii care doresc servicii medicale</string>
-    <string name="about_disclaimer">Aplicația \'Studentist\' nu oferă servicii medicale și nu își asumă nici o responsabilitate privind efectuarea acestor servicii</string>
+    <string name="about_disclaimer">Aplicația nu oferă servicii medicale, dar te pune în legătură cu un student de la medicină dentară și profesorul lui coordonator (studenții nu au voie să ofere servicii medicale fară supravegherea profesorului coordonator).</string>
     <string name="gmail_account">studentist.app@gmail.com</string>
     <string name="fb_page">https://www.facebook.com/studentistul</string>
     <string name="close_description">Închide</string>
@@ -69,6 +69,7 @@
     <string name="request_not_resolved_label">Nu am rezolvat</string>
     <string name="request_resolved_label">Am rezolvat</string>
     <string name="menu_title">menu</string>
+    <string name="facebook_share_description"> Rezolvă-ți problemele dentare la studenții de la medicină dentară. Descară aplicația gratis!</string>
     <string name="how_to_use_menu_label">Cum să folosești</string>
     <string name="contact_menu_label">Despre</string>
     <string name="sign_out_menu_label">Deconectare</string>
@@ -109,7 +110,9 @@
     <string name="iasiCity">Iași</string>
     <string name="numarul_de_telefon">Numărul de telefon</string>
     <string name="numele_tau_este">Numele tău este</string>
-    <string name="disclaimerDescription">Aplicația nu oferă servicii medicale, dar te pune în legătură cu un student de la medicină dentară și profesorul lui coordonator. Cunoaște-i apelând numărul afișat</string>
+    <string name="disclaimerDescription">Aplicația nu oferă servicii medicale, dar te pune în legătură cu un student de la medicină dentară și profesorul lui coordonator (studenții nu au voie să ofere servicii medicale fară supravegherea profesorului coordonator). Cunoaște-i apelând numărul afișat !</string>
+    <string name="patientFoundedAStudentist">Ma bucur că ți-ai găsit un Studentist!</string>
+    <string name="helpToShareApp">Încercăm sa iți găsim pacienti, ajută-ne  și tu cu un share pe facebook</string>
     <string-array name="cityArray">
         <item>Timisoara</item>
         <item>Bucuresti</item>

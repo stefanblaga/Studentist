@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -19,13 +20,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.firebase.ui.auth.AuthUI;
@@ -66,6 +70,7 @@ public class MainNavigationActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_main_navigation);
         ButterKnife.bind(this);
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -109,6 +114,11 @@ public class MainNavigationActivity extends AppCompatActivity
         if (userNameTextView != null) {
             userNameTextView.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void GetRightFragment(String userRole) {
@@ -169,16 +179,6 @@ public class MainNavigationActivity extends AppCompatActivity
         } else if (id == R.id.aboutAppMenuItem) {
             AboutDialogFragment aboutDialogFragment = new AboutDialogFragment();
             aboutDialogFragment.show(getSupportFragmentManager(), "about dialog");
-        } else if (id == R.id.signOutMenuItem) {
-            AuthUI.getInstance().signOut((FragmentActivity) _thisActivity).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(loginActivity);
-                    finish();
-                }
-            });
-
         } else if (id == R.id.exitAppMenuItem) {
             finishAffinity();
 
@@ -186,6 +186,7 @@ public class MainNavigationActivity extends AppCompatActivity
 
             ShareLinkContent content = new ShareLinkContent.Builder()
                     .setContentUrl(Uri.parse(getString(R.string.fb_page)))
+                    .setQuote(getResources().getString(R.string.facebook_share_description))
                     .build();
             ShareDialog.show(this, content);
         } else if (id == R.id.nav_fb) {

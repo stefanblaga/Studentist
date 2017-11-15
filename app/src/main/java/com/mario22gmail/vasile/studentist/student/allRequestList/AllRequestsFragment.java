@@ -2,6 +2,7 @@ package com.mario22gmail.vasile.studentist.student.allRequestList;
 
 
 import android.animation.Animator;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -48,6 +51,9 @@ public class AllRequestsFragment extends Fragment {
     @BindView(R.id.studentCantApplyConstraintLayout)
     ConstraintLayout studentCantApplyConstraintLayout;
 
+    @BindView(R.id.facebookEmptyStateShareButton)
+    ShareButton facebookShareButton;
+
     private PatientRequestForStundentsAdapter adapter;
     private String userUUID = "";
 
@@ -63,6 +69,11 @@ public class AllRequestsFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_all_requests, container, false);
         ButterKnife.bind(this, fragmentView);
 
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(getString(R.string.fb_page)))
+                .setQuote(getResources().getString(R.string.facebook_share_description))
+                .build();
+        facebookShareButton.setShareContent(content);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser == null)
         {

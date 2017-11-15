@@ -69,6 +69,8 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"></TextView>
 
+
+
     </android.support.constraint.ConstraintLayout>
 
 

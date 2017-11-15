@@ -17,15 +17,17 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:scaleType="fitCenter"
+        app:srcCompat="@drawable/mainiconnobgsmall"
+         />
 
-        app:srcCompat="@drawable/mainiconnobgsmall" />
 
     <TextView
         android:id="@+id/userNameNavigationDrawerTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:textStyle="bold"
         android:text="Studentistul"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        />
 </LinearLayout>

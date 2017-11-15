@@ -142,6 +142,9 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         if (menuItem.getItemId() == android.R.id.home) {
+            Intent startActivity = new Intent(getApplicationContext(), StartActivity.class);
+            startActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(startActivity);
             finish();
         }
         return super.onOptionsItemSelected(menuItem);

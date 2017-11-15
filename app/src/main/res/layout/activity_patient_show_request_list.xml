@@ -78,7 +78,7 @@
             android:layout_gravity="top|left|end|start"
 
             android:clickable="true"
-            android:src="@drawable/ic_add"
+            app:srcCompat="@drawable/ic_add"
             app:fabSize="normal"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -133,7 +133,8 @@
         android:layout_alignParentRight="true"
         android:layout_gravity="top|left|end|start"
         android:clickable="true"
-        android:src="@drawable/ic_add"
+
+        app:srcCompat="@drawable/ic_add"
         app:fabSize="normal"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
