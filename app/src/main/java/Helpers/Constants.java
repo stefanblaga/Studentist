@@ -82,7 +82,7 @@ public class Constants {
 
     public static String StudentUserType = "student";
 
-    public static String APP_VERSION = "1.2.0";
+    public static String APP_VERSION = "1.2.1";
 
 
 
