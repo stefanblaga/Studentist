@@ -13,12 +13,10 @@
     <color name="redAlert">#c62828</color>
     <color name="alertColor">#EF5350</color>
     <color name="darkRedColor">#C62828</color>
-    <color name="orangeColor">#FF6D00</color>
     <color name="greenCall">#66BB6A</color>
     <color name="lightGreen">#8BC34A</color>
     <color name="messageColor">#FFC107</color>
     <color name="backgroungGrey">#ECEFF1</color>
     <color name="calmYellow">#c3b17e</color>
-    <color name="amber">#FFC107</color>
 
 </resources>

@@ -5,7 +5,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 
-import com.google.firebase.database.DatabaseReference;
 import com.mario22gmail.vasile.studentist.ErrorFragment;
 import com.mario22gmail.vasile.studentist.R;
 

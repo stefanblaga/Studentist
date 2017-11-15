@@ -1,6 +1,5 @@
 package com.mario22gmail.vasile.studentist.howToPage;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -11,8 +10,6 @@ import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder;
 import com.github.paolorotolo.appintro.model.SliderPage;
-import com.mario22gmail.vasile.studentist.MainNavigationActivity;
-import com.mario22gmail.vasile.studentist.patient.PatientMainFragment;
 import com.mario22gmail.vasile.studentist.R;
 
 import Helpers.Constants;

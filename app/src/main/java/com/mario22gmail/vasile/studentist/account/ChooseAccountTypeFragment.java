@@ -1,7 +1,6 @@
 package com.mario22gmail.vasile.studentist.account;
 
 
-import android.animation.Animator;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -13,9 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.ISlidePolicy;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +26,6 @@ import Helpers.FirebaseLogic;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnEditorAction;
 
 /**
  * A simple {@link Fragment} subclass.

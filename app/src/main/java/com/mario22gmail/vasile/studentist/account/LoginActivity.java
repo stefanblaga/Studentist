@@ -2,7 +2,6 @@ package com.mario22gmail.vasile.studentist.account;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,11 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.mario22gmail.vasile.studentist.MainNavigationActivity;
-import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
-import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
-import com.mario22gmail.vasile.studentist.patient.PatientMainFragment;
 import com.mario22gmail.vasile.studentist.R;
-import com.mario22gmail.vasile.studentist.student.StudentMainFragment;
 
 import java.util.Arrays;
 

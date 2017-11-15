@@ -3,17 +3,13 @@ package com.mario22gmail.vasile.studentist.account;
 import android.content.Context;
 import android.content.Intent;
 
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatRadioButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -23,15 +19,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.mario22gmail.vasile.studentist.MainNavigationActivity;
-import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
-import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
-import com.mario22gmail.vasile.studentist.patient.PatientMainFragment;
 import com.mario22gmail.vasile.studentist.R;
-import com.mario22gmail.vasile.studentist.student.StudentMainFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;

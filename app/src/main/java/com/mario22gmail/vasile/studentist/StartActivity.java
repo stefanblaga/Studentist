@@ -23,8 +23,6 @@ import com.mario22gmail.vasile.studentist.account.CreateAccountActivity;
 import com.mario22gmail.vasile.studentist.account.CreateProfileActivity;
 import com.mario22gmail.vasile.studentist.account.LoginActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUseIntro;
-import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
-import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;

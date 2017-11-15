@@ -1,36 +1,21 @@
 package com.mario22gmail.vasile.studentist.account;
 
 
-import android.animation.Animator;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatEditText;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.ISlidePolicy;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.mario22gmail.vasile.studentist.R;
 
 import Helpers.Constants;
-import Helpers.FirebaseLogic;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnEditorAction;
 
 /**
  * Created by mario on 25/10/2017.

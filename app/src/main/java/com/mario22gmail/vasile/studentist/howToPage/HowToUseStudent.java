@@ -11,10 +11,8 @@ import com.github.paolorotolo.appintro.AppIntro;
 import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.ISlideBackgroundColorHolder;
 import com.github.paolorotolo.appintro.model.SliderPage;
-import com.mario22gmail.vasile.studentist.MainNavigationActivity;
 import com.mario22gmail.vasile.studentist.R;
 import com.mario22gmail.vasile.studentist.StartActivity;
-import com.mario22gmail.vasile.studentist.student.StudentMainFragment;
 
 import Helpers.Constants;
 

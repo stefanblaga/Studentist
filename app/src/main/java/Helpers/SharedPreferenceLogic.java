@@ -3,12 +3,8 @@ package Helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import static android.content.Context.MODE_PRIVATE;
 

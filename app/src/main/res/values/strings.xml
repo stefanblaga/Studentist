@@ -15,7 +15,6 @@
     <string name="requestDeletedStatusText">Cerere ștearsă</string>
     <string name="requestResolvedStatusText">Rezolvat</string>
     <string name="deleteRequestToolbar">Ștergere cerere</string>
-    <string name="deleteAccountToolbar">Șterge cont</string>
     <string name="requestCariType">Carii</string>
     <string name="myProfileLabel">Profilul meu</string>
     <string name="requestPainType">Durere</string>
@@ -38,20 +37,15 @@
     <string name="studentist_name">Studentist</string>
     <string name="about_you_text">Bine ai venit Studentistule !</string>
     <string name="create_account_name_label">Nume*</string>
-    <string name="create_account_phone_label">Vreau să fiu contactat la numărul*</string>
     <string name="create_account_done_button_text">Hai să găsim pacienți</string>
-    <string name="create_account_patient_type_message">Am probleme dentare</string>
-    <string name="create_account_student_type_label">Sunt student/ă la medicină dentară</string>
     <string name="add_request_tel_label">Vreau să fiu contactat la numărul*</string>
     <string name="add_request_send_button_text">Trimite</string>
     <string name="save_changes_button_text">Salvează</string>
     <string name="change_account_label_toolbar">Informații cont</string>
     <string name="add_request_description">Trimite o cerere și un Studentist te va contacta în cel mai scurt timp</string>
     <string name="add_request_extra_info_label">Informații suplimentare</string>
-    <string name="my_request_title">Cererile mele</string>
     <string name="patient_empty_state_description1">Hei, sunt aici ca să te ajut!</string>
     <string name="patient_empty_state_description2">Adaugă o cerere nouă</string>
-    <string name="city_name">Timișoara</string>
     <string name="yes_label">Da</string>
     <string name="no_label">Nu</string>
     <string name="student_applied_label">Am găsit un Studentist!</string>
@@ -63,26 +57,20 @@
     <string name="fb_page">https://www.facebook.com/studentistul</string>
     <string name="close_description">Închide</string>
     <string name="student_empty_state_description">Ne pare rău, nu există cereri active</string>
-    <string name="delete_account_label">Dorești să ștergi contul ?</string>
     <string name="back_to_main_list_label">Înapoi la listă</string>
     <string name="description_label">Descriere:</string>
     <string name="request_not_resolved_label">Nu am rezolvat</string>
     <string name="request_resolved_label">Am rezolvat</string>
-    <string name="menu_title">menu</string>
     <string name="facebook_share_description"> Rezolvă-ți problemele dentare la studenții de la medicină dentară. Descară aplicația gratis!</string>
     <string name="how_to_use_menu_label">Cum să folosești</string>
     <string name="contact_menu_label">Despre</string>
-    <string name="sign_out_menu_label">Deconectare</string>
-    <string name="delete_account_menu_label">Ștergere cont</string>
     <string name="exit_menu_label">Ieșire din aplicație</string>
     <string name="close_dialog_text">Închide</string>
     <string name="request_description_label">Descriere:</string>
-    <string name="data_label">Data :</string>
     <string name="request_details_button_label">Detalii</string>
     <string name="wait_for_student_request_label">Căutăm un Studentist...</string>
     <string name="request_phone_label">Telefon:</string>
     <string name="tell_more_about_label">Spune-ți părerea pe :</string>
-    <string name="available_only_Tm">Disponibil momentan doar în Timișoara</string>
     <string name="internet_fail_connected_text">Nu ești conectat la internet !</string>
     <string name="howToPageSkipText">Sari peste</string>
     <string name="howToPageDoneText">În regulă</string>
@@ -100,10 +88,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
-
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="timisoaraCity">Timișoara</string>
     <string name="bucurestCity">București</string>
     <string name="clujCity">Cluj</string>

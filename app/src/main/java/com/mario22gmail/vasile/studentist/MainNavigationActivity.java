@@ -3,16 +3,11 @@ package com.mario22gmail.vasile.studentist;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.graphics.drawable.VectorDrawableCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.design.widget.NavigationView;
@@ -25,24 +20,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
-import com.crashlytics.android.Crashlytics;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.mario22gmail.vasile.studentist.account.ChangeAccountInfoActivity;
-import com.mario22gmail.vasile.studentist.account.LoginActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
 import com.mario22gmail.vasile.studentist.patient.PatientMainFragment;
@@ -50,12 +34,8 @@ import com.mario22gmail.vasile.studentist.student.StudentMainFragment;
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
-import Helpers.StudentUser;
-import Helpers.UserApp;
-import StudentComponent.StudentRequest;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Optional;
 
 public class MainNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

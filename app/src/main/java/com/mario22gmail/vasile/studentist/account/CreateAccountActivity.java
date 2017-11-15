@@ -1,28 +1,16 @@
 package com.mario22gmail.vasile.studentist.account;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import com.github.paolorotolo.appintro.AppIntro2;
-import com.github.paolorotolo.appintro.AppIntroFragment;
-import com.github.paolorotolo.appintro.model.SliderPage;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.mario22gmail.vasile.studentist.MainNavigationActivity;
-import com.mario22gmail.vasile.studentist.R;
-import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
-import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
-import com.matthewtamlin.sliding_intro_screen_library.buttons.IntroButton;
 
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
