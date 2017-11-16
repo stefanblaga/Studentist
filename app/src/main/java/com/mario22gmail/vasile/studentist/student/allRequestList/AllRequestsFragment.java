@@ -12,10 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
-import com.facebook.share.widget.ShareDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -31,7 +31,6 @@ import Helpers.StudentUser;
 import PatientComponent.PatientRequest;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,8 +41,8 @@ public class AllRequestsFragment extends Fragment {
     @BindView(R.id.recyclerViewPatientsRequestsForStudents)
     RecyclerView requestRecycleView;
 
-    @BindView(R.id.emptyStateStudentAllRequestConstraintLayout)
-    ConstraintLayout emptyStateConstraintLayout;
+    @BindView(R.id.emptyStateStudentAllRequestContainer)
+    ScrollView emptyStateConstraintLayout;
 
 
     @BindView(R.id.parrentConstraintLayout)
