@@ -15,11 +15,19 @@
         android:id="@+id/guideline2" />
 
     <android.support.constraint.Guideline
+    android:id="@+id/guideline1"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.30" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".5"
-        android:id="@+id/guideline1" />
+        app:layout_constraintGuide_percent="0.55" />
 
     <ImageView
         android:id="@+id/timisoaraImageView"
@@ -182,6 +190,84 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/CraiovaImageView"
+        android:layout_width="@dimen/cityCategoryImageWidth"
+        android:layout_height="@dimen/cityCategoryImageHeight"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/craiova"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ClujLabelTextView" />
+
+    <ImageView
+        android:id="@+id/TgMuresImageView"
+        android:layout_width="@dimen/cityCategoryImageWidth"
+        android:layout_height="@dimen/cityCategoryImageHeight"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/tg_mures"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/IasiLabelTextView" />
+
+    <TextView
+        android:id="@+id/CraiovaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Craiova"
+        android:textColor="@color/white"
+        android:textSize="@dimen/requestoptiontextsize"
+        app:layout_constraintEnd_toEndOf="@+id/CraiovaImageView"
+        app:layout_constraintStart_toStartOf="@+id/CraiovaImageView"
+        app:layout_constraintTop_toBottomOf="@+id/CraiovaImageView" />
+
+    <TextView
+        android:id="@+id/TgMuresTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:text="Targu Mures"
+        android:textColor="@color/white"
+        android:textSize="@dimen/requestoptiontextsize"
+        app:layout_constraintEnd_toEndOf="@+id/TgMuresImageView"
+        app:layout_constraintStart_toStartOf="@+id/TgMuresImageView"
+        app:layout_constraintTop_toBottomOf="@+id/TgMuresImageView" />
+
+    <ImageView
+        android:id="@+id/SibiuImageView"
+        android:layout_width="@dimen/cityCategoryImageWidth"
+        android:layout_height="@dimen/cityCategoryImageHeight"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/sibiu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TgMuresTextView" />
+
+    <TextView
+        android:id="@+id/SibiuTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
+        android:text="Sibiu"
+        android:textColor="@color/white"
+        android:textSize="@dimen/requestoptiontextsize"
+        app:layout_constraintEnd_toEndOf="@+id/SibiuImageView"
+        app:layout_constraintStart_toStartOf="@+id/SibiuImageView"
+        app:layout_constraintTop_toBottomOf="@+id/SibiuImageView" />
 
 
 </android.support.constraint.ConstraintLayout>

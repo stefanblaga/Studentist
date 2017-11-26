@@ -69,7 +69,6 @@ public class SharedPreferenceLogic {
         requestList.add(requestUUID);
         SharedPreferences settings  = context.getSharedPreferences(PatientSharedPrefenceKey, Context.MODE_PRIVATE);
         SharedPreferences.Editor pendingEdits = settings.edit().putStringSet(PatientRequestList, requestList);
-        pendingEdits.commit();
         pendingEdits.apply();
     }
 
@@ -118,7 +117,6 @@ public class SharedPreferenceLogic {
         requestList.remove(patientRequestUUID);
         SharedPreferences settings  = context.getSharedPreferences(PatientSharedPrefenceKey, Context.MODE_PRIVATE);
         SharedPreferences.Editor pendingEdits = settings.edit().putStringSet(PatientRequestList, requestList);
-        pendingEdits.commit();
         pendingEdits.apply();
     }
 

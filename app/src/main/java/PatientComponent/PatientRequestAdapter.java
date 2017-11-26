@@ -2,8 +2,10 @@ package PatientComponent;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -183,6 +185,9 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
             viewStudentWhoAppliedButton = (Button) itemView.findViewById(R.id.buttonStudentsWhoApplied);
             telTextView = (TextView) itemView.findViewById(R.id.patientRequestItemTelNrTextView);
             contextViewHolder = itemView.getContext();
+
+            Drawable leftDrawable = AppCompatResources.getDrawable(contextViewHolder, R.drawable.ic_cancel);
+            deleteRequestButton.setBackground(leftDrawable);
         }
     }
 }

@@ -3,6 +3,8 @@
 	<dimen name="cardViewRequestPadding">8dp</dimen>
 	<dimen name="requestcategoryiconwidth">100dp</dimen>
 	<dimen name="requestcategoryconheight">100dp</dimen>
+	<dimen name="cityCategoryImageWidth">100dp</dimen>
+	<dimen name="cityCategoryImageHeight">100dp</dimen>
     <dimen name="requestoptiontextsize">22sp</dimen>
     <dimen name="circleSizeRequestDetail">90dp</dimen>
     <dimen name="paddingButtons">16dp</dimen>

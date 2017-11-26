@@ -202,14 +202,21 @@ public class AllRequestsFragment extends Fragment {
                 PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
                 if (request != null) {
                     adapter.DeletePatientFromList(request);
+                    if(request.isActive)
+                    {
+                        showEmptyState();
+                    }
                 }
-                showEmptyState();
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
                 Log.i(Constants.LogKey, "show empty from moved");
-                showEmptyState();
+                PatientRequest request = dataSnapshot.getValue(PatientRequest.class);
+                if(request != null && request.isActive)
+                {
+                    showEmptyState();
+                }
             }
 
             @Override

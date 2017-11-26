@@ -60,12 +60,23 @@ public class FirebaseLogic {
 
     public static final String PatientRequestTimisoara = "patientRequests";
 
+    public static final String PatientRequestCraiova = "patientRequestsCraiova";
+
+    public static final String PatientRequestSibiu = "patientRequestsSibiu";
+
+    public static final String PatientRequestsTgMures = "patientRequestsTgMures";
+
     public static final String TotalPatientRequests = "TotalPatientRequestsInfo";
 
     public static final String TimisoaraTotalPatientRequestsAdded= "RequestsAddedTimisoara";
     public static final String BucurestTotalPatientRequestsAdded= "RequestsAddedBucuresti";
     public static final String IasiTotalPatientRequestsAdded= "RequestsAddedIasi";
     public static final String ClujTotalPatientRequestsAdded= "RequestsAddedCluj";
+    public static final String TgMuresTotalPatientRequestsAdded= "RequestsAddedTgMures";
+    public static final String SibiuTotalPatientRequestsAdded= "RequestsAddedSibiu";
+    public static final String CraiovaTotalPatientRequestsAdded = "RequestsAddedCraiova";
+
+
     public static final String TotalPatientRequestsAdded= "RequestsAddedWithoutCity";
 
 
@@ -103,6 +114,12 @@ public class FirebaseLogic {
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestCluj);
             case "iasi":
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestIasi);
+            case "sibiu":
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestSibiu);
+            case "tgmures":
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestsTgMures);
+            case "craiova":
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestCraiova);
             default:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestTimisoara);
         }
@@ -122,6 +139,12 @@ public class FirebaseLogic {
                 return ClujTotalPatientRequestsAdded;
             case "iasi":
                 return IasiTotalPatientRequestsAdded;
+            case "craiova":
+                return CraiovaTotalPatientRequestsAdded;
+            case "tgmures":
+                return TgMuresTotalPatientRequestsAdded;
+            case "sibiur":
+                return SibiuTotalPatientRequestsAdded;
             default:
                 return TotalPatientRequestsAdded;
         }

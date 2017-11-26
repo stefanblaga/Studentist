@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.mario22gmail.vasile.studentist.R;
 import com.mario22gmail.vasile.studentist.StartActivity;
 
+import java.lang.reflect.Array;
+
 import Helpers.Constants;
 import Helpers.FirebaseLogic;
 import Helpers.StudentUser;
@@ -114,6 +116,7 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
                     if (userInfo != null) {
                         patientTelNumberEditText.setText(userInfo.telephoneNumber);
                         patientNameEditText.setText(userInfo.name);
+                        spinnerCity.setSelection(GetCityToDisplayFromDbValue(userInfo.city));
                     }
                 }
             }
@@ -189,7 +192,8 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
                         StudentUser studentUserInfo = dataSnapshot.getValue(StudentUser.class);
                         studentUserInfo.telephoneNumber = patientTelNumberEditText.getText().toString();
                         studentUserInfo.name = patientNameEditText.getText().toString();
-                        studentUserInfo.city = spinnerCity.getSelectedItem().toString().toLowerCase();
+                        //todo change this
+                        studentUserInfo.city = GetCityFromSpinner();
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(patientNameEditText.getText().toString()).build();
                         FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
@@ -204,7 +208,7 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
                     } else {
                         userInfo.telephoneNumber = patientTelNumberEditText.getText().toString();
                         userInfo.name = patientNameEditText.getText().toString();
-                        userInfo.city = spinnerCity.getSelectedItem().toString().toLowerCase();
+                        userInfo.city = GetCityFromSpinner();
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(patientNameEditText.getText().toString()).build();
                         FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
@@ -225,5 +229,41 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    private String GetCityFromSpinner()
+    {
+        String spinnerValue = spinnerCity.getSelectedItem().toString();
+        switch (spinnerValue){
+            case "Timisoara": return Constants.TimisoaraCity;
+            case "Craiova": return Constants.CraiovaCity;
+            case "Bucuresti": return Constants.BucurestiCity;
+            case "Cluj" : return Constants.ClujCity;
+            case "Iasi": return Constants.IasiCity;
+            case "Sibiu": return Constants.SibiuCity;
+            case "Targu Mures": return Constants.TgMures;
+
+            default: return Constants.TimisoaraCity;
+        }
+    }
+
+    private int GetCityToDisplayFromDbValue(String dbValue)
+    {
+        if(dbValue == null)
+            return 0;
+
+        //return the position of the city in R.array.cityArray;
+        switch (dbValue){
+            case "timisoara": return 0;
+            case "bucuresti": return 1;
+            case "cluj" : return 2;
+            case "iasi": return 3;
+            case "craiova": return 4;
+            case "tgmures": return 5;
+            case "sibiu": return 6;
+
+            default: return 0;
+        }
     }
 }

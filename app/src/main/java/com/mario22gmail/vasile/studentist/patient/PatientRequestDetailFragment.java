@@ -130,7 +130,7 @@ public class PatientRequestDetailFragment extends Fragment {
         return mainView;
     }
 
-    @OnClick({R.id.callPatientImageButton, R.id.requestTelTextView})
+    @OnClick({R.id.callPatientImageButton, R.id.requestTelTextView, R.id.contactPatientMainButton})
     public void CallStudentClick(View view)
     {
         String studentTelephone = telTextView.getText().toString();
@@ -154,13 +154,6 @@ public class PatientRequestDetailFragment extends Fragment {
         sendIntent.setData(Uri.parse("sms:" + studentTelephone));
         startActivity(sendIntent);
 
-    }
-
-
-    @OnClick(R.id.backToListButton)
-    public void BackToListButtonClick(View view)
-    {
-        getActivity().finish();
     }
 
 

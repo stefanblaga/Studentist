@@ -24,13 +24,15 @@ public class Constants {
 
     public static String IasiCity = "iasi";
 
+    public static String SibiuCity = "sibiu";
+
+    public static String CraiovaCity = "craiova";
+
+    public static String TgMures = "tgmures";
+
     public static String UserTypeKey = "userTypeKey";
 
     public static String studentRequestUUIDExtraName = "studentRequestUUID";
-
-    public static String GoogleProviderKey ="GoogleProvider";
-
-    public static String FbProviderKey = "FacebookProvider";
 
     public static String studentUUIDBundleKey = "studentUUID";
 
@@ -50,19 +52,11 @@ public class Constants {
 
     public static String PatientRequestStudentsApplied = "studentRequest";
 
-    public static String StudentRequestPacientTel = "patientTel";
-
-    public static String StudentRequestStudentTel = "studentTel";
-
     public static String StudentRequestStatus = "status";
 
     public static String PatientRequestIsActive = "isActive";
 
     public static String FbUserDetailsName = "name";
-
-    public static String AccountUserNameKey = "nameKey";
-
-    public static String AccountUserPhoneKey = "phoneKey";
 
     public static String FbUserDetailsBirthday = "birthday";
 
@@ -74,15 +68,11 @@ public class Constants {
 
     public static String requestCityInternal = "requestCity";
 
-    public static String MaleGender = "male";
-
-    public static String FeamaleGender = "female";
-
     public static String PatientUserType = "patient";
 
     public static String StudentUserType = "student";
 
-    public static String APP_VERSION = "1.2.1";
+    public static String APP_VERSION = "1.3.0";
 
 
 

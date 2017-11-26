@@ -2,6 +2,7 @@ package com.mario22gmail.vasile.studentist.student.studentRequests;
 
 
 import android.animation.Animator;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +26,7 @@ import Helpers.FirebaseLogic;
 import StudentComponent.StudentRequest;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +36,9 @@ public class StudentRequestsFragment extends Fragment {
 
     @BindView(R.id.recyclerViewStudentRequests)
     RecyclerView studentRequestRecycleView;
+
+    @BindView(R.id.shareFbConstraintLayout)
+    ConstraintLayout shareFacebookConstraintLayout;
 
     @BindView(R.id.emptyStateStudentRequestConstraintLayout)
     ConstraintLayout emptyStateConstraintLayout;
@@ -111,11 +118,22 @@ public class StudentRequestsFragment extends Fragment {
         });
     }
 
+    @OnClick(R.id.buttonShareFacebook)
+    public void ShareFacebookClick(View view)
+    {
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(getString(R.string.fb_page)))
+                .setQuote(getResources().getString(R.string.facebook_share_description))
+                .build();
+        ShareDialog.show(this, content);
+    }
+
     public void showEmptyState()
     {
         if(adapter.getItemCount() == 0)
         {
             studentRequestRecycleView.setVisibility(View.INVISIBLE);
+            shareFacebookConstraintLayout.setVisibility(View.INVISIBLE);
             emptyStateConstraintLayout.setAlpha(0.0f);
             emptyStateConstraintLayout.animate().alpha(1.0f).setDuration(600).setListener(new Animator.AnimatorListener() {
                 @Override
@@ -149,6 +167,7 @@ public class StudentRequestsFragment extends Fragment {
                 public void onAnimationEnd(Animator animation) {
                     emptyStateConstraintLayout.setVisibility(View.GONE);
                     studentRequestRecycleView.setVisibility(View.VISIBLE);
+                    shareFacebookConstraintLayout.setVisibility(View.VISIBLE);
                 }
 
                 @Override

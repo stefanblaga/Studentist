@@ -10,7 +10,7 @@
     <string name="detailRequestToolbarLabel">Cererea mea</string>
     <string name="detailRequestForStudentToolbarLabel">Informații pacient</string>
     <string name="detailsButtonsText">Detalii</string>
-    <string name="waitingStatusCard">În așteptare...</string>
+    <string name="waitingStatusCard">În așteptare…</string>
     <string name="requestRejectedStatusText">Cerere respinsă</string>
     <string name="requestDeletedStatusText">Cerere ștearsă</string>
     <string name="requestResolvedStatusText">Rezolvat</string>
@@ -57,7 +57,8 @@
     <string name="fb_page">https://www.facebook.com/studentistul</string>
     <string name="close_description">Închide</string>
     <string name="student_empty_state_description">Ne pare rău, nu există cereri active</string>
-    <string name="back_to_main_list_label">Înapoi la listă</string>
+    <string name="back_to_main_list_label">Contactează pacientul</string>
+    <!--<string name="back_to_main_list_label">Înapoi la listă</string>-->
     <string name="description_label">Descriere:</string>
     <string name="request_not_resolved_label">Nu am rezolvat</string>
     <string name="request_resolved_label">Am rezolvat</string>
@@ -68,7 +69,7 @@
     <string name="close_dialog_text">Închide</string>
     <string name="request_description_label">Descriere:</string>
     <string name="request_details_button_label">Detalii</string>
-    <string name="wait_for_student_request_label">Căutăm un Studentist...</string>
+    <string name="wait_for_student_request_label">Căutăm un Studentist…</string>
     <string name="request_phone_label">Telefon:</string>
     <string name="tell_more_about_label">Spune-ți părerea pe :</string>
     <string name="internet_fail_connected_text">Nu ești conectat la internet !</string>
@@ -103,6 +104,9 @@
         <item>Bucuresti</item>
         <item>Cluj</item>
         <item>Iasi</item>
+        <item>Craiova</item>
+        <item>Targu Mures</item>
+        <item>Sibiu</item>
     </string-array>
 
 
