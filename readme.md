@@ -50,8 +50,8 @@ Please feel free to contribute for this project
 
 ## Authors
 
-* **Mario Vasile** - *Working on developing* 
-* **Ana Maria Moldovan** - *Working on graphics*
+* **Mario Vasile** - *Mobile application developer* 
+* **Ana Maria Moldovan** - *Graphics designer*
 
 
 ## License
