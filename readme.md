@@ -5,6 +5,7 @@ Studentist is a mobile application which connects people from Romania with stude
 Students from Romania are allowed in some universities to work on patients. Studentist connects people with dental problems with students from dental universities who are allowed to work on patients. 
 
 The app supports two types of users: Patients and Studentists
+
 Studentist is available in 7 cities from Romania: Timisoara, Bucuresti, Cluj, Iasi, Targu Mures, Sibiu, Craiova
 
 Patients can make a request based on 4 categories: Pain, Dental Cleaning, Dental Cavities, Dental Prosthesis. 
