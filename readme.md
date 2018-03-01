@@ -28,7 +28,7 @@ If you want to deploy this on your own. You need to create a firebase subscripti
 
 ## Login
 
-* [Google](https://.google.com/)
+* [Google](https://google.com/)
 * [Facebook](https://facebook.com/) 
 
 ## Contributing
@@ -36,9 +36,11 @@ If you want to deploy this on your own. You need to create a firebase subscripti
 Please feel free to contribute for this project
 
 ## Versioning
-1.0 First version 
-1.1 Fixed minor bugs 
-1.2 Added new cities Bucuresti, Iasi, Cluj, 
+* 1.0 First version 
+* 1.1 Fixed minor bugs 
+* 1.2 Added new cities Bucuresti, Iasi, Cluj
+* 1.3 Added new cities Sibiu, Targu Mures, Craiova
+
 
 ## Screenshoots
 ![alt text](screen1.jpg)
