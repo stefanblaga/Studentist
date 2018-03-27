@@ -693,5 +693,10 @@ public class FirebaseLogic {
 
             }
         });
+
+
+
+    }
+    public void TestCommitFunc() {
     }
 }
