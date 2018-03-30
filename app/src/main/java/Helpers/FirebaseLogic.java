@@ -37,37 +37,28 @@ public class FirebaseLogic {
 
     public static String StudentAlreadyAppliedForThat = "Already applied";
     public static String StudentIsNotApplied = "NotFound";
-
+    //roles
     public static String RoleStudent = "student";
-
     public static String RolePatient = "patient";
-
     public static String FireBaseRolesTable = "roles";
-
     public static String FirebaseUsersTable = "users";
-
+    // request
     public static String FirebasePatientRequestTable = "patientRequests";
-
     public static String FirebaseStudentsRequestTable = "studentsRequest";
-
+    //
     public static final String FirebarePasswordTable = "passwordStudents";
-
+    //
     public static final String PatientRequestBucuresti = "patientRequestsBucuresti";
-
     public static final String PatientRequestIasi = "patientRequestsIasi";
-
     public static final String PatientRequestCluj = "patientRequestsCluj";
-
     public static final String PatientRequestTimisoara = "patientRequests";
-
     public static final String PatientRequestCraiova = "patientRequestsCraiova";
-
     public static final String PatientRequestSibiu = "patientRequestsSibiu";
-
     public static final String PatientRequestsTgMures = "patientRequestsTgMures";
-
+    public static final String PatientRequestsConstanta = "patientRequestsConstanta";
+    //
     public static final String TotalPatientRequests = "TotalPatientRequestsInfo";
-
+    //
     public static final String TimisoaraTotalPatientRequestsAdded= "RequestsAddedTimisoara";
     public static final String BucurestTotalPatientRequestsAdded= "RequestsAddedBucuresti";
     public static final String IasiTotalPatientRequestsAdded= "RequestsAddedIasi";
@@ -75,20 +66,15 @@ public class FirebaseLogic {
     public static final String TgMuresTotalPatientRequestsAdded= "RequestsAddedTgMures";
     public static final String SibiuTotalPatientRequestsAdded= "RequestsAddedSibiu";
     public static final String CraiovaTotalPatientRequestsAdded = "RequestsAddedCraiova";
-
-
-    public static final String TotalPatientRequestsAdded= "RequestsAddedWithoutCity";
-
-
-
+    public static final String ConstantaTotalPatientRequestsAdded = "RequestsAddedConstanta";
+    //
+    public static final String TotalPatientRequestsAdded = "RequestsAddedWithoutCity";
+    //requests state
     public static final String TotalPatientsRequestsDeleted = "RequestsDeleted";
-
     public static final String TotalPatientRequestResolved = "RequestsResolved";
-
     public static final String TotalResolvedRequestsDeletedByStudents = "RequestResolvedDeletedByStudents";
-
     public static final String TotalRequestsNotResolved = "RequestsNotResolved";
-
+    //
     public static final String TotalStudentsApplied = "TotalStudentsApplied";
 
     public static UserApp CurrentUser;
@@ -120,6 +106,8 @@ public class FirebaseLogic {
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestsTgMures);
             case "craiova":
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestCraiova);
+            case "constanta":
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestsConstanta);
             default:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestTimisoara);
         }
@@ -143,8 +131,10 @@ public class FirebaseLogic {
                 return CraiovaTotalPatientRequestsAdded;
             case "tgmures":
                 return TgMuresTotalPatientRequestsAdded;
-            case "sibiur":
+            case "sibiu":
                 return SibiuTotalPatientRequestsAdded;
+            case "constanta":
+                return ConstantaTotalPatientRequestsAdded;
             default:
                 return TotalPatientRequestsAdded;
         }

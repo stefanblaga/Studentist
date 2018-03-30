@@ -130,18 +130,18 @@ public class PatientAddRequest extends AppCompatActivity {
 
         String telephoneNumber = patientTelNumberEditText.getText().toString();
         if (telephoneNumber.equals("")) {
-            patientTelNumberEditText.setError("Adauga un numar de telefon valid");
+            patientTelNumberEditText.setError(getResources().getString(R.string.phoneInputProfileActivity));
             return false;
         }
 
         if (telephoneNumber.length() <= Constants.PhoneNumberMinLength) {
-            patientTelNumberEditText.setError("Numarul de telefon prea scurt");
+            patientTelNumberEditText.setError(getResources().getString(R.string.shortPhoneNumbertProfileActivity));
             return false;
         }
 
         String patientName = patientNameEditText.getText().toString();
         if (patientName == null || patientName.equals("") || patientName.trim().length() <= 0) {
-            patientNameEditText.setError("Adauga numele tau");
+            patientNameEditText.setError("Adaugă numele tău");
             return false;
         }
         return true;

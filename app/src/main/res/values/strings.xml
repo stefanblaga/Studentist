@@ -5,7 +5,7 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fb123903511466812</string>
     <!-- Strings related to login -->
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="studentFound_RequestDetail">Am găsit un studentist !!!</string>
+    <string name="studentFound_RequestDetail">Am găsit un studentist!!!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="detailRequestToolbarLabel">Cererea mea</string>
     <string name="detailRequestForStudentToolbarLabel">Informații pacient</string>
@@ -35,7 +35,7 @@
     <string name="apply_button_text">Contactează</string>
     <string name="nothing_found_message">Nu am găsit nimic</string>
     <string name="studentist_name">Studentist</string>
-    <string name="about_you_text">Bine ai venit Studentistule !</string>
+    <string name="about_you_text">Bine ai venit Studentistule!</string>
     <string name="create_account_name_label">Nume*</string>
     <string name="create_account_done_button_text">Hai să găsim pacienți</string>
     <string name="add_request_tel_label">Vreau să fiu contactat la numărul*</string>
@@ -72,19 +72,25 @@
     <string name="wait_for_student_request_label">Căutăm un Studentist…</string>
     <string name="request_phone_label">Telefon:</string>
     <string name="tell_more_about_label">Spune-ți părerea pe :</string>
-    <string name="internet_fail_connected_text">Nu ești conectat la internet !</string>
+    <string name="internet_fail_connected_text">Nu ești conectat la internet!</string>
     <string name="howToPageSkipText">Sari peste</string>
     <string name="howToPageDoneText">În regulă</string>
-    <string name="howToPatientPageOneTitle">Bine ai venit !</string>
+    <string name="howToPatientPageOneTitle">Bine ai venit!</string>
     <string name="howToPatientPageTwoTitle">Adaugă o cerere</string>
     <string name="howToPatientPageThreeTitle">Așteaptă un studentist</string>
-    <string name="howToPatientPageFourTitle">Nu uita !</string>
-    <string name="howToStudentPageOneTitle">Bine ai venit !</string>
+    <string name="howToPatientPageFourTitle">Nu uita!</string>
+    <string name="howToStudentPageOneTitle">Bine ai venit!</string>
     <string name="howToStudentPageTwoTitle">Alege un pacient</string>
     <string name="howToStudentPageThreeTitle">Contactează pacientul</string>
-    <string name="howToStudentPageFourTitle">Nu-i lua pe toți !</string>
+    <string name="howToStudentPageFourTitle">Nu-i lua pe toți!</string>
     <string name="title_activity_main_navigation">MainNavigationActivity</string>
     <string name="communicateTitle">Spune-ți părerea</string>
+    <string name="selectCityTitle">De unde ești?</string>
+    //
+    <string name="nameInputProfileActivity">Adaugă numele tău</string>
+    <string name="phoneInputProfileActivity">Adaugă un număr de telefon valid</string>
+    <string name="shortPhoneNumbertProfileActivity">Numărul de telefon e prea scurt</string>
+    //
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -92,21 +98,26 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="timisoaraCity">Timișoara</string>
     <string name="bucurestCity">București</string>
-    <string name="clujCity">Cluj</string>
+    <string name="clujCity">Cluj-Napoca</string>
     <string name="iasiCity">Iași</string>
+    <string name="craiovaCity">Craiova</string>
+    <string name="sibiuCity">Sibiu</string>
+    <string name="tgMuresCity">Târgu-Mureș</string>
+    <string name="constantaCity">Constanța</string>
     <string name="numarul_de_telefon">Numărul de telefon</string>
     <string name="numele_tau_este">Numele tău este</string>
-    <string name="disclaimerDescription">Aplicația nu oferă servicii medicale, dar te pune în legătură cu un student de la medicină dentară și profesorul lui coordonator (studenții nu au voie să ofere servicii medicale fară supravegherea profesorului coordonator). Cunoaște-i apelând numărul afișat !</string>
-    <string name="patientFoundedAStudentist">Ma bucur că ți-ai găsit un Studentist!</string>
-    <string name="helpToShareApp">Încercăm sa iți găsim pacienti, ajută-ne  și tu cu un share pe facebook</string>
+    <string name="disclaimerDescription">Aplicația nu oferă servicii medicale, dar te pune în legătură cu un student de la medicină dentară și profesorul lui coordonator (studenții nu au voie să ofere servicii medicale fără supravegherea profesorului coordonator). Cunoaște-i apelând numărul afișat!</string>
+    <string name="patientFoundedAStudentist">Mă bucur că ți-ai găsit un Studentist!</string>
+    <string name="helpToShareApp">Încercăm să îți găsim pacienți, ajută-ne  și tu cu un share pe facebook</string>
     <string-array name="cityArray">
-        <item>Timisoara</item>
-        <item>Bucuresti</item>
-        <item>Cluj</item>
-        <item>Iasi</item>
+        <item>Timișoara</item>
+        <item>București</item>
+        <item>Cluj-Napoca</item>
+        <item>Iași</item>
         <item>Craiova</item>
-        <item>Targu Mures</item>
+        <item>Târgu Mureș</item>
         <item>Sibiu</item>
+        <item>Constanța</item>
     </string-array>
 
 

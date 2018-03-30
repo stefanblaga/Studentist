@@ -109,19 +109,19 @@ public class CreateProfileActivity extends AppCompatActivity {
     public boolean ValidateInformation() {
         String name = nameEditText.getText().toString();
         if (name.equals("") || name.trim().length() <= 0) {
-            nameEditText.setError("Introduceti numele");
+            nameEditText.setError("Adaugă numele tău");
             return false;
         }
 
         String telNumber = telephoneNumberEditText.getText().toString();
         if (telNumber.equals("")) {
-            telephoneNumberEditText.setError("Introduceti numarul de telefon");
+            telephoneNumberEditText.setError(getResources().getString(R.string.phoneInputProfileActivity));
             return false;
         }
 
         if(telNumber.trim().length() <= Constants.PhoneNumberMinLength)
         {
-            telephoneNumberEditText.setError("Numarul de telefon prea scurt");
+            telephoneNumberEditText.setError(getResources().getString(R.string.shortPhoneNumbertProfileActivity));
             return false;
         }
 

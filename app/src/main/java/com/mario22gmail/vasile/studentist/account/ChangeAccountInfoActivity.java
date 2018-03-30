@@ -157,18 +157,18 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
 
         String telephoneNumber = patientTelNumberEditText.getText().toString();
         if (telephoneNumber.equals("")) {
-            patientTelNumberEditText.setError("Adauga un numar de telefon valid");
+            patientTelNumberEditText.setError("Adaugă un număr de telefon valid");
             return false;
         }
 
         if (telephoneNumber.length() <= Constants.PhoneNumberMinLength) {
-            patientTelNumberEditText.setError("Numarul de telefon prea scurt");
+            patientTelNumberEditText.setError("Numărul de telefon e prea scurt");
             return false;
         }
 
         String patientName = patientNameEditText.getText().toString();
         if (patientName == null || patientName.equals("") || patientName.trim().length() <= 0) {
-            patientNameEditText.setError("Adauga numele tau");
+            patientNameEditText.setError("Adaugă numele tău");
             return false;
         }
         return true;
@@ -236,13 +236,14 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
     {
         String spinnerValue = spinnerCity.getSelectedItem().toString();
         switch (spinnerValue){
-            case "Timisoara": return Constants.TimisoaraCity;
+            case "Timișoara": return Constants.TimisoaraCity;
             case "Craiova": return Constants.CraiovaCity;
-            case "Bucuresti": return Constants.BucurestiCity;
-            case "Cluj" : return Constants.ClujCity;
-            case "Iasi": return Constants.IasiCity;
+            case "București": return Constants.BucurestiCity;
+            case "Cluj-Napoca" : return Constants.ClujCity;
+            case "Iași": return Constants.IasiCity;
             case "Sibiu": return Constants.SibiuCity;
-            case "Targu Mures": return Constants.TgMures;
+            case "Târgu Mureș": return Constants.TgMuresCity;
+            case "Constanța": return  Constants.ConstantaCity;
 
             default: return Constants.TimisoaraCity;
         }
@@ -262,6 +263,7 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
             case "craiova": return 4;
             case "tgmures": return 5;
             case "sibiu": return 6;
+            case "constanta": return 7;
 
             default: return 0;
         }

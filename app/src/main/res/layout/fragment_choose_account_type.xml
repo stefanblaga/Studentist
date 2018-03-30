@@ -103,7 +103,7 @@
         android:layout_marginTop="4dp"
         android:gravity="center"
         android:lines="2"
-        android:text="Student la medicina dentara"
+        android:text="Student la medicină dentară"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +159,7 @@
         android:gravity="center"
         android:textSize="14sp"
         android:textColor="@color/white"
-        android:text="Vreau sa imi rezolv problemele dentare"
+        android:text="Vreau să îmi rezolv problemele dentare"
         app:layout_constraintEnd_toEndOf="@+id/PatientAccountTypeImageView"
         app:layout_constraintStart_toStartOf="@+id/PatientAccountTypeImageView"
         app:layout_constraintTop_toBottomOf="@+id/PatientLabelTextView" />

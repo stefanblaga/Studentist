@@ -28,7 +28,9 @@ public class Constants {
 
     public static String CraiovaCity = "craiova";
 
-    public static String TgMures = "tgmures";
+    public static String TgMuresCity = "tgmures";
+
+    public static String ConstantaCity = "constanta";
 
     public static String UserTypeKey = "userTypeKey";
 
