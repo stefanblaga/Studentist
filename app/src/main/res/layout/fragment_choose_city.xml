@@ -236,7 +236,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="0dp"
-        android:text="@string/tgMutesCity"
+        android:text="@string/tgMuresCity"
         android:textColor="@color/white"
         android:textSize="@dimen/requestoptiontextsize"
         app:layout_constraintEnd_toEndOf="@+id/TgMuresImageView"
