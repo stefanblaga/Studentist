@@ -55,7 +55,7 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_choose_options);
         ButterKnife.bind(this);
 
-        toolbar.setTitle("Adauga cerere");
+        toolbar.setTitle(getResources().getString(R.string.howToPatientPageTwoTitle));
         int white = ContextCompat.getColor(getApplicationContext(), R.color.white);
         toolbar.setTitleTextColor(white);
         setSupportActionBar(toolbar);
@@ -89,7 +89,7 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
 
         Intent addRequestActivity = new Intent(getApplicationContext(),PatientAddRequest.class);
         addRequestActivity.putExtra("type_img", R.drawable.imgcontrol);
-        addRequestActivity.putExtra("type_desc", getResources().getString(R.string.requestCariType));
+        addRequestActivity.putExtra("type_desc",Constants.RequestType.Carii.toString());
         startActivity(addRequestActivity);
         finish();
     }
@@ -99,7 +99,7 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
     {
         Intent addRequestActivity = new Intent(getApplicationContext(), PatientAddRequest.class);
         addRequestActivity.putExtra("type_img", R.drawable.imgdurere);
-        addRequestActivity.putExtra("type_desc", getResources().getString(R.string.requestPainType));
+        addRequestActivity.putExtra("type_desc", Constants.RequestType.Durere.toString());
         startActivity(addRequestActivity);
         finish();
     }
@@ -109,7 +109,7 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
     {
         Intent addRequestActivity = new Intent(getApplicationContext(), PatientAddRequest.class);
         addRequestActivity.putExtra("type_img", R.drawable.imgigienizare);
-        addRequestActivity.putExtra("type_desc",getResources().getString(R.string.requestCleaningType));
+        addRequestActivity.putExtra("type_desc",Constants.RequestType.Igienizare.toString());
         startActivity(addRequestActivity);
         finish();
     }
@@ -119,7 +119,7 @@ public class PatientChooseOptionsActivity extends AppCompatActivity {
     {
         Intent addRequestActivity = new Intent(getApplicationContext(), PatientAddRequest.class);
         addRequestActivity.putExtra("type_img", R.drawable.imgprotetica);
-        addRequestActivity.putExtra("type_desc", "Lucrari");
+        addRequestActivity.putExtra("type_desc", Constants.RequestType.Lucrari.toString());
         startActivity(addRequestActivity);
         finish();
     }

@@ -14,31 +14,34 @@ import com.mario22gmail.vasile.studentist.R;
 
 public class Constants {
 
+    public static enum RequestType
+    {
+        Carii, Lucrari, Durere, Igienizare
+    }
+
     public static int PhoneNumberMinLength = 8;
 
-    public static String TimisoaraCity ="timisoara";
+    public static final String TimisoaraCity ="timisoara";
 
-    public static String ClujCity = "cluj";
+    public static final String ClujCity = "cluj";
 
-    public static String BucurestiCity = "bucuresti";
+    public static final String BucurestiCity = "bucuresti";
 
-    public static String IasiCity = "iasi";
+    public static final String IasiCity = "iasi";
 
-    public static String SibiuCity = "sibiu";
+    public static final String SibiuCity = "sibiu";
 
-    public static String CraiovaCity = "craiova";
+    public static final String CraiovaCity = "craiova";
 
-    public static String TgMuresCity = "tgmures";
+    public static final String TgMuresCity = "tgmures";
 
-    public static String ConstantaCity = "constanta";
+    public static final String ConstantaCity = "constanta";
 
     public static String UserTypeKey = "userTypeKey";
 
     public static String studentRequestUUIDExtraName = "studentRequestUUID";
 
     public static String studentUUIDBundleKey = "studentUUID";
-
-    public static String StudentUUIDKey = "studentUUID";
 
     public static String LogKey = "xxx_MMM_MMM";
 
@@ -70,9 +73,9 @@ public class Constants {
 
     public static String requestCityInternal = "requestCity";
 
-    public static String PatientUserType = "patient";
+    public static final String PatientUserType = "patient";
 
-    public static String StudentUserType = "student";
+    public static final String StudentUserType = "student";
 
     public static String APP_VERSION = "1.3.0";
 
@@ -93,6 +96,23 @@ public class Constants {
         }
         return R.drawable.imgcontrol;
     }
+
+    public static String GetTypeOfRequstDisplayValue(String typeOfRequestFromDb)
+    {
+        switch (typeOfRequestFromDb) {
+                case "Lucrari":
+                    return "Lucrări";
+                case "Durere":
+                    return "Durere";
+                case "Igienizare":
+                    return "Igienizare";
+                case "Carii":
+                    return "Carii";
+                default:
+                    return "Carii";
+        }
+    }
+
 
     public static boolean IsNetworkAvailable(ConnectivityManager connectivityManager) {
         if(connectivityManager == null)

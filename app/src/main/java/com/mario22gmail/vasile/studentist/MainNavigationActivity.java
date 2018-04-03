@@ -68,7 +68,7 @@ public class MainNavigationActivity extends AppCompatActivity
         _thisActivity = this;
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Studentist");
+        toolbar.setTitle(getResources().getString(R.string.studentist_name));
         int white = ContextCompat.getColor(getApplicationContext(), R.color.white);
         toolbar.setTitleTextColor(white);
         setSupportActionBar(toolbar);
@@ -127,11 +127,11 @@ public class MainNavigationActivity extends AppCompatActivity
 
     public void GetRightHowToPage(String userType) {
         switch (userType) {
-            case "patient":
+            case Constants.PatientUserType:
                 Intent showHowToPagePatient = new Intent(getApplicationContext(), HowToUsePatientActivity.class);
                 startActivity(showHowToPagePatient);
                 break;
-            case "student":
+            case Constants.StudentUserType:
                 Intent howToPageStudent = new Intent(getApplicationContext(), HowToUseStudent.class);
                 startActivity(howToPageStudent);
                 break;

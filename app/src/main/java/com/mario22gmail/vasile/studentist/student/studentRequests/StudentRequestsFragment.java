@@ -74,7 +74,7 @@ public class StudentRequestsFragment extends Fragment {
     public void GetAllStudentRequests() {
         final String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference studentRequests = FirebaseLogic.getInstance().GetStudentsRequestTableReference();
-        studentRequests.orderByChild(Constants.StudentUUIDKey).equalTo(userUid).addChildEventListener(new ChildEventListener() {
+        studentRequests.orderByChild(Constants.studentUUIDBundleKey).equalTo(userUid).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 StudentRequest studentRequest = dataSnapshot.getValue(StudentRequest.class);

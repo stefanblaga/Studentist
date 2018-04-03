@@ -6,7 +6,7 @@
         <item
             android:id="@+id/appSettingsMenuItem"
             android:icon="@drawable/ic_settings_black_24dp"
-            android:title="Setari"/>
+            android:title="@string/settings"/>
 
         <item
             android:id="@+id/howToPagePatientMenuItem"

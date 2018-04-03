@@ -42,7 +42,7 @@ public class FirebaseLogic {
     public static String RolePatient = "patient";
     public static String FireBaseRolesTable = "roles";
     public static String FirebaseUsersTable = "users";
-    // request
+    //request
     public static String FirebasePatientRequestTable = "patientRequests";
     public static String FirebaseStudentsRequestTable = "studentsRequest";
     //
@@ -92,21 +92,21 @@ public class FirebaseLogic {
 
         switch (city)
         {
-            case "timisoara":
+            case Constants.TimisoaraCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestTimisoara);
-            case "bucuresti":
+            case Constants.BucurestiCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestBucuresti);
-            case "cluj":
+            case Constants.ClujCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestCluj);
-            case "iasi":
+            case Constants.IasiCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestIasi);
-            case "sibiu":
+            case Constants.SibiuCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestSibiu);
-            case "tgmures":
+            case Constants.TgMuresCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestsTgMures);
-            case "craiova":
+            case Constants.CraiovaCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestCraiova);
-            case "constanta":
+            case Constants.ConstantaCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestsConstanta);
             default:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestTimisoara);
@@ -119,21 +119,21 @@ public class FirebaseLogic {
 
         switch (city)
         {
-            case "timisoara":
+            case Constants.TimisoaraCity:
                 return TimisoaraTotalPatientRequestsAdded;
-            case "bucuresti":
+            case Constants.BucurestiCity:
                 return BucurestTotalPatientRequestsAdded;
-            case "cluj":
+            case Constants.ClujCity:
                 return ClujTotalPatientRequestsAdded;
-            case "iasi":
+            case Constants.IasiCity:
                 return IasiTotalPatientRequestsAdded;
-            case "craiova":
+            case Constants.CraiovaCity:
                 return CraiovaTotalPatientRequestsAdded;
-            case "tgmures":
+            case Constants.TgMuresCity:
                 return TgMuresTotalPatientRequestsAdded;
-            case "sibiu":
+            case Constants.SibiuCity:
                 return SibiuTotalPatientRequestsAdded;
-            case "constanta":
+            case Constants.ConstantaCity:
                 return ConstantaTotalPatientRequestsAdded;
             default:
                 return TotalPatientRequestsAdded;

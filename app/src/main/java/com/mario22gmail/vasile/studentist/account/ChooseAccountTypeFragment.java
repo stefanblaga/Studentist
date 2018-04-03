@@ -80,7 +80,7 @@ public class ChooseAccountTypeFragment extends Fragment implements ISlidePolicy 
                                 mainActivity.GoToCitySlide(accountType);
                                 return;
                             }else {
-                                passwordEditText.setError("Parola nu este corecta");
+                                passwordEditText.setError(getResources().getString(R.string.wrongPassword));
                                 return;
                             }
                         }

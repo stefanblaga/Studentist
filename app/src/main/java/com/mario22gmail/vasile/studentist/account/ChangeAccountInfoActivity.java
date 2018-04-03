@@ -157,18 +157,18 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
 
         String telephoneNumber = patientTelNumberEditText.getText().toString();
         if (telephoneNumber.equals("")) {
-            patientTelNumberEditText.setError("Adaugă un număr de telefon valid");
+            patientTelNumberEditText.setError(getResources().getString(R.string.phoneInputProfileActivity));
             return false;
         }
 
         if (telephoneNumber.length() <= Constants.PhoneNumberMinLength) {
-            patientTelNumberEditText.setError("Numărul de telefon e prea scurt");
+            patientTelNumberEditText.setError(getResources().getString(R.string.shortPhoneNumbertProfileActivity));
             return false;
         }
 
         String patientName = patientNameEditText.getText().toString();
         if (patientName == null || patientName.equals("") || patientName.trim().length() <= 0) {
-            patientNameEditText.setError("Adaugă numele tău");
+            patientNameEditText.setError(getResources().getString(R.string.nameInputProfileActivity));
             return false;
         }
         return true;
@@ -256,14 +256,14 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
 
         //return the position of the city in R.array.cityArray;
         switch (dbValue){
-            case "timisoara": return 0;
-            case "bucuresti": return 1;
-            case "cluj" : return 2;
-            case "iasi": return 3;
-            case "craiova": return 4;
-            case "tgmures": return 5;
-            case "sibiu": return 6;
-            case "constanta": return 7;
+            case Constants.TimisoaraCity: return 0;
+            case Constants.BucurestiCity: return 1;
+            case Constants.ClujCity : return 2;
+            case Constants.IasiCity: return 3;
+            case Constants.CraiovaCity: return 4;
+            case Constants.TgMuresCity: return 5;
+            case Constants.SibiuCity: return 6;
+            case Constants.ConstantaCity: return 7;
 
             default: return 0;
         }

@@ -124,12 +124,12 @@ public class LoginActivity extends AppCompatActivity {
         }
         Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
         switch (role) {
-            case "student":
+            case Constants.StudentUserType:
                 navActivity.putExtra("uid", uid);
                 navActivity.putExtra(Constants.UserTypeKey, role);
                 startActivity(navActivity);
                 break;
-            case "patient":
+            case Constants.PatientUserType:
                 navActivity.putExtra("uid", uid);
                 navActivity.putExtra(Constants.UserTypeKey, role);
                 startActivity(navActivity);

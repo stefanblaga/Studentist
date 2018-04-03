@@ -109,7 +109,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     public boolean ValidateInformation() {
         String name = nameEditText.getText().toString();
         if (name.equals("") || name.trim().length() <= 0) {
-            nameEditText.setError("Adaugă numele tău");
+            nameEditText.setError(getResources().getString(R.string.nameInputProfileActivity));
             return false;
         }
 
