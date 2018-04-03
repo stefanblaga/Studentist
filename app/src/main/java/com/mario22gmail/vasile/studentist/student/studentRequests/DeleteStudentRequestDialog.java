@@ -53,7 +53,7 @@ public class DeleteStudentRequestDialog extends DialogFragment {
         studentRequestUUID = getArguments().getString(Constants.studentRequestUUIDExtraName);
         studentUUID = getArguments().getString(Constants.studentUUIDBundleKey);
 
-        toolbar.setTitle("Stergere cerere");
+        toolbar.setTitle(getResources().getString(R.string.deleteRequestToolbar));
         int white = ContextCompat.getColor(getActivity().getApplicationContext(), R.color.white);
         toolbar.setTitleTextColor(white);
 

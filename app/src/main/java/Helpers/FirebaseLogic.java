@@ -214,6 +214,10 @@ public class FirebaseLogic {
                     totalPatientRequests.child(totalAddedRequestTableName).setValue(currentVal);
                     totalPatientRequests.push();
                 }
+                else //create table
+                {
+                    totalPatientRequests.child(totalAddedRequestTableName).setValue(1);
+                }
             }
 
             @Override
@@ -287,6 +291,10 @@ public class FirebaseLogic {
                     totalPatientRequests.child(TotalResolvedRequestsDeletedByStudents).setValue(currentVal);
                     totalPatientRequests.push();
                 }
+                else //create table if doesn't exists
+                {
+                    totalPatientRequests.child(TotalResolvedRequestsDeletedByStudents).setValue(1);
+                }
             }
 
             @Override
@@ -351,6 +359,10 @@ public class FirebaseLogic {
                                             currentVal++;
                                             totalPatientRequests.child(TotalStudentsApplied).setValue(currentVal);
                                             totalPatientRequests.push();
+                                        }
+                                        else //create table if doesn't exists
+                                        {
+                                            totalPatientRequests.child(TotalStudentsApplied).setValue(1);
                                         }
                                     }
 
@@ -632,6 +644,10 @@ public class FirebaseLogic {
                     totalPatientRequests.child(TotalRequestsNotResolved).setValue(currentVal);
                     totalPatientRequests.push();
                 }
+                else //create table if doesn't exists
+                {
+                    totalPatientRequests.child(TotalRequestsNotResolved).setValue(1);
+                }
             }
 
             @Override
@@ -675,6 +691,10 @@ public class FirebaseLogic {
                     currentVal++;
                     totalPatientRequests.child(TotalPatientRequestResolved).setValue(currentVal);
                     totalPatientRequests.push();
+                }
+                else //create table if doesn't exists
+                {
+                    totalPatientRequests.child(TotalPatientRequestResolved).setValue(1);
                 }
             }
 
