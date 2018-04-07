@@ -94,8 +94,11 @@ public class ChooseCityFragment extends android.support.v4.app.Fragment implemen
 
     @OnClick({R.id.TgMuresImageView, R.id.TgMuresTextView})
     public void TgClick(View view){
-        CityPressedAction(Constants.TgMures, view);
+        CityPressedAction(Constants.TgMuresCity, view);
     }
+
+    @OnClick ({R.id.ConstantaImageView, R.id.ConstantaTextView})
+    public void ConstantaClick(View view) {CityPressedAction(Constants.ConstantaCity, view);}
 
 
 }

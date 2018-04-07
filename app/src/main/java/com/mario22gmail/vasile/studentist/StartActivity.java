@@ -209,13 +209,13 @@ public class StartActivity extends AppCompatActivity {
     private void StartRightActivity(UserApp user) {
         Intent navActivity = new Intent(getApplicationContext(), MainNavigationActivity.class);
         switch (user.role) {
-            case "patient":
+            case Constants.PatientUserType:
                 navActivity.putExtra("uid", user.uid);
                 navActivity.putExtra(Constants.UserTypeKey, user.role);
                 startActivity(navActivity);
                 finish();
                 break;
-            case "student":
+            case Constants.StudentUserType:
                 if (user.telephoneNumber == null || user.telephoneNumber.equals("") ||
                         user.name == null || user.name.equals("")) {
                     Intent finishStudentProfile = new Intent(getApplicationContext(), CreateProfileActivity.class);

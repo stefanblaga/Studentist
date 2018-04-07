@@ -107,7 +107,8 @@ public class PatientRequestAdapter extends RecyclerView.Adapter<PatientRequestAd
         }
         holder.iconImageView.setImageResource(Constants.GetIconValue(request.typeOfRequest));
         holder.dateRequested.setText(request.dateRequestMade);
-        holder.requestTypeTextView.setText(request.typeOfRequest);
+        String typeOfRequestToDisplay = Constants.GetTypeOfRequstDisplayValue(request.typeOfRequest);
+        holder.requestTypeTextView.setText(typeOfRequestToDisplay);
         holder.telTextView.setText(request.telephoneNumber);
         holder.deleteRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override

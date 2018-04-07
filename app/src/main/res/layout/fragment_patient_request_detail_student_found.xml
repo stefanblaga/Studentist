@@ -166,7 +166,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:text="Studentistul ti-a rezolvat problema ?"
+        android:text="@string/findYourStudent"
         android:gravity="center"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"

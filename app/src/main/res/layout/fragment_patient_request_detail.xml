@@ -184,7 +184,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
         android:textSize="18sp"
-        android:text="Contacteaza-ti pacientul "
+        android:text="@string/patientContactMessage"
         app:layout_constraintBottom_toTopOf="@+id/patientNameRequestDetailTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
