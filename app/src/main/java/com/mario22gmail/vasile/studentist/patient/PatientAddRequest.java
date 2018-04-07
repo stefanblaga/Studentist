@@ -60,9 +60,9 @@ public class PatientAddRequest extends AppCompatActivity {
 
 
         Bundle bundle = getIntent().getExtras();
-        String categoryDescription = bundle.getString("type_desc");
 
-        add_request_toolbar.setTitle("Adauga cerere");
+
+        add_request_toolbar.setTitle(getResources().getString(R.string.addRequest));
         int white = ContextCompat.getColor(getApplicationContext(), R.color.white);
         add_request_toolbar.setTitleTextColor(white);
 
@@ -72,7 +72,9 @@ public class PatientAddRequest extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        categoryDescriptionTextView.setText(categoryDescription);
+        String categoryDescription = bundle.getString("type_desc");
+        String categoryDescriptionToDisplay = Constants.GetTypeOfRequstDisplayValue(categoryDescription);
+        categoryDescriptionTextView.setText(categoryDescriptionToDisplay);
         typeOfRequest = categoryDescription;
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -130,18 +132,18 @@ public class PatientAddRequest extends AppCompatActivity {
 
         String telephoneNumber = patientTelNumberEditText.getText().toString();
         if (telephoneNumber.equals("")) {
-            patientTelNumberEditText.setError("Adauga un numar de telefon valid");
+            patientTelNumberEditText.setError(getResources().getString(R.string.phoneInputProfileActivity));
             return false;
         }
 
         if (telephoneNumber.length() <= Constants.PhoneNumberMinLength) {
-            patientTelNumberEditText.setError("Numarul de telefon prea scurt");
+            patientTelNumberEditText.setError(getResources().getString(R.string.shortPhoneNumbertProfileActivity));
             return false;
         }
 
         String patientName = patientNameEditText.getText().toString();
         if (patientName == null || patientName.equals("") || patientName.trim().length() <= 0) {
-            patientNameEditText.setError("Adauga numele tau");
+            patientNameEditText.setError(getResources().getString(R.string.nameInputProfileActivity));
             return false;
         }
         return true;

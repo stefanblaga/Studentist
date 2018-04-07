@@ -39,7 +39,7 @@
             android:id="@+id/user_create_name_EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/numele_tau_este"
+            android:hint="@string/yourName"
             android:inputType="text"
             android:maxLength="50"
             android:paddingBottom="8dp"
@@ -65,7 +65,7 @@
             android:id="@+id/user_create_tel_nr_EditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/numarul_de_telefon"
+            android:hint="@string/phoneNumber"
             android:inputType="number"
             android:paddingBottom="8dp"
             android:paddingTop="16dp" />
@@ -117,7 +117,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textSize="16sp"
-        android:text="Spune-ne mai multe despre tine"
+        android:text="@string/moreAboutYou"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />

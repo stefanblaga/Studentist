@@ -37,37 +37,28 @@ public class FirebaseLogic {
 
     public static String StudentAlreadyAppliedForThat = "Already applied";
     public static String StudentIsNotApplied = "NotFound";
-
+    //roles
     public static String RoleStudent = "student";
-
     public static String RolePatient = "patient";
-
     public static String FireBaseRolesTable = "roles";
-
     public static String FirebaseUsersTable = "users";
-
+    //request
     public static String FirebasePatientRequestTable = "patientRequests";
-
     public static String FirebaseStudentsRequestTable = "studentsRequest";
-
+    //
     public static final String FirebarePasswordTable = "passwordStudents";
-
+    //
     public static final String PatientRequestBucuresti = "patientRequestsBucuresti";
-
     public static final String PatientRequestIasi = "patientRequestsIasi";
-
     public static final String PatientRequestCluj = "patientRequestsCluj";
-
     public static final String PatientRequestTimisoara = "patientRequests";
-
     public static final String PatientRequestCraiova = "patientRequestsCraiova";
-
     public static final String PatientRequestSibiu = "patientRequestsSibiu";
-
     public static final String PatientRequestsTgMures = "patientRequestsTgMures";
-
+    public static final String PatientRequestsConstanta = "patientRequestsConstanta";
+    //
     public static final String TotalPatientRequests = "TotalPatientRequestsInfo";
-
+    //
     public static final String TimisoaraTotalPatientRequestsAdded= "RequestsAddedTimisoara";
     public static final String BucurestTotalPatientRequestsAdded= "RequestsAddedBucuresti";
     public static final String IasiTotalPatientRequestsAdded= "RequestsAddedIasi";
@@ -75,20 +66,15 @@ public class FirebaseLogic {
     public static final String TgMuresTotalPatientRequestsAdded= "RequestsAddedTgMures";
     public static final String SibiuTotalPatientRequestsAdded= "RequestsAddedSibiu";
     public static final String CraiovaTotalPatientRequestsAdded = "RequestsAddedCraiova";
-
-
-    public static final String TotalPatientRequestsAdded= "RequestsAddedWithoutCity";
-
-
-
+    public static final String ConstantaTotalPatientRequestsAdded = "RequestsAddedConstanta";
+    //
+    public static final String TotalPatientRequestsAdded = "RequestsAddedWithoutCity";
+    //requests state
     public static final String TotalPatientsRequestsDeleted = "RequestsDeleted";
-
     public static final String TotalPatientRequestResolved = "RequestsResolved";
-
     public static final String TotalResolvedRequestsDeletedByStudents = "RequestResolvedDeletedByStudents";
-
     public static final String TotalRequestsNotResolved = "RequestsNotResolved";
-
+    //
     public static final String TotalStudentsApplied = "TotalStudentsApplied";
 
     public static UserApp CurrentUser;
@@ -106,20 +92,22 @@ public class FirebaseLogic {
 
         switch (city)
         {
-            case "timisoara":
+            case Constants.TimisoaraCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestTimisoara);
-            case "bucuresti":
+            case Constants.BucurestiCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestBucuresti);
-            case "cluj":
+            case Constants.ClujCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestCluj);
-            case "iasi":
+            case Constants.IasiCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestIasi);
-            case "sibiu":
+            case Constants.SibiuCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestSibiu);
-            case "tgmures":
+            case Constants.TgMuresCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestsTgMures);
-            case "craiova":
+            case Constants.CraiovaCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestCraiova);
+            case Constants.ConstantaCity:
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestsConstanta);
             default:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestTimisoara);
         }
@@ -131,20 +119,22 @@ public class FirebaseLogic {
 
         switch (city)
         {
-            case "timisoara":
+            case Constants.TimisoaraCity:
                 return TimisoaraTotalPatientRequestsAdded;
-            case "bucuresti":
+            case Constants.BucurestiCity:
                 return BucurestTotalPatientRequestsAdded;
-            case "cluj":
+            case Constants.ClujCity:
                 return ClujTotalPatientRequestsAdded;
-            case "iasi":
+            case Constants.IasiCity:
                 return IasiTotalPatientRequestsAdded;
-            case "craiova":
+            case Constants.CraiovaCity:
                 return CraiovaTotalPatientRequestsAdded;
-            case "tgmures":
+            case Constants.TgMuresCity:
                 return TgMuresTotalPatientRequestsAdded;
-            case "sibiur":
+            case Constants.SibiuCity:
                 return SibiuTotalPatientRequestsAdded;
+            case Constants.ConstantaCity:
+                return ConstantaTotalPatientRequestsAdded;
             default:
                 return TotalPatientRequestsAdded;
         }
@@ -224,6 +214,10 @@ public class FirebaseLogic {
                     totalPatientRequests.child(totalAddedRequestTableName).setValue(currentVal);
                     totalPatientRequests.push();
                 }
+                else //create table
+                {
+                    totalPatientRequests.child(totalAddedRequestTableName).setValue(1);
+                }
             }
 
             @Override
@@ -297,6 +291,10 @@ public class FirebaseLogic {
                     totalPatientRequests.child(TotalResolvedRequestsDeletedByStudents).setValue(currentVal);
                     totalPatientRequests.push();
                 }
+                else //create table if doesn't exists
+                {
+                    totalPatientRequests.child(TotalResolvedRequestsDeletedByStudents).setValue(1);
+                }
             }
 
             @Override
@@ -361,6 +359,10 @@ public class FirebaseLogic {
                                             currentVal++;
                                             totalPatientRequests.child(TotalStudentsApplied).setValue(currentVal);
                                             totalPatientRequests.push();
+                                        }
+                                        else //create table if doesn't exists
+                                        {
+                                            totalPatientRequests.child(TotalStudentsApplied).setValue(1);
                                         }
                                     }
 
@@ -642,6 +644,10 @@ public class FirebaseLogic {
                     totalPatientRequests.child(TotalRequestsNotResolved).setValue(currentVal);
                     totalPatientRequests.push();
                 }
+                else //create table if doesn't exists
+                {
+                    totalPatientRequests.child(TotalRequestsNotResolved).setValue(1);
+                }
             }
 
             @Override
@@ -686,6 +692,10 @@ public class FirebaseLogic {
                     totalPatientRequests.child(TotalPatientRequestResolved).setValue(currentVal);
                     totalPatientRequests.push();
                 }
+                else //create table if doesn't exists
+                {
+                    totalPatientRequests.child(TotalPatientRequestResolved).setValue(1);
+                }
             }
 
             @Override
@@ -693,5 +703,10 @@ public class FirebaseLogic {
 
             }
         });
+
+
+
+    }
+    public void TestCommitFunc() {
     }
 }

@@ -26,14 +26,14 @@
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="40dp"
-            android:text="List pacienti"
+            android:text="@string/listPatients"
             />
 
         <android.support.design.widget.TabItem
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="40dp"
-            android:text="Pacientii mei" />
+            android:text="@string/myPatients" />
 
     </android.support.design.widget.TabLayout>
 
