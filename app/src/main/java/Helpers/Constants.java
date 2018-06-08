@@ -81,8 +81,6 @@ public class Constants {
 
 
 
-
-
     public static int GetIconValue(String typeOfRequest) {
         switch (typeOfRequest) {
             case "Lucrari":
@@ -110,6 +108,45 @@ public class Constants {
                     return "Carii";
                 default:
                     return "Carii";
+        }
+    }
+
+    public static int GetCityIconValue(String cityName){
+        switch (cityName){
+            case "Timișoara":
+                return R.drawable.timisoara;
+            case "București":
+                return  R.drawable.bucuresti;
+            case "Cluj-Napoca":
+                return R.drawable.cluj;
+            case "Iași":
+                return R.drawable.iasi;
+            case "Sibiu":
+                return R.drawable.sibiu;
+            case "Târgu Mureș":
+                return R.drawable.tgmures;
+            case "Craiova":
+                return  R.drawable.craiova;
+            case "Constanța":
+                return R.drawable.constanta;
+            default:
+                return R.drawable.timisoara;
+        }
+    }
+
+    public static String GetCityDbValueFromDisplayValue(String cityDisplayValue)
+    {
+        switch (cityDisplayValue){
+            case "Timișoara": return Constants.TimisoaraCity;
+            case "Craiova": return Constants.CraiovaCity;
+            case "București": return Constants.BucurestiCity;
+            case "Cluj-Napoca" : return Constants.ClujCity;
+            case "Iași": return Constants.IasiCity;
+            case "Sibiu": return Constants.SibiuCity;
+            case "Târgu Mureș": return Constants.TgMuresCity;
+            case "Constanța": return  Constants.ConstantaCity;
+
+            default: return Constants.TimisoaraCity;
         }
     }
 

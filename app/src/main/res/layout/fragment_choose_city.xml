@@ -212,7 +212,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/tg_mures"
+        android:src="@drawable/tgmures"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/IasiLabelTextView" />
@@ -280,7 +280,7 @@
         android:layout_marginTop="8dp"
         android:src="@drawable/constanta"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.822"
+        app:layout_constraintHorizontal_bias="0.864"
         app:layout_constraintRight_toLeftOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TgMuresTextView" />

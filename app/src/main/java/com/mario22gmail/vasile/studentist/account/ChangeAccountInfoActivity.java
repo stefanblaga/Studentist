@@ -188,12 +188,13 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
                     if (userInfo == null) {
                         Constants.ShowErrorFragment(getSupportFragmentManager());
                     }
+                    String spinnerValue = spinnerCity.getSelectedItem().toString();
                     if (userInfo.role.equals(Constants.StudentUserType)) {
                         StudentUser studentUserInfo = dataSnapshot.getValue(StudentUser.class);
                         studentUserInfo.telephoneNumber = patientTelNumberEditText.getText().toString();
                         studentUserInfo.name = patientNameEditText.getText().toString();
                         //todo change this
-                        studentUserInfo.city = GetCityFromSpinner();
+                        studentUserInfo.city = Constants.GetCityDbValueFromDisplayValue(spinnerValue);
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(patientNameEditText.getText().toString()).build();
                         FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
@@ -208,7 +209,7 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
                     } else {
                         userInfo.telephoneNumber = patientTelNumberEditText.getText().toString();
                         userInfo.name = patientNameEditText.getText().toString();
-                        userInfo.city = GetCityFromSpinner();
+                        userInfo.city = Constants.GetCityDbValueFromDisplayValue(spinnerValue);
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                 .setDisplayName(patientNameEditText.getText().toString()).build();
                         FirebaseAuth.getInstance().getCurrentUser().updateProfile(profileUpdates);
@@ -232,22 +233,7 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
     }
 
 
-    private String GetCityFromSpinner()
-    {
-        String spinnerValue = spinnerCity.getSelectedItem().toString();
-        switch (spinnerValue){
-            case "Timișoara": return Constants.TimisoaraCity;
-            case "Craiova": return Constants.CraiovaCity;
-            case "București": return Constants.BucurestiCity;
-            case "Cluj-Napoca" : return Constants.ClujCity;
-            case "Iași": return Constants.IasiCity;
-            case "Sibiu": return Constants.SibiuCity;
-            case "Târgu Mureș": return Constants.TgMuresCity;
-            case "Constanța": return  Constants.ConstantaCity;
 
-            default: return Constants.TimisoaraCity;
-        }
-    }
 
     private int GetCityToDisplayFromDbValue(String dbValue)
     {

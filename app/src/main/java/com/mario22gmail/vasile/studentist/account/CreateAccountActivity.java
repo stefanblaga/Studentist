@@ -26,7 +26,7 @@ public class CreateAccountActivity extends AppIntro2 implements ICreateAccount {
         ChooseAccountTypeFragment chooseAccountTypeFragment = new ChooseAccountTypeFragment();
         addSlide(chooseAccountTypeFragment);
 
-        ChooseCityFragment chooseCityFragment = new ChooseCityFragment();
+        FragmentChooseCity2 chooseCityFragment = new FragmentChooseCity2();
         addSlide(chooseCityFragment);
         showSkipButton(false);
         setProgressButtonEnabled(false);

@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
     defaultConfig {
         applicationId "com.mario22gmail.vasile.studentist"
         minSdkVersion 16
@@ -14,6 +14,9 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
+//        debug {
+//            applicationIdSuffix '.debug'
+//        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -22,6 +25,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.android.support:recyclerview-v7:27.0.0'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -29,9 +33,9 @@ dependencies {
 
 //    butterknife
     compile 'com.firebaseui:firebase-ui-auth:2.3.0'
-    compile 'com.android.support:appcompat-v7:26.0.1'
-    compile 'com.android.support:design:26.0.1'
-    compile 'com.android.support:support-v4:26.0.1'
+    compile 'com.android.support:appcompat-v7:27.0.0'
+    compile 'com.android.support:design:27.0.0'
+    compile 'com.android.support:support-v4:27.0.0'
     compile 'com.facebook.android:facebook-android-sdk:4.22.1'
     compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
     compile 'com.matthew-tamlin:sliding-intro-screen:3.2.0'
