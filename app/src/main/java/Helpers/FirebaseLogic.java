@@ -56,6 +56,8 @@ public class FirebaseLogic {
     public static final String PatientRequestSibiu = "patientRequestsSibiu";
     public static final String PatientRequestsTgMures = "patientRequestsTgMures";
     public static final String PatientRequestsConstanta = "patientRequestsConstanta";
+    public static final String PatientRequestsOradea = "patientRequestsOradea";
+    public static final String PatientRequestsArad = "patientRequestsArad";
     //
     public static final String TotalPatientRequests = "TotalPatientRequestsInfo";
     //
@@ -67,6 +69,8 @@ public class FirebaseLogic {
     public static final String SibiuTotalPatientRequestsAdded= "RequestsAddedSibiu";
     public static final String CraiovaTotalPatientRequestsAdded = "RequestsAddedCraiova";
     public static final String ConstantaTotalPatientRequestsAdded = "RequestsAddedConstanta";
+    public static final String OradeaTotalPatientRequestsAdded = "RequestsAddedOradea";
+    public static final String AradTotalPatientRequestsAdded = "RequestsAddedArad";
     //
     public static final String TotalPatientRequestsAdded = "RequestsAddedWithoutCity";
     //requests state
@@ -108,6 +112,10 @@ public class FirebaseLogic {
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestCraiova);
             case Constants.ConstantaCity:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestsConstanta);
+            case Constants.OradeaCity:
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestsOradea);
+            case Constants.AradCity:
+                return firebaseDatabase.getReference(FirebaseLogic.PatientRequestsArad);
             default:
                 return firebaseDatabase.getReference(FirebaseLogic.PatientRequestTimisoara);
         }
@@ -135,6 +143,10 @@ public class FirebaseLogic {
                 return SibiuTotalPatientRequestsAdded;
             case Constants.ConstantaCity:
                 return ConstantaTotalPatientRequestsAdded;
+            case Constants.OradeaCity:
+                return OradeaTotalPatientRequestsAdded;
+            case Constants.AradCity:
+                return AradTotalPatientRequestsAdded;
             default:
                 return TotalPatientRequestsAdded;
         }
@@ -390,120 +402,6 @@ public class FirebaseLogic {
         });
     }
 
-//
-//    public void DeleteAllDataForPatient(final Context context) {
-//        final FragmentActivity fragmentActivity = (FragmentActivity) context;
-//        String patientUUID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        DatabaseReference userTable = GetUserTableReference();
-//        userTable.child(patientUUID).getRef().removeValue();
-//
-//        DatabaseReference patientRequestTable = GetPatientRequestTableReference();
-//        patientRequestTable.getRef()
-//                .orderByChild("patientUid")
-//                .startAt(patientUUID)
-//                .endAt(patientUUID)
-//                .addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        for (DataSnapshot patientRequest : dataSnapshot.getChildren()) {
-//                            patientRequest.getRef().removeValue();
-//                        }
-//
-//                        AuthUI.getInstance()
-//                                .delete(fragmentActivity)
-//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        if (task.isSuccessful()) {
-//                                            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-//                                            context.startActivity(loginActivity);
-//                                            PatientMainFragment patientActivity = (PatientMainFragment) context;
-//                                            patientActivity.finishAffinity();
-//                                        } else {
-//                                            Constants.ShowErrorFragment(((FragmentActivity) context).getSupportFragmentManager());
-//                                        }
-//                                    }
-//                                });
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//
-//                    }
-//                });
-//    }
-
-//
-//    public void DeleteAccountExperimental()
-//    {
-//        AccessToken token = AccessToken.getCurrentAccessToken();
-//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//        String providerName =  currentUser.getProviderData().
-//                get(currentUser.getProviderData().size() -1).getProviderId();
-//        if(providerName.equals("facebook.com"))
-//        {
-//            AuthCredential fbAuthCredentials = FacebookAuthProvider.getCredential(currentUser.getUid());
-//            currentUser.reauthenticate(fbAuthCredentials).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Void> task) {
-//                    if(task.isSuccessful()) {
-//                        FirebaseAuth.getInstance().getCurrentUser().delete();
-//                        AuthUI.getInstance()
-//                                .delete((FragmentActivity) mainActivity)
-//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        if (task.isSuccessful()) {
-//                                            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-//                                            mainActivity.startActivity(loginActivity);
-//                                            StudentMainFragment studentActivity = (StudentMainFragment) mainActivity;
-//                                            studentActivity.finishAffinity();
-//                                        } else {
-//                                            //// TODO: 27/09/2017 error page show
-//                                            // Deletion failed
-//                                        }
-//                                    }
-//                                });
-//                    }else
-//                    {
-//                        Log.i("MMM", "error");
-//                    }
-//                }
-//            });
-//        }
-//        else
-//        {
-//            AuthCredential googleAuthCredentials = GoogleAuthProvider.getCredential(currentUser.getUid(),null);
-//            currentUser.reauthenticate(googleAuthCredentials).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Void> task) {
-//                    if(task.isSuccessful())
-//                    {
-//                        FirebaseAuth.getInstance().getCurrentUser().delete();
-//                        AuthUI.getInstance()
-//                                .delete((FragmentActivity) mainActivity)
-//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        if (task.isSuccessful()) {
-//                                            Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
-//                                            mainActivity.startActivity(loginActivity);
-//                                            StudentMainFragment studentActivity = (StudentMainFragment) mainActivity;
-//                                            studentActivity.finishAffinity();
-//                                        } else {
-//                                            //// TODO: 27/09/2017 error page show
-//                                            // Deletion failed
-//                                        }
-//                                    }
-//                                });
-//                    }else
-//                    {
-//                        Log.i("MMM", "error");
-//                    }
-//                }
-//            });
-//        }
-//    }
 
     public void DeleteAllDataForStudent(final Context context) {
         final FragmentActivity fragmentActivity = (FragmentActivity) context;
@@ -655,12 +553,6 @@ public class FirebaseLogic {
 
             }
         });
-//        patientRequest.studentRequest = null;
-//        patientRequest.isActive = true;
-//
-//        Map<String, Object> map = new HashMap<>();
-//        map.put(patientRequest.requestUid, patientRequest);
-//        patientRequestTable.updateChildren(map);
 
     }
 

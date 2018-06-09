@@ -233,8 +233,6 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
     }
 
 
-
-
     private int GetCityToDisplayFromDbValue(String dbValue)
     {
         if(dbValue == null)
@@ -250,6 +248,8 @@ public class ChangeAccountInfoActivity extends AppCompatActivity {
             case Constants.TgMuresCity: return 5;
             case Constants.SibiuCity: return 6;
             case Constants.ConstantaCity: return 7;
+            case Constants.OradeaCity: return 8;
+            case Constants.AradCity: return 9;
 
             default: return 0;
         }

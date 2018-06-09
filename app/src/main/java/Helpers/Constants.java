@@ -37,6 +37,10 @@ public class Constants {
 
     public static final String ConstantaCity = "constanta";
 
+    public static final String OradeaCity = "oradea";
+
+    public static final String AradCity = "arad";
+
     public static String UserTypeKey = "userTypeKey";
 
     public static String studentRequestUUIDExtraName = "studentRequestUUID";
@@ -145,6 +149,8 @@ public class Constants {
             case "Sibiu": return Constants.SibiuCity;
             case "Târgu Mureș": return Constants.TgMuresCity;
             case "Constanța": return  Constants.ConstantaCity;
+            case "Oradea": return Constants.OradeaCity;
+            case "Arad": return Constants.AradCity;
 
             default: return Constants.TimisoaraCity;
         }

@@ -142,7 +142,7 @@
         android:textColor="@color/alertColor"
         android:textSize="14sp"
         android:visibility="invisible"
-        android:text="Daca schimbi orasul, cererile actuale vor fi sterse!"
+        android:text="@string/changeAccountCity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner2" />

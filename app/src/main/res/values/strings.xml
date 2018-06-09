@@ -28,14 +28,14 @@
     <string name="howToPatientOneDescription">Hai să te punem în legătură cu un student de la medicină dentară și profesorul lui coordonator. Împreună te vor ajuta în rezolvarea poblemelor tale dentare.</string>
     <string name="howToPatientTwoDescription">Prima dată adaugă o cerere apăsând una din cele patru categorii.</string>
     <string name="howToPatientThreeDescription">Vei fi contactat pentru o programare în aproximativ 20 de minute</string>
-    <string name="howToPatientForthDescription">Apasă AM REZOLVAT pentru a șterge postarea, sau NU AM REZOLVAT pentru a reactiva anunțul</string>
+    <string name="howToPatientForthDescription">Apasă AM REZOLVAT pentru a șterge postarea sau NU AM REZOLVAT pentru a reactiva anunțul</string>
     <string name="student_can_apply_tomorrow">Mâine e o nouă zi</string>
     <string name="deleteRequestButtonText">Șterge</string>
     <string name="student_cant_apply_message">Nu mai poți contacta astăzi pacienți</string>
     <string name="apply_button_text">Contactează</string>
     <string name="nothing_found_message">Nu am găsit nimic</string>
     <string name="studentist_name">Studentist</string>
-    <string name="about_you_text">Bine ai venit Studentistule!</string>
+    <string name="about_you_text">Bine ai venit, Studentistule!</string>
     <string name="create_account_name_label">Nume:*</string>
     <string name="create_account_done_button_text">Hai să găsim pacienți</string>
     <string name="add_request_tel_label">Vreau să fiu contactat la numărul:*</string>
@@ -91,6 +91,7 @@
     <string name="moreAboutYou">Spune-ne mai multe despre tine</string>
     <string name="categoryQuestion">Tu din ce categorie faci parte?</string>
     <string name="error">Ne pare rău, a apărut o eroare</string>
+    <string name="changeAccountCity">Dacă schimbi orașul, cererile actuale vor fi șterse!</string>
     //
     <string name="memoriumPerson">În memoria lui Vlad Baici</string>
     <string name="memoriumMessage">Nu te vom uita niciodată!</string>
@@ -136,6 +137,8 @@
         <item>Târgu Mureș</item>
         <item>Sibiu</item>
         <item>Constanța</item>
+        <item>Oradea</item>
+        <item>Arad</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
