@@ -25,9 +25,13 @@ import android.widget.TextView;
 
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mario22gmail.vasile.studentist.account.ChangeAccountInfoActivity;
+import com.mario22gmail.vasile.studentist.account.LoginActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUsePatientActivity;
 import com.mario22gmail.vasile.studentist.howToPage.HowToUseStudent;
 import com.mario22gmail.vasile.studentist.patient.PatientMainFragment;
@@ -160,7 +164,19 @@ public class MainNavigationActivity extends AppCompatActivity
         } else if (id == R.id.aboutAppMenuItem) {
             AboutDialogFragment aboutDialogFragment = new AboutDialogFragment();
             aboutDialogFragment.show(getSupportFragmentManager(), "about dialog");
-        } else if (id == R.id.exitAppMenuItem) {
+        }
+         else if (id == R.id.logOutAppMenuItem){
+            AuthUI.getInstance()
+                    .signOut(this)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // user is now signed out
+                            startActivity(new Intent(_thisActivity, LoginActivity.class));
+                            finish();
+                        }
+                    });
+        }
+        else if (id == R.id.exitAppMenuItem) {
             finishAffinity();
 
         } else if (id == R.id.nav_share) {

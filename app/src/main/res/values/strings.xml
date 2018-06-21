@@ -67,6 +67,7 @@
     <string name="settings">Setări</string>
     <string name="contact_menu_label">Despre</string>
     <string name="exit_menu_label">Ieșire din aplicație</string>
+    <string name="logOut">Log out</string>
     <string name="close_dialog_text">Închide</string>
     <string name="request_description_label">Descriere:</string>
     <string name="request_details_button_label">Detalii</string>
@@ -127,7 +128,7 @@
     <string name="yourName">Numele tău este:</string>
     <string name="disclaimerDescription">Aplicația nu oferă servicii medicale, dar te pune în legătură cu un student de la medicină dentară și profesorul lui coordonator (studenții nu au voie să ofere servicii medicale fără supravegherea profesorului coordonator). Cunoaște-i apelând numărul afișat!</string>
     <string name="patientFoundedAStudentist">Mă bucur că ți-ai găsit un Studentist!</string>
-    <string name="helpToShareApp">Încercăm să îți găsim pacienți, ajută-ne  și tu cu un share pe facebook</string>
+    <string name="helpToShareApp">Încercăm să îți găsim pacienți, ajută-ne și tu cu un share pe facebook</string>
     <string-array name="cityArray">
         <item>Timișoara</item>
         <item>București</item>
